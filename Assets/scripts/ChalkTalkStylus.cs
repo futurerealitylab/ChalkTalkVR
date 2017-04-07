@@ -11,7 +11,7 @@ public class ChalkTalkStylus : MonoBehaviour, IGlobalApplicationMenuPressDownHan
   //  if (onPlane)
   //    CTSender.sendMouseMove(1, hitPoint);
   //}
-  public void OnGlobalApplicationMenuPressDown(BaseEventData eventData) {
+  public void OnGlobalApplicationMenuPressDown(VREventData eventData) {
     print("click");
     //CTSender.sendMouseDown(1, hitPoint);
 
@@ -49,7 +49,7 @@ public class ChalkTalkStylus : MonoBehaviour, IGlobalApplicationMenuPressDownHan
   Vector2 pointScale = new Vector2(1f/5f ,1f/5f);
   public Transform plane;
 
-  public void OnGlobalTriggerPressUp(BaseEventData eventData) {
+  public void OnGlobalTriggerPressUp(VREventData eventData) {
     // print(hitPoint);
     //Vector2 v = new Vector2(1440, 900);
     // print("hit!!!! " + hitPoint);

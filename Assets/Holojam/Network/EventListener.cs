@@ -88,11 +88,11 @@ namespace Holojam.Network {
     /// <summary>
     /// Intercept function for display (View) purposes in the editor.
     /// </summary>
-    void Intercept(string source, Flake input) {
+    void Intercept(string source, string scope, Flake input) {
       #if UNITY_EDITOR
       StartCoroutine(Fire());
       #endif
-      Callback(source, input);
+      Callback(source, scope, input);
     }
 
     #if UNITY_EDITOR
@@ -100,7 +100,7 @@ namespace Holojam.Network {
       if (fired) yield return null;
       EditorUtility.SetDirty((UnityEngine.Object)this);
       fired = true;
-      yield return new WaitForSeconds(Notifier.FIRE_TIME);
+      yield return new WaitForSeconds(Notifier.EDITOR_FIRE_TIME);
       fired = false;
       EditorUtility.SetDirty((UnityEngine.Object)this);
     }

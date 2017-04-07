@@ -6,26 +6,29 @@ using UnityEngine;
 namespace Holojam.Tools {
 
   /// <summary>
-  /// Holojam class for broadcasting tracking/Actor data from a Unity project.
+  /// Abstract class for broadcasting tracking/Actor data from a Unity project.
   /// </summary>
-  public class Relay : Network.Controller {
+  public abstract class Relay : Network.Controller {
+
+    /// <summary>
+    /// String to append to the label. Override.
+    /// </summary>
+    public virtual string Extra { get; }
 
     /// <summary>
     /// Automatically selects the canon Actor label depending on the build index.
+    /// Override Extra to append.
     /// </summary>
-    public override string Label {
-      get { return Network.Canon.IndexToLabel(Tools.BuildManager.BUILD_INDEX); }
+    public sealed override string Label {
+      get {
+        return Network.Canon.IndexToLabel(Tools.BuildManager.BUILD_INDEX, Extra);
+      }
     }
-
-    /// <summary>
-    /// Relays send by default.
-    /// </summary>
-    public override bool Sending { get { return true; } }
 
     /// <summary>
     /// Relays should never accept incoming data.
     /// </summary>
-    public override bool Deaf { get { return true; } }
+    public sealed override bool Deaf { get { return true; } }
 
     /// <summary>
     /// Position is sent over the first Vector3.
@@ -43,7 +46,7 @@ namespace Holojam.Tools {
       set { data.vector4s[0] = value; }
     }
 
-    protected override ProcessDelegate Process { get { return Load; } }
+    protected sealed override ProcessDelegate Process { get { return Load; } }
 
     /// <summary>
     /// Data descriptor is initialized with one Vector3 and one Quaternion.
@@ -56,6 +59,6 @@ namespace Holojam.Tools {
     /// Process method, called on Update().
     /// Override to specify position/rotation data for sending.
     /// </summary>
-    protected virtual void Load() { }
+    protected abstract void Load();
   }
 }
