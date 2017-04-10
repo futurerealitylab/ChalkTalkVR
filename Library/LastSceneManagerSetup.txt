@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/acg/main.unity
+- path: Assets/scenes/sebastian-sandbox.unity
   isLoaded: 1
   isActive: 1

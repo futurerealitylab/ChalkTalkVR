@@ -57,6 +57,7 @@ namespace Chalktalk {
         List<Vector3> points = new List<Vector3>();
         for (int j = 0; j < length; j++) {
           Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
+          //point.Scale(bindingBox.transform.localScale);
           points.Add(bindingBox.transform.rotation * point + bindingBox.transform.position);
           cursor += 6;
         }

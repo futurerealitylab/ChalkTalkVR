@@ -44,11 +44,11 @@ public class ActorAvatar : Holojam.Tools.Actor {
   // Toggle the head object on fade in and fade out to hide the attached mesh
 
   protected override void FadeIn() {
-    head.gameObject.SetActive(true);
+    //head.gameObject.SetActive(true);
   }
 
   protected override void FadeOut() {
-    head.gameObject.SetActive(false);
+    //head.gameObject.SetActive(false);
   }
 
   void Start() { ApplyMotif(); }
