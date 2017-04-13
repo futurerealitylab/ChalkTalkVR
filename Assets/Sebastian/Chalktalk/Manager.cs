@@ -25,17 +25,22 @@ namespace Chalktalk {
     public bool sendMouseMove = false;
 
     void Awake() {
+
       receiver = GetComponent<Receiver>();
     }
 
     void Start() {
+      QualitySettings.vSyncCount = 0;
+      Application.targetFrameRate = 90;
       InitializeEventHandlers();
     }
 
+
+
     private void Update() {
-      if (cursor) {
+      if (cursor && receiver.module.gameObject.activeInHierarchy) {
         cursor.transform.position = bindingBox.GetBoundPosition(receiver.module.transform.position, BindingBox.Plane.Z, true);
-        if (sendMouseMove)
+        if (sendMouseMove && Holojam.Tools.BuildManager.BUILD_INDEX == 1)
           FireMouseMoveEvent(cursor.transform.position);
       }
 
@@ -136,9 +141,12 @@ namespace Chalktalk {
         }
         angle /= (Mathf.PI * 2);
         //At this point, the value of angle is 0 to 1.
-        //Debug.Log((int)(angle * 8));
+        //angle = (angle + 1) % 8 ;
+        //Debug.Log(currentKey);
 
         currentKey = (int)(angle * 8);
+        currentKey = (currentKey + 1) % 8;
+        Debug.Log(currentKey);
       }
     }
 

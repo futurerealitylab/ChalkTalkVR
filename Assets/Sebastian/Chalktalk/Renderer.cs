@@ -25,8 +25,8 @@ namespace Chalktalk {
     }
 
     protected override void UpdateTracking() {
-      DestroyCurves();
       if (this.Tracked) {
+        DestroyCurves();
         Parse(data.bytes);
         Draw();
       }
