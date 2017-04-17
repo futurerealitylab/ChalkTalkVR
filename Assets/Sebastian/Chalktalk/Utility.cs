@@ -13,12 +13,18 @@ namespace Chalktalk {
       return (float)number / 65535f * 2.0f - 1.0f;
     }
 
+        public static int ParsetoUInt16(byte[]value, int index)
+        {
+            return BitConverter.ToUInt16(value, index);
+        }
+
     public static Color ParsetoColor(byte[] value, int index) {
       int r, g, b, a;
-      r = ParsetoInt16(value, index) >> 8;
-      g = ParsetoInt16(value, index) & 0x00ff;
-      b = ParsetoInt16(value, index + 2) >> 8;
-      a = ParsetoInt16(value, index + 2) & 0x00ff;
+            //Debug.Log("color:" + BitConverter.ToUInt16(value, index) + "\t" + (BitConverter.ToUInt16(value, index+2) + 0x10000));
+      r = ParsetoUInt16(value, index) >> 8;
+      g = ParsetoUInt16(value, index) & 0x00ff;
+      b = ParsetoUInt16(value, index + 2) >> 8;
+      a = ParsetoUInt16(value, index + 2) & 0x00ff;
       return new Color((float)r / 256f, (float)g / 256f, (float)b / 256f, (float)a / 256f);
     }
 

@@ -62,12 +62,16 @@ namespace Chalktalk {
           cursor += 6;
         }
 
-        Curve curve = GameObject.Instantiate<Curve>(curvePrefab);
+                // bold the framework
+                bool isFrame = boldenFrame(points);
+                width *= (isFrame) ? 20.0f : 1.0f;
+
+                Curve curve = GameObject.Instantiate<Curve>(curvePrefab);
         curve.transform.SetParent(this.transform);
 
         curve.points = points;
         curve.width = width;
-        curve.color = color;
+        curve.color = isFrame ? new Color(1,1,1,1) : color;
         curves.Add(curve);
       }
     }
@@ -78,7 +82,25 @@ namespace Chalktalk {
         curve.Draw();
       }
     }
-  }
+
+        private bool boldenFrame(List<Vector3> points)
+        {
+            if(points.Count == 5)
+            {
+                for (int i = 0; i < points.Count; i++)
+                {
+                    if ((points[i].z < 1.0f) && (points[i].z > -1.0f))
+                    {
+                        break;
+                    }
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+    }
 }
 
 
