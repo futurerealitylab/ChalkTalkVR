@@ -29,7 +29,7 @@ public class ControllerTemplate : Holojam.Network.Controller {
   }
 
   public override bool Deaf {
-    get { return false; }
+    get { return true; }
   }
 
   protected override ProcessDelegate Process {
@@ -47,20 +47,32 @@ public class ControllerTemplate : Holojam.Network.Controller {
     }
   }
 
+ public byte[] Data
+    {
+        get
+        {
+            return data.bytes;
+        }
+        set
+        {
+            data.bytes = value;
+        }
+    }
+
   // Here's another proxy, but this time demonstrates a mapping from a core Flake
   // data type (byte) to something more abstract (an array of two bools)
-  public bool[] MyBools {
-    get {
-      return new bool[] {
-        data.bytes[0] == 1 ? true : false,
-        data.bytes[1] == 1 ? true : false
-      };
-    }
-    set {
-      data.bytes[0] = value[0] ? (byte)1 : (byte)0;
-      data.bytes[1] = value[1] ? (byte)1 : (byte)0;
-    }
-  }
+  //public bool[] MyBools {
+  //  get {
+  //    return new bool[] {
+  //      data.bytes[0] == 1 ? true : false,
+  //      data.bytes[1] == 1 ? true : false
+  //    };
+  //  }
+  //  set {
+  //    data.bytes[0] = value[0] ? (byte)1 : (byte)0;
+  //    data.bytes[1] = value[1] ? (byte)1 : (byte)0;
+  //  }
+  //}
 
   // Called in Update()
   void PrintData() {
@@ -93,7 +105,7 @@ public class ControllerTemplate : Holojam.Network.Controller {
     }
     */
 
-    bool[] myBools = MyBools;
+    byte[] myBools = Data;
 
     Debug.Log(
       "ControllerTemplate: MyVector3 = " + MyVector3

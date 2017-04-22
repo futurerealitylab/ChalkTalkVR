@@ -7,7 +7,7 @@ using System;
 using UnityEngine.UI;
 
 namespace Chalktalk {
-  public class Manager : Global<Manager>, IGlobalTriggerPressSetHandler, IGlobalApplicationMenuPressDownHandler, IGlobalTouchpadTouchHandler, IGlobalTouchpadPressDownHandler, IGlobalTouchpadPressUpHandler, IGlobalTouchpadTouchUpHandler {
+  public class Manager : Global<Manager>, IGlobalTriggerPressSetHandler, IGlobalApplicationMenuPressDownHandler, IGlobalApplicationMenuPressUpHandler, IGlobalTouchpadTouchHandler, IGlobalTouchpadPressDownHandler, IGlobalTouchpadPressUpHandler, IGlobalTouchpadTouchUpHandler {
 
     public BindingBox bindingBox;
     public Transform cursor;
@@ -21,12 +21,17 @@ namespace Chalktalk {
 
     private bool isKeyDown = false;
     private int currentKey = -1;
+        private ChalkTalkController ctc;
 
+        //Send Bytes for ChalkTalk
+    private byte[] Buttons = new byte[9];
+        public byte[] Data = new byte[33];
     public bool sendMouseMove = false;
 
     void Awake() {
 
       receiver = GetComponent<Receiver>();
+      ctc = gameObject.AddComponent<ChalkTalkController>();
     }
 
     void Start() {
@@ -47,7 +52,27 @@ namespace Chalktalk {
       if (keyText) {
         keyText.text = (currentKey == -1 ? "" : currentKey.ToString());
       }
+            UpdateByte(receiver.module.transform.position, receiver.module.transform.rotation, Buttons);
+
     }
+
+    private void UpdateByte(Vector3 v, Quaternion q, byte[] b)
+    {
+            Array.Copy(BitConverter.GetBytes(v.x), 0, Data, 0, 4);
+            Array.Copy(BitConverter.GetBytes(v.y), 0, Data, 4, 4);
+            Array.Copy(BitConverter.GetBytes(v.z), 0, Data, 8, 4);
+            Array.Copy(BitConverter.GetBytes(q.x), 0, Data, 12, 4);
+            Array.Copy(BitConverter.GetBytes(q.y), 0, Data, 16, 4);
+            Array.Copy(BitConverter.GetBytes(q.z), 0, Data, 20, 4);
+            Array.Copy(b, 0, Data, 24, 9);
+            ctc.Data = Data;
+     }
+
+    private void UpdateButtonByte(byte[] b)
+        {
+            Array.Copy(b, 0, Data, 24, 9);
+            ctc.Data = Data;
+        }
 
     private void InitializeEventHandlers() {
       GameObject eventGO = new GameObject("EventHandler");
@@ -98,7 +123,10 @@ namespace Chalktalk {
       if (module == null) { // && bindingBox.Contains(eventData.module.transform.position)) {
         module = eventData.module;
         FireMouseDownEvent(module.transform.position);
-      }
+                //For Sending Bytes
+                Buttons[8] = (byte)(Buttons[8] | 0x80);
+                UpdateButtonByte(Buttons);
+            }
     }
 
     void IGlobalTriggerPressHandler.OnGlobalTriggerPress(VREventData eventData) {
@@ -111,17 +139,33 @@ namespace Chalktalk {
       if (module == eventData.module) {
         FireMouseUpEvent(module.transform.position);
         module = null;
-      }
+                //For Sending Bytes
+                Buttons[8] = (byte)(Buttons[8] & 0x7f);
+                UpdateButtonByte(Buttons);
+            }
     }
 
     void IGlobalApplicationMenuPressDownHandler.OnGlobalApplicationMenuPressDown(VREventData eventData) {
       StartCoroutine(ClickRoutine(eventData.module.transform.position));
-    }
-
-    void IGlobalTouchpadPressDownHandler.OnGlobalTouchpadPressDown(VREventData eventData) {
+            Buttons[8] = (byte)(Buttons[8] | 0x10);
+            UpdateButtonByte(Buttons);
+        }
+        void IGlobalApplicationMenuPressUpHandler.OnGlobalApplicationMenuPressUp(VREventData eventData)
+        {
+            Buttons[8] = (byte)(Buttons[8] & 0xef);
+            UpdateButtonByte(Buttons);
+        }
+        void IGlobalTouchpadPressDownHandler.OnGlobalTouchpadPressDown(VREventData eventData) {
       isKeyDown = true;
       FireKeyDownEvent(currentKey);
-    }
+
+            //For Bytes Sending
+            Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
+            Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
+            //byte b = 0x40 ;
+            Buttons[8] = (byte) (Buttons[8] | 0x20);
+            UpdateButtonByte(Buttons);
+        }
 
     void IGlobalTouchpadTouchHandler.OnGlobalTouchpadTouch(VREventData eventData) {
       if (!isKeyDown) {
@@ -147,17 +191,37 @@ namespace Chalktalk {
         currentKey = (int)(angle * 8);
         currentKey = (currentKey + 1) % 8;
         Debug.Log(currentKey);
+         
       }
-    }
+            //For Bytes Sending
+            Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
+            Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
+            //byte b = 0x40 ;
+            Buttons[8] = (byte)(Buttons[8] | 0x40);
+            UpdateButtonByte(Buttons);
+        }
 
     void IGlobalTouchpadTouchUpHandler.OnGlobalTouchpadTouchUp(VREventData eventData) {
       currentKey = -1;
-    }
+            //For Bytes Sending
+            Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
+            Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
+            //byte b = 0x40 ;
+            Buttons[8] = (byte)(Buttons[8] & 0xbf);
+            UpdateButtonByte(Buttons);
+        }
 
     void IGlobalTouchpadPressUpHandler.OnGlobalTouchpadPressUp(VREventData eventData) {
       isKeyDown = false;
-      FireKeyUpEvent(currentKey);
+            Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
+            Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
+            //byte b = 0x40 ;
+            Buttons[8] = (byte)(Buttons[8] & 0xdf);
+            UpdateButtonByte(Buttons);
+        }
+
+
     }
   }
-}
+
 
