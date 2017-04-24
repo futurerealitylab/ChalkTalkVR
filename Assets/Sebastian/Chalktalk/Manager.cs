@@ -24,7 +24,8 @@ namespace Chalktalk {
         private ChalkTalkController ctc;
 
         //Send Bytes for ChalkTalk
-    [SerializeField]
+        [SerializeField]
+        private byte button = new byte();
     private byte[] Buttons = new byte[9];
     private byte[] Data = new byte[33];
     public bool sendMouseMove = false;
@@ -53,11 +54,11 @@ namespace Chalktalk {
       if (keyText) {
         keyText.text = (currentKey == -1 ? "" : currentKey.ToString());
       }
-            UpdateByte(receiver.module.transform.position, receiver.module.transform.rotation, Buttons);
+            UpdateByte(receiver.module.transform.position, receiver.module.transform.rotation);
 
     }
 
-    private void UpdateByte(Vector3 v, Quaternion q, byte[] b)
+    private void UpdateByte(Vector3 v, Quaternion q)
     {
             //Array.Copy(BitConverter.GetBytes(v.x), 0, Data, 0, 4);
             // Array.Copy(BitConverter.GetBytes(v.y), 0, Data, 4, 4);
@@ -68,14 +69,14 @@ namespace Chalktalk {
             //Array.Copy(b, 0, Data, 24, 9);
             ctc.Pos = v;
             ctc.Rot = new Vector3(q.x, q.y, q.z);
-            ctc.Data = Buttons[8];
+          
      }
 
-    private void UpdateButtonByte(float[] xy,byte[] b)
+    private void UpdateButtonByte(float[] xy,byte b)
         {
             //Array.Copy(b, 0, Data, 24, 9);
             ctc.touchpad = xy;
-            ctc.Data = Buttons[8];
+            ctc.Data = b;
         }
 
         private void UpdateButtonByte( byte[] b)
@@ -178,7 +179,8 @@ namespace Chalktalk {
             tmp[1] = eventData.touchpadAxis.y;
             //byte b = 0x40 ;
             Buttons[8] = (byte) (Buttons[8] | 0x20);
-            UpdateButtonByte(tmp,Buttons);
+            button = Buttons[8];
+            UpdateButtonByte(tmp,button);
         }
 
     void IGlobalTouchpadTouchHandler.OnGlobalTouchpadTouch(VREventData eventData) {
@@ -215,7 +217,8 @@ namespace Chalktalk {
             tmp[0] = eventData.touchpadAxis.x;
             tmp[1] = eventData.touchpadAxis.y;
             Buttons[8] = (byte)(Buttons[8] | 0x40);
-            UpdateButtonByte(tmp,Buttons);
+            button = Buttons[8];
+            UpdateButtonByte(tmp, button);
         }
 
     void IGlobalTouchpadTouchUpHandler.OnGlobalTouchpadTouchUp(VREventData eventData) {
@@ -228,7 +231,8 @@ namespace Chalktalk {
             tmp[1] = eventData.touchpadAxis.y;
             //byte b = 0x40 ;
             Buttons[8] = (byte)(Buttons[8] & 0xbf);
-            UpdateButtonByte(tmp,Buttons);
+            button = Buttons[8];
+            UpdateButtonByte(tmp, button);
         }
 
     void IGlobalTouchpadPressUpHandler.OnGlobalTouchpadPressUp(VREventData eventData) {
@@ -240,7 +244,8 @@ namespace Chalktalk {
             tmp[0] = eventData.touchpadAxis.x;
             tmp[1] = eventData.touchpadAxis.y;
             Buttons[8] = (byte)(Buttons[8] & 0xdf);
-            UpdateButtonByte(tmp,Buttons);
+            button = Buttons[8];
+            UpdateButtonByte(tmp, button);
         }
 
 
