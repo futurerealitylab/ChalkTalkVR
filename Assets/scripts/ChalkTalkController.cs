@@ -40,20 +40,41 @@ public class ChalkTalkController : Holojam.Network.Controller
 
 
 
-    public byte[] Data
+    public byte Data
     {
         get
         {
-            return data.bytes;
+            return data.bytes[0];
         }
         set
         {
-            data.bytes = value;
+            data.bytes[0] = value;
         }
     }
 
+    public Vector3 Pos
+    {
+        set
+        {
+            data.vector3s[0] = value;
+        }
+    }
 
+    public Vector3 Rot
+    {
+        set
+        {
+            data.vector3s[1] = value;
+        }
+    }
 
+    public float[] touchpad
+    {
+        set
+        {
+            data.floats = value;
+        }
+    }
     // Called in Update()
     void PrintData()
     {
@@ -143,7 +164,7 @@ public class ChalkTalkController : Holojam.Network.Controller
     public override void ResetData()
     {
         data = new Holojam.Network.Flake(
-          0, 0, 0, 0, 40, false
+          2, 0, 2, 0, 1, false
         );
     }
 }

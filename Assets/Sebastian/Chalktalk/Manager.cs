@@ -24,8 +24,9 @@ namespace Chalktalk {
         private ChalkTalkController ctc;
 
         //Send Bytes for ChalkTalk
+    [SerializeField]
     private byte[] Buttons = new byte[9];
-        public byte[] Data = new byte[33];
+    private byte[] Data = new byte[33];
     public bool sendMouseMove = false;
 
     void Awake() {
@@ -58,23 +59,33 @@ namespace Chalktalk {
 
     private void UpdateByte(Vector3 v, Quaternion q, byte[] b)
     {
-            Array.Copy(BitConverter.GetBytes(v.x), 0, Data, 0, 4);
-            Array.Copy(BitConverter.GetBytes(v.y), 0, Data, 4, 4);
-            Array.Copy(BitConverter.GetBytes(v.z), 0, Data, 8, 4);
-            Array.Copy(BitConverter.GetBytes(q.x), 0, Data, 12, 4);
-            Array.Copy(BitConverter.GetBytes(q.y), 0, Data, 16, 4);
-            Array.Copy(BitConverter.GetBytes(q.z), 0, Data, 20, 4);
-            Array.Copy(b, 0, Data, 24, 9);
-            ctc.Data = Data;
+            //Array.Copy(BitConverter.GetBytes(v.x), 0, Data, 0, 4);
+            // Array.Copy(BitConverter.GetBytes(v.y), 0, Data, 4, 4);
+            // Array.Copy(BitConverter.GetBytes(v.z), 0, Data, 8, 4);
+            //Array.Copy(BitConverter.GetBytes(q.x), 0, Data, 12, 4);
+            // Array.Copy(BitConverter.GetBytes(q.y), 0, Data, 16, 4);
+            // Array.Copy(BitConverter.GetBytes(q.z), 0, Data, 20, 4);
+            //Array.Copy(b, 0, Data, 24, 9);
+            ctc.Pos = v;
+            ctc.Rot = new Vector3(q.x, q.y, q.z);
+            ctc.Data = Buttons[8];
      }
 
-    private void UpdateButtonByte(byte[] b)
+    private void UpdateButtonByte(float[] xy,byte[] b)
         {
-            Array.Copy(b, 0, Data, 24, 9);
-            ctc.Data = Data;
+            //Array.Copy(b, 0, Data, 24, 9);
+            ctc.touchpad = xy;
+            ctc.Data = Buttons[8];
         }
 
-    private void InitializeEventHandlers() {
+        private void UpdateButtonByte( byte[] b)
+        {
+            //Array.Copy(b, 0, Data, 24, 9);
+            //ctc.touchpad = xy;
+            ctc.Data = Buttons[8];
+        }
+
+        private void InitializeEventHandlers() {
       GameObject eventGO = new GameObject("EventHandler");
       eventGO.transform.SetParent(transform);
       mouseEvent = eventGO.AddComponent<MouseEvent>();
@@ -162,9 +173,12 @@ namespace Chalktalk {
             //For Bytes Sending
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
+            float[] tmp = new float[2];
+            tmp[0] = eventData.touchpadAxis.x;
+            tmp[1] = eventData.touchpadAxis.y;
             //byte b = 0x40 ;
             Buttons[8] = (byte) (Buttons[8] | 0x20);
-            UpdateButtonByte(Buttons);
+            UpdateButtonByte(tmp,Buttons);
         }
 
     void IGlobalTouchpadTouchHandler.OnGlobalTouchpadTouch(VREventData eventData) {
@@ -197,8 +211,11 @@ namespace Chalktalk {
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
             //byte b = 0x40 ;
+            float[] tmp = new float[2];
+            tmp[0] = eventData.touchpadAxis.x;
+            tmp[1] = eventData.touchpadAxis.y;
             Buttons[8] = (byte)(Buttons[8] | 0x40);
-            UpdateButtonByte(Buttons);
+            UpdateButtonByte(tmp,Buttons);
         }
 
     void IGlobalTouchpadTouchUpHandler.OnGlobalTouchpadTouchUp(VREventData eventData) {
@@ -206,9 +223,12 @@ namespace Chalktalk {
             //For Bytes Sending
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
+            float[] tmp = new float[2];
+            tmp[0] = eventData.touchpadAxis.x;
+            tmp[1] = eventData.touchpadAxis.y;
             //byte b = 0x40 ;
             Buttons[8] = (byte)(Buttons[8] & 0xbf);
-            UpdateButtonByte(Buttons);
+            UpdateButtonByte(tmp,Buttons);
         }
 
     void IGlobalTouchpadPressUpHandler.OnGlobalTouchpadPressUp(VREventData eventData) {
@@ -216,8 +236,11 @@ namespace Chalktalk {
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
             //byte b = 0x40 ;
+            float[] tmp = new float[2];
+            tmp[0] = eventData.touchpadAxis.x;
+            tmp[1] = eventData.touchpadAxis.y;
             Buttons[8] = (byte)(Buttons[8] & 0xdf);
-            UpdateButtonByte(Buttons);
+            UpdateButtonByte(tmp,Buttons);
         }
 
 

@@ -217,6 +217,7 @@
      <Compile Include="Assets\scripts\ChalkTalkParser.cs" />
      <Compile Include="Assets\scripts\ChalkTalkSender.cs" />
      <Compile Include="Assets\scripts\ChalkTalkStylus.cs" />
+     <Compile Include="Assets\scripts\TmpEvent.cs" />
      <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
      <None Include="Assets\InputSystems-master\Examples\Teleportation\ScreenFader\Unlit Transparent HUD.shader" />
      <None Include="Assets\Holojam\SampleConfig.xml" />
