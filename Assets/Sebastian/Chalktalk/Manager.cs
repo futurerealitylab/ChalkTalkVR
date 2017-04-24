@@ -69,6 +69,8 @@ namespace Chalktalk {
             //Array.Copy(b, 0, Data, 24, 9);
             ctc.Pos = v;
             ctc.Rot = new Vector3(q.x, q.y, q.z);
+            ctc.Data = button;
+            Debug.Log(button);
           
      }
 
@@ -77,13 +79,15 @@ namespace Chalktalk {
             //Array.Copy(b, 0, Data, 24, 9);
             ctc.touchpad = xy;
             ctc.Data = b;
+            Debug.Log(b);
         }
 
-        private void UpdateButtonByte( byte[] b)
+        private void UpdateButtonByte( byte b)
         {
             //Array.Copy(b, 0, Data, 24, 9);
             //ctc.touchpad = xy;
-            ctc.Data = Buttons[8];
+            ctc.Data = b;
+            Debug.Log(b);
         }
 
         private void InitializeEventHandlers() {
@@ -137,7 +141,8 @@ namespace Chalktalk {
         FireMouseDownEvent(module.transform.position);
                 //For Sending Bytes
                 Buttons[8] = (byte)(Buttons[8] | 0x80);
-                UpdateButtonByte(Buttons);
+                button = Buttons[8];
+                UpdateButtonByte(button);
             }
     }
 
@@ -153,19 +158,22 @@ namespace Chalktalk {
         module = null;
                 //For Sending Bytes
                 Buttons[8] = (byte)(Buttons[8] & 0x7f);
-                UpdateButtonByte(Buttons);
+                button = Buttons[8];
+                UpdateButtonByte(button);
             }
     }
 
     void IGlobalApplicationMenuPressDownHandler.OnGlobalApplicationMenuPressDown(VREventData eventData) {
       StartCoroutine(ClickRoutine(eventData.module.transform.position));
             Buttons[8] = (byte)(Buttons[8] | 0x10);
-            UpdateButtonByte(Buttons);
+            button = Buttons[8];
+            UpdateButtonByte(button);
         }
         void IGlobalApplicationMenuPressUpHandler.OnGlobalApplicationMenuPressUp(VREventData eventData)
         {
             Buttons[8] = (byte)(Buttons[8] & 0xef);
-            UpdateButtonByte(Buttons);
+            button = Buttons[8];
+            UpdateButtonByte(button);
         }
         void IGlobalTouchpadPressDownHandler.OnGlobalTouchpadPressDown(VREventData eventData) {
       isKeyDown = true;
@@ -206,7 +214,7 @@ namespace Chalktalk {
 
         currentKey = (int)(angle * 8);
         currentKey = (currentKey + 1) % 8;
-        Debug.Log(currentKey);
+       // Debug.Log(currentKey);
          
       }
             //For Bytes Sending

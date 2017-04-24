@@ -40,15 +40,15 @@ public class ChalkTalkController : Holojam.Network.Controller
 
 
 
-    public byte Data
+    public int Data
     {
         get
         {
-            return data.bytes[0];
+            return data.ints[0];
         }
         set
         {
-            data.bytes[0] = value;
+            data.ints[0] = value;
         }
     }
 
@@ -137,7 +137,7 @@ public class ChalkTalkController : Holojam.Network.Controller
         if (!Application.isPlaying) return;
 
         //Debug.Log("ControllerTemplate updating", this);
-
+        //Debug.Log(Data);
         Process(); // Mandatory call
     }
 
@@ -164,7 +164,7 @@ public class ChalkTalkController : Holojam.Network.Controller
     public override void ResetData()
     {
         data = new Holojam.Network.Flake(
-          2, 0, 2, 0, 1, false
+          2, 0, 2, 1, 0, false
         );
     }
 }
