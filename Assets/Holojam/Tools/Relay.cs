@@ -13,7 +13,7 @@ namespace Holojam.Tools {
     /// <summary>
     /// String to append to the label. Override.
     /// </summary>
-    public virtual string Extra { get; }
+    public virtual string Extra { get{ return null; } }
 
     /// <summary>
     /// Automatically selects the canon Actor label depending on the build index.

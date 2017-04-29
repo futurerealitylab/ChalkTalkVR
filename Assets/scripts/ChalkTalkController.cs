@@ -9,7 +9,7 @@ public class ChalkTalkController : Holojam.Network.Controller
 
     // Expose sending to the inspector
     [SerializeField]
-    bool sending = true;
+    bool sending = false;
 
     // Controller property overrides
 
@@ -138,7 +138,7 @@ public class ChalkTalkController : Holojam.Network.Controller
 
         //Debug.Log("ControllerTemplate updating", this);
         //Debug.Log(Data);
-        Process(); // Mandatory call
+        //Process(); // Mandatory call
     }
 
     // FlakeComponent method overrides
