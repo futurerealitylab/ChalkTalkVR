@@ -9,7 +9,44 @@ using UnityEngine.UI;
 namespace Chalktalk {
   public class Manager : Global<Manager>, IGlobalTriggerPressSetHandler, IGlobalApplicationMenuPressDownHandler, IGlobalApplicationMenuPressUpHandler, IGlobalTouchpadTouchHandler, IGlobalTouchpadPressDownHandler, IGlobalTouchpadPressUpHandler, IGlobalTouchpadTouchUpHandler {
 
-    public BindingBox bindingBox;
+		public enum ResolutionType
+		{
+			HD_1080,
+			HD_720,
+			RETINA_2560,
+			RETINA_1440
+			// etc
+		}
+
+		public ResolutionType resolutionType;
+
+		public static int HEIGHT { get { return global.GetResolution(global.resolutionType).height; } }
+		public static int WIDTH { get { return global.GetResolution(global.resolutionType).width; } }
+
+		struct ResolutionFormat {
+			public short width, height;
+			public ResolutionFormat(short width, short height) {
+				this.width = width;
+				this.height = height;
+			}
+		}
+	
+		ResolutionFormat GetResolution(ResolutionType type) {
+			switch (type) {
+			case ResolutionType.HD_1080:
+				return new ResolutionFormat (1920, 1080);
+			case ResolutionType.HD_720:
+				return new ResolutionFormat (1280, 720);
+			case ResolutionType.RETINA_2560:
+				return new ResolutionFormat (2560, 1600);
+			case ResolutionType.RETINA_1440:
+				return new ResolutionFormat (1440, 900);
+			default:
+				return GetResolution (ResolutionType.HD_1080);
+			}
+		}
+    
+		public BindingBox bindingBox;
     public Transform cursor;
 
     public Text keyText; 
@@ -22,12 +59,13 @@ namespace Chalktalk {
     private bool isKeyDown = false;
     private int currentKey = -1;
         private ChalkTalkController ctc;
-
+		/*
         //Send Bytes for ChalkTalk
         [SerializeField]
         private byte button = new byte();
     private byte[] Buttons = new byte[9];
     private byte[] Data = new byte[33];
+		*/
     public bool sendMouseMove = false;
 
     void Awake() {
@@ -54,10 +92,10 @@ namespace Chalktalk {
       if (keyText) {
         keyText.text = (currentKey == -1 ? "" : currentKey.ToString());
       }
-            UpdateByte(receiver.module.transform.position, receiver.module.transform.rotation);
+          //  UpdateByte(receiver.module.transform.position, receiver.module.transform.rotation);
 
     }
-
+		/*
     private void UpdateByte(Vector3 v, Quaternion q)
     {
             //Array.Copy(BitConverter.GetBytes(v.x), 0, Data, 0, 4);
@@ -89,7 +127,7 @@ namespace Chalktalk {
             ctc.Data = b;
             Debug.Log(b);
         }
-
+*/
         private void InitializeEventHandlers() {
       GameObject eventGO = new GameObject("EventHandler");
       eventGO.transform.SetParent(transform);
@@ -139,10 +177,12 @@ namespace Chalktalk {
       if (module == null) { // && bindingBox.Contains(eventData.module.transform.position)) {
         module = eventData.module;
         FireMouseDownEvent(module.transform.position);
+				/*
                 //For Sending Bytes
                 Buttons[8] = (byte)(Buttons[8] | 0x80);
                 button = Buttons[8];
                 UpdateButtonByte(button);
+				*/
             }
     }
 
@@ -156,29 +196,35 @@ namespace Chalktalk {
       if (module == eventData.module) {
         FireMouseUpEvent(module.transform.position);
         module = null;
+				/*
                 //For Sending Bytes
                 Buttons[8] = (byte)(Buttons[8] & 0x7f);
                 button = Buttons[8];
                 UpdateButtonByte(button);
-            }
+            */
+			}
     }
 
     void IGlobalApplicationMenuPressDownHandler.OnGlobalApplicationMenuPressDown(VREventData eventData) {
       StartCoroutine(ClickRoutine(eventData.module.transform.position));
+			/*
             Buttons[8] = (byte)(Buttons[8] | 0x10);
             button = Buttons[8];
             UpdateButtonByte(button);
+            */
         }
         void IGlobalApplicationMenuPressUpHandler.OnGlobalApplicationMenuPressUp(VREventData eventData)
         {
+			/*
             Buttons[8] = (byte)(Buttons[8] & 0xef);
             button = Buttons[8];
             UpdateButtonByte(button);
+            */
         }
         void IGlobalTouchpadPressDownHandler.OnGlobalTouchpadPressDown(VREventData eventData) {
       isKeyDown = true;
       FireKeyDownEvent(currentKey);
-
+			/*
             //For Bytes Sending
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
@@ -189,6 +235,7 @@ namespace Chalktalk {
             Buttons[8] = (byte) (Buttons[8] | 0x20);
             button = Buttons[8];
             UpdateButtonByte(tmp,button);
+			*/
         }
 
     void IGlobalTouchpadTouchHandler.OnGlobalTouchpadTouch(VREventData eventData) {
@@ -217,6 +264,7 @@ namespace Chalktalk {
        // Debug.Log(currentKey);
          
       }
+			/*
             //For Bytes Sending
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
@@ -227,10 +275,13 @@ namespace Chalktalk {
             Buttons[8] = (byte)(Buttons[8] | 0x40);
             button = Buttons[8];
             UpdateButtonByte(tmp, button);
+			*/
         }
 
     void IGlobalTouchpadTouchUpHandler.OnGlobalTouchpadTouchUp(VREventData eventData) {
       currentKey = -1;
+			FireKeyUpEvent(currentKey);
+			/*
             //For Bytes Sending
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
@@ -241,10 +292,13 @@ namespace Chalktalk {
             Buttons[8] = (byte)(Buttons[8] & 0xbf);
             button = Buttons[8];
             UpdateButtonByte(tmp, button);
+			*/
         }
 
     void IGlobalTouchpadPressUpHandler.OnGlobalTouchpadPressUp(VREventData eventData) {
       isKeyDown = false;
+		
+			/*
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);
             //byte b = 0x40 ;
@@ -254,6 +308,7 @@ namespace Chalktalk {
             Buttons[8] = (byte)(Buttons[8] & 0xdf);
             button = Buttons[8];
             UpdateButtonByte(tmp, button);
+*/
         }
 
 

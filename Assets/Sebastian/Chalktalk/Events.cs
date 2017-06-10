@@ -25,14 +25,22 @@ internal class KeyEvent : EventPusher {
 }
 
 internal class MouseEvent : EventPusher {
+
   public enum Type { DOWN = 0, MOVE = 1, UP = 2 }
   public override string Label { get { return "mouseEvent"; } }
   public Type EventType { set { data.ints[0] = (int)value; } }
-  public Vector2 Position { set { data.floats[0] = value.x; data.floats[1] = value.y; } }
+
+	//refactor the mouse coordinate
+
+	public Vector2 Position { set {
+			data.floats[0] = (value.x+1f)/2f * Chalktalk.Manager.WIDTH;
+			data.floats[1] = Chalktalk.Manager.HEIGHT - (value.y +1f)/2f * Chalktalk.Manager.HEIGHT;
+	} }
   public override void ResetData() { data = new Flake(0, 0, 2, 1); }
 
   public void FireMouseDown(Vector2 pos) {
     EventType = Type.DOWN;
+
     Position = pos;
     this.Push();
   }
