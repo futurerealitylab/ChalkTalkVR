@@ -112,7 +112,7 @@ public class ChalkTalkStylus : MonoBehaviour, IGlobalApplicationMenuPressDownHan
         CTSender.sendMouseMove(1, hitPoint);
         onPlane = true;
         line.enabled = true;
-        line.numPositions = 2;
+        line.positionCount = 2;
         line.SetPosition(0, transform.position);
         line.SetPosition(1, hit.point);
         Dot.gameObject.SetActive(true);

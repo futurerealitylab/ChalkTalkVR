@@ -61,7 +61,7 @@ public class ChalkTalkChalkMaker : MonoBehaviour {
 		}
 	}
 	void draw(){
-		render.numPositions = renderLine.Count;
+		render.positionCount = renderLine.Count;
 		int i = 0;
 		foreach (Vector3 v in renderLine) {
 			render.SetPosition (i++, v);

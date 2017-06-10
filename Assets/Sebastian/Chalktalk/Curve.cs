@@ -22,7 +22,7 @@ namespace Chalktalk
 
         public void Draw()
         {
-            line.numPositions = points.Count;
+            line.positionCount = points.Count;
             line.SetPositions(points.ToArray());
             line.startColor = color;
             line.endColor = color;
