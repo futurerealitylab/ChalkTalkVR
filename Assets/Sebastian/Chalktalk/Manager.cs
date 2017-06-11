@@ -92,7 +92,7 @@ namespace Chalktalk {
       if (keyText) {
         keyText.text = (currentKey == -1 ? "" : currentKey.ToString());
       }
-          //  UpdateByte(receiver.module.transform.position, receiver.module.transform.rotation);
+
 
     }
 		/*
@@ -128,6 +128,7 @@ namespace Chalktalk {
             Debug.Log(b);
         }
 */
+
         private void InitializeEventHandlers() {
       GameObject eventGO = new GameObject("EventHandler");
       eventGO.transform.SetParent(transform);
@@ -201,9 +202,13 @@ namespace Chalktalk {
                 Buttons[8] = (byte)(Buttons[8] & 0x7f);
                 button = Buttons[8];
                 UpdateButtonByte(button);
+
             */
 			}
-    }
+
+	}
+
+    
 
     void IGlobalApplicationMenuPressDownHandler.OnGlobalApplicationMenuPressDown(VREventData eventData) {
       StartCoroutine(ClickRoutine(eventData.module.transform.position));
@@ -280,7 +285,9 @@ namespace Chalktalk {
 
     void IGlobalTouchpadTouchUpHandler.OnGlobalTouchpadTouchUp(VREventData eventData) {
       currentKey = -1;
+
 			FireKeyUpEvent(currentKey);
+
 			/*
             //For Bytes Sending
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
@@ -297,7 +304,7 @@ namespace Chalktalk {
 
     void IGlobalTouchpadPressUpHandler.OnGlobalTouchpadPressUp(VREventData eventData) {
       isKeyDown = false;
-		
+
 			/*
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 0, 4);
             Array.Copy(BitConverter.GetBytes(eventData.touchpadAxis.x), 0, Buttons, 4, 4);

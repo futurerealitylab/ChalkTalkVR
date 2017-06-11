@@ -64,7 +64,7 @@ namespace Chalktalk {
 
                 // bold the framework
                 bool isFrame = boldenFrame(points);
-                width *= (isFrame) ? 20.0f : 1.0f;
+               // width *= (isFrame) ? 20.0f : 1.0f;
 
                 Curve curve = GameObject.Instantiate<Curve>(curvePrefab);
         curve.transform.SetParent(this.transform);
