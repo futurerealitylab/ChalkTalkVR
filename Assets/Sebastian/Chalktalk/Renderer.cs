@@ -6,6 +6,9 @@ using UnityEngine;
 namespace Chalktalk {
   public class Renderer : Holojam.Tools.Trackable {
 
+		// For DevDebug
+		public Byte[] DataViewer;
+
     [SerializeField]
     private Curve curvePrefab;
     [SerializeField]
@@ -27,6 +30,7 @@ namespace Chalktalk {
     protected override void UpdateTracking() {
       if (this.Tracked) {
         DestroyCurves();
+		DataViewer = data.bytes;
         Parse(data.bytes);
         Draw();
       }
