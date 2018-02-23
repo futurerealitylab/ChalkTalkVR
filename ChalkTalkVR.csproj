@@ -256,6 +256,9 @@
     <Reference Include="UnityEditor.Graphs">
       <HintPath>D:/Program Files/Unity_2017.3.0f3/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>D:/Program Files/Unity_2017.3.0f3/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.WSA.Extensions">
       <HintPath>D:/Program Files/Unity_2017.3.0f3/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.WSA.Extensions.dll</HintPath>
     </Reference>
@@ -300,10 +303,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\acg\Chalktalk.cs" />
-    <Compile Include="Assets\ActivityToggler.cs" />
     <Compile Include="Assets\BindingBox\BindingBox.cs" />
-    <Compile Include="Assets\CTRenderer.cs" />
     <Compile Include="Assets\Holojam\Demo\Scripts\Examples\ActorAvatar.cs" />
     <Compile Include="Assets\Holojam\Demo\Scripts\Examples\Spectator.cs" />
     <Compile Include="Assets\Holojam\Demo\Scripts\Examples\SynchronizableComponent.cs" />
@@ -358,18 +358,29 @@
     <Compile Include="Assets\InputSystems-master\Utility\VREventData.cs" />
     <Compile Include="Assets\InputSystems-master\Vive\IViveHandler.cs" />
     <Compile Include="Assets\InputSystems-master\Vive\ViveControllerModule.cs" />
+    <Compile Include="Assets\Network\DataReceiver.cs" />
+    <Compile Include="Assets\Network\Tracker.cs" />
+    <Compile Include="Assets\ParameterTuner\Scripts\CalibrationParam.cs" />
+    <Compile Include="Assets\ParameterTuner\Scripts\CalibrationTuner.cs" />
+    <Compile Include="Assets\ParameterTuner\Scripts\PhoneSpaceControllerBase.cs" />
+    <Compile Include="Assets\ParameterTuner\Scripts\RemoteKeyboardReceiver.cs" />
+    <Compile Include="Assets\ParameterTuner\Scripts\Rotation.cs" />
+    <Compile Include="Assets\scripts\ActivityToggler.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\Curve.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\Events.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\Manager.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\Renderer.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\Utility.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkChalkMaker.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkController.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkLine.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkParser.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkSender.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkStylus.cs" />
+    <Compile Include="Assets\scripts\Deprecated\CTRenderer.cs" />
+    <Compile Include="Assets\scripts\GVRViveHeadset.cs" />
+    <Compile Include="Assets\scripts\SyncViveTracker.cs" />
     <Compile Include="Assets\scripts\TmpEvent.cs" />
-    <Compile Include="Assets\Sebastian\Chalktalk\Curve.cs" />
-    <Compile Include="Assets\Sebastian\Chalktalk\Events.cs" />
-    <Compile Include="Assets\Sebastian\Chalktalk\Manager.cs" />
-    <Compile Include="Assets\Sebastian\Chalktalk\Renderer.cs" />
-    <Compile Include="Assets\Sebastian\Chalktalk\Utility.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_Teleporter.cs" />
@@ -472,8 +483,11 @@
     <Compile Include="Assets\SteamVR\Scripts\SteamVR_TrackedObject.cs" />
     <Compile Include="Assets\SteamVR\Scripts\SteamVR_UpdatePoses.cs" />
     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Utils.cs" />
+    <Compile Include="Assets\StereoCamera\Scripts\BarrelDistortion.cs" />
+    <Compile Include="Assets\StereoCamera\Scripts\TangoPhoneSpaceController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Holojam\HolojamConfig.xml" />
     <None Include="Assets\Holojam\SampleConfig.xml" />
     <None Include="Assets\InputSystems-master\Examples\Teleportation\ScreenFader\Unlit Transparent HUD.shader" />
     <None Include="Assets\InputSystems-master\README.txt" />
@@ -488,7 +502,7 @@
     <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
     <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
     <None Include="Assets\SteamVR\readme.txt" />
-    <None Include="Assets\acg\Resources\Debug.shader" />
+    <None Include="Assets\StereoCamera\Shaders\BarrelDistortion.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

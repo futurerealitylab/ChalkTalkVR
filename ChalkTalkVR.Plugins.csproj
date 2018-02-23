@@ -256,6 +256,9 @@
     <Reference Include="UnityEditor.Graphs">
       <HintPath>D:/Program Files/Unity_2017.3.0f3/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>D:/Program Files/Unity_2017.3.0f3/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.WSA.Extensions">
       <HintPath>D:/Program Files/Unity_2017.3.0f3/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.WSA.Extensions.dll</HintPath>
     </Reference>
@@ -299,8 +302,11 @@
     <Compile Include="Assets\Plugins\Holojam\Protocol\NuggetType.cs" />
     <Compile Include="Assets\Plugins\Holojam\Protocol\Vector3.cs" />
     <Compile Include="Assets\Plugins\Holojam\Protocol\Vector4.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\ImageEffectBase.cs" />
+    <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Holojam\HolojamConfig.xml" />
     <None Include="Assets\Holojam\SampleConfig.xml" />
     <None Include="Assets\InputSystems-master\Examples\Teleportation\ScreenFader\Unlit Transparent HUD.shader" />
     <None Include="Assets\InputSystems-master\README.txt" />
@@ -315,7 +321,7 @@
     <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
     <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
     <None Include="Assets\SteamVR\readme.txt" />
-    <None Include="Assets\acg\Resources\Debug.shader" />
+    <None Include="Assets\StereoCamera\Shaders\BarrelDistortion.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -3,3 +3,11 @@ Temp/
 *.meta
 *.info
 .vs/
+
+
+Assets/LenovoHackSDK/
+Assets/ParameterTuner/
+Assets/Standard Assets/
+Assets/StereoCamera/
+Assets/TrackerForS8/
+Assets/Network/
