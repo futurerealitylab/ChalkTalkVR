@@ -173,7 +173,8 @@ public class GVRViveHeadset : Trackable
         //		IMUUpdateTracking();
         //updateIMU();
         // new version support sensor fusion
-        ViveTrackerUpdateTracking();
+        //ViveTrackerUpdateTracking();
+        ViveTrackerReceive();
         calculateDiff();
         if (Tracked)
             correctRotation[0] = transform.rotation;
@@ -219,6 +220,63 @@ public class GVRViveHeadset : Trackable
     {
         Quaternion res = new Quaternion(q.x * s, q.y * s, q.z * s, q.w * s);
         return res;
+    }
+
+    private void ViveTrackerReceive()
+    {
+        // vive tracker's data
+        Vector3 sourcePosition = RawPosition;
+        Quaternion sourceRotation = RawRotation;
+        Quaternion offsetRotationQ = Quaternion.Euler(offsetRot.x, offsetRot.y, offsetRot.z);
+        sourceRotation = sourceRotation * offsetRotationQ;
+        sourcePosition += sourceRotation * offset;
+
+        bool sourceTracked = Tracked;
+
+        if (sourceTracked)
+        {
+            Quaternion imu = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.CenterEye);
+
+            Quaternion inv = Quaternion.Inverse(imu);
+            Quaternion optical = sourceRotation * inv;
+            //Quaternion localRotation = transform.rotation;
+
+            Quaternion oldOrientation = this.transform.rotation;
+            //Quaternion mul = oldOrientation * imu;
+            //float d = 0.5f + 0.5f * Quaternion.Dot(mul, sourceRotation);
+
+            //float t = (1f - d);
+            //t = 0.5f;
+            //Quaternion res = QSlerp (oldOrientation, optical, t);
+            //this.transform.rotation = res;
+
+            float yOpt = optical.eulerAngles.y;
+            float yOld = oldOrientation.eulerAngles.y;
+            float yDiff = Mathf.Abs(yOpt - yOld);
+            if (yDiff > 180f)
+            {
+                if (yOpt < yOld)
+                {
+                    yOpt += 360f;
+                }
+                else
+                {
+                    yOld += 360f;
+                }
+                yDiff = Mathf.Abs(yOpt - yOld);
+            }
+            float t = yDiff / 180f;
+            t = t * t;
+            float yNew = Mathf.LerpAngle(yOld, yOpt, t);
+            this.transform.rotation = Quaternion.AngleAxis(yNew, Vector3.up);
+        }
+        else
+        {
+            transform.rotation = correctRotation[0]; //Transition seamlessly to IMU when untracked
+                                                     //print ("not tracked," + transform.rotation);
+        }
+
+        transform.position = sourcePosition;
     }
 
     private void ViveTrackerUpdateTracking()

@@ -363,7 +363,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 114796025}
-  - component: {fileID: 114796026}
   - component: {fileID: 114796027}
   m_Layer: 0
   m_Name: M1-right
@@ -386,23 +385,6 @@ Transform:
   m_Father: {fileID: 381277214}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114796026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 114796024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b0e55cc47f51b438ed5ea556024c73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  view: {}
-  localSpace: 0
-  smooth: 0
-  index: 1
-  type: 1
-  updateTracking: 1
 --- !u!114 &114796027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1010,7 +992,7 @@ MonoBehaviour:
   localSpace: 0
   smooth: 0
   offset: {x: 0, y: 0, z: 0}
-  offsetRot: {x: 0, y: 0, z: 0}
+  offsetRot: {x: 90, y: 0, z: 0}
   targetTransform: {fileID: 0}
   difference: 1
   correctness: 1
