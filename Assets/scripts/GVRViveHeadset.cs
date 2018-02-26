@@ -235,7 +235,7 @@ public class GVRViveHeadset : Trackable
 
         if (sourceTracked)
         {
-            Quaternion imu = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.CenterEye);
+            Quaternion imu = Input.gyro.attitude;
 
             Quaternion inv = Quaternion.Inverse(imu);
             Quaternion optical = sourceRotation * inv;

@@ -36,42 +36,44 @@ public class SyncViveTracker : Holojam.Tools.Synchronizable
         data = new Holojam.Network.Flake(
           1, 1
         );
+        
     }
 
     // Core method in Synchronizable
     protected override void Sync()
     {
         // If this synchronizable is hosting data on the Label
-        if (Sending)
-        {
+//         if (Sending)
+//         {
             // Set the outgoing data
-
+            data.vector3s[0] = Input.acceleration;
+            data.vector4s[0] = Input.gyro.attitude;
             Debug.Log("SynchronizableTemplate: sending data on " + Brand);
-        }
-
-        // If this synchronizable is listening for data on the Label
-        else
-        {
-            if (Tracked)
-            { // Do something with the incoming data if it's tracked
-                Debug.Log(
-                  "SynchronizableTemplate: data is coming in on " + Brand
-                  + " from " + Source
-                  + " (MyInt = " +  ")",
-                  this
-                );
-                
-            }
-
-            // Not tracked--either nobody is hosting on the Label, or this client
-            // is not connected to the network
-            else
-            {
-                Debug.Log(
-                  "SynchronizableTemplate: no data coming in on " + Brand,
-                  this
-                );
-            }
-        }
+//         }
+// 
+//         // If this synchronizable is listening for data on the Label
+//         else
+//         {
+//             if (Tracked)
+//             { // Do something with the incoming data if it's tracked
+//                 Debug.Log(
+//                   "SynchronizableTemplate: data is coming in on " + Brand
+//                   + " from " + Source
+//                   + " (MyInt = " +  ")",
+//                   this
+//                 );
+//                 
+//             }
+// 
+//             // Not tracked--either nobody is hosting on the Label, or this client
+//             // is not connected to the network
+//             else
+//             {
+//                 Debug.Log(
+//                   "SynchronizableTemplate: no data coming in on " + Brand,
+//                   this
+//                 );
+//             }
+//         }
     }
 }
