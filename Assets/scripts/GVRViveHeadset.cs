@@ -226,7 +226,7 @@ public class GVRViveHeadset : Trackable
     private void ViveTrackerReceive()
     {
         // vive tracker's data
-        Vector3 sourcePosition = new Vector3(-RawPosition.x, RawPosition.y, RawPosition.z);
+        Vector3 sourcePosition = new Vector3(RawPosition.x, RawPosition.y, RawPosition.z);
         Quaternion sourceRotation = new Quaternion(RawRotation.x, RawRotation.y, RawRotation.z, RawRotation.w);
         Quaternion offsetRotationQ = Quaternion.Euler(offsetRot.x, offsetRot.y, offsetRot.z);
         sourceRotation = sourceRotation * offsetRotationQ;
@@ -236,7 +236,7 @@ public class GVRViveHeadset : Trackable
 
         Quaternion imu = imuObj.rotation;
         
-        if (sourceTracked && imu!= Quaternion.identity)
+        if (sourceTracked && imu!= Quaternion.identity && !imuOnly)
         {
             Quaternion inv = Quaternion.Inverse(imu);
             Quaternion optical = sourceRotation * inv;
@@ -270,7 +270,7 @@ public class GVRViveHeadset : Trackable
             t = t * t;
             float yNew = Mathf.LerpAngle(yOld, yOpt, t);
             // zhenyi
-            this.transform.rotation = Quaternion.AngleAxis(yNew, Vector3.up) * imuObj.rotation;
+            this.transform.rotation = Quaternion.AngleAxis(yNew, Vector3.up);
 
             
 
@@ -284,7 +284,7 @@ public class GVRViveHeadset : Trackable
             transform.position = sourcePosition;
         //imu only version
         if (imuOnly)
-            this.transform.rotation = imuObj.rotation;
+            this.transform.rotation = Quaternion.identity;
     }
 
     private void ViveTrackerUpdateTracking()
