@@ -40,24 +40,41 @@ public class SyncIMU : Holojam.Tools.SynchronizableTrackable
         data = new Holojam.Network.Flake(1, 1);
 
         Input.gyro.enabled = true;
-    }
+        //imutrans = new Vector3(-180, 0, 90);
+        //rhs2lhs = new Vector4(-1, 1, -1, 1);
+}
 
+    public Vector3 imutrans;
+    public Vector4 rhs2lhs;
     // Override Sync() to include the scale vector
     protected override void Sync()
     {
-        base.Sync();
+        //base.Sync();
 
         if (Sending)
         {
-            data.vector3s[0] = Input.acceleration;
+            //data.vector3s[0] = Input.acceleration;
             data.vector4s[0] = Input.gyro.attitude;
-            Quaternion imu = Input.gyro.attitude;
+            
             //data.vector3s[0] = imu.ToEulerAngles();
         }
         else
         {
-            transform.localPosition = data.vector3s[0];
-            transform.localRotation = data.vector4s[0];
+            //transform.localPosition = data.vector3s[0];
+            Quaternion imu = data.vector4s[0];
+            //             imu = Quaternion(imu.x * rhs2lhs.x,
+            //                 -imu.y * rhs2lhs.y,
+            //                 -imu.w * rhs2lhs.z,
+            //                 -imu.z * rhs2lhs.w);
+//             imu = Quaternion(imu.x /** rhs2lhs.x*/,
+//                 -imu.y /** rhs2lhs.y*/,
+//                 -imu.w /** rhs2lhs.z*/,
+//                 -imu.z/* * rhs2lhs.w*/);
+            imu.x = data.vector4s[0].x * rhs2lhs.x;
+            imu.y = data.vector4s[0].y * rhs2lhs.y;
+            imu.z = data.vector4s[0].z * rhs2lhs.z;
+            imu.w = data.vector4s[0].w * rhs2lhs.w;
+            transform.rotation = Quaternion.Euler(imutrans) * imu;
 
             
         }

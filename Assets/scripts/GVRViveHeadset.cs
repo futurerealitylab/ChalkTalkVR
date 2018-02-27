@@ -233,10 +233,14 @@ public class GVRViveHeadset : Trackable
 
         bool sourceTracked = Tracked;
 
+        Quaternion imu = Input.gyro.attitude;
+        // zhenyi: transform imu for facing down
+        imu = Quaternion.Euler(-90, 90, 0) * imu;
+        imu.x = -imu.x;
+        imu.y = -imu.y;
+
         if (sourceTracked)
         {
-            Quaternion imu = Input.gyro.attitude;
-
             Quaternion inv = Quaternion.Inverse(imu);
             Quaternion optical = sourceRotation * inv;
             //Quaternion localRotation = transform.rotation;
@@ -269,6 +273,7 @@ public class GVRViveHeadset : Trackable
             t = t * t;
             float yNew = Mathf.LerpAngle(yOld, yOpt, t);
             this.transform.rotation = Quaternion.AngleAxis(yNew, Vector3.up);
+            
         }
         else
         {
@@ -277,6 +282,8 @@ public class GVRViveHeadset : Trackable
         }
 
         transform.position = sourcePosition;
+        // for imu test
+        transform.rotation = imu;
     }
 
     private void ViveTrackerUpdateTracking()
