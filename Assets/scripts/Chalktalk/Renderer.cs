@@ -125,8 +125,10 @@ namespace Chalktalk
                 curve.transform.SetParent(this.transform);
 
                 curve.points = points;
-                curve.width = width;
+                curve.width = width * 3;
                 curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
+                // zhenyi: not using the chalktalk color
+                curve.color = new Color(1, 1, 1, 1);
                 curves.Add(curve);
             }
         }
