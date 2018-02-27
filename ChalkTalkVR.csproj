@@ -365,8 +365,10 @@
     <Compile Include="Assets\scripts\getRot.cs" />
     <Compile Include="Assets\scripts\GVRViveHeadset.cs" />
     <Compile Include="Assets\scripts\IMUVis.cs" />
+    <Compile Include="Assets\scripts\SensorFusionMirage.cs" />
     <Compile Include="Assets\scripts\SyncIMU.cs" />
     <Compile Include="Assets\scripts\SyncViveTracker.cs" />
+    <Compile Include="Assets\scripts\testVT.cs" />
     <Compile Include="Assets\scripts\TmpEvent.cs" />
     <Compile Include="Assets\StereoCamera\Scripts\BarrelDistortion.cs" />
     <Compile Include="Assets\StereoCamera\Scripts\TangoPhoneSpaceController.cs" />

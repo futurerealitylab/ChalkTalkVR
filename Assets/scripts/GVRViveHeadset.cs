@@ -41,7 +41,8 @@ public class GVRViveHeadset : Trackable
 
     public bool isYawOnlyOn = false;
 
-    
+    public Transform imuObj;
+    public bool imuOnly, rotationOnly;
 
     protected override void Awake()
     {
@@ -225,21 +226,17 @@ public class GVRViveHeadset : Trackable
     private void ViveTrackerReceive()
     {
         // vive tracker's data
-        Vector3 sourcePosition = RawPosition;
-        Quaternion sourceRotation = RawRotation;
+        Vector3 sourcePosition = new Vector3(-RawPosition.x, RawPosition.y, RawPosition.z);
+        Quaternion sourceRotation = new Quaternion(RawRotation.x, RawRotation.y, RawRotation.z, RawRotation.w);
         Quaternion offsetRotationQ = Quaternion.Euler(offsetRot.x, offsetRot.y, offsetRot.z);
         sourceRotation = sourceRotation * offsetRotationQ;
         sourcePosition += sourceRotation * offset;
 
         bool sourceTracked = Tracked;
 
-        Quaternion imu = Input.gyro.attitude;
-        // zhenyi: transform imu for facing down
-        imu = Quaternion.Euler(-90, 90, 0) * imu;
-        imu.x = -imu.x;
-        imu.y = -imu.y;
-
-        if (sourceTracked)
+        Quaternion imu = imuObj.rotation;
+        
+        if (sourceTracked && imu!= Quaternion.identity)
         {
             Quaternion inv = Quaternion.Inverse(imu);
             Quaternion optical = sourceRotation * inv;
@@ -272,18 +269,22 @@ public class GVRViveHeadset : Trackable
             float t = yDiff / 180f;
             t = t * t;
             float yNew = Mathf.LerpAngle(yOld, yOpt, t);
-            this.transform.rotation = Quaternion.AngleAxis(yNew, Vector3.up);
+            // zhenyi
+            this.transform.rotation = Quaternion.AngleAxis(yNew, Vector3.up) * imuObj.rotation;
+
             
+
         }
         else
         {
             transform.rotation = correctRotation[0]; //Transition seamlessly to IMU when untracked
                                                      //print ("not tracked," + transform.rotation);
         }
-
-        transform.position = sourcePosition;
-        // for imu test
-        transform.rotation = imu;
+        if(!rotationOnly)
+            transform.position = sourcePosition;
+        //imu only version
+        if (imuOnly)
+            this.transform.rotation = imuObj.rotation;
     }
 
     private void ViveTrackerUpdateTracking()

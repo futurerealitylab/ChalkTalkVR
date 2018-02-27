@@ -58,8 +58,8 @@ public class SyncIMU : Holojam.Tools.SynchronizableTrackable
             
             //data.vector3s[0] = imu.ToEulerAngles();
         }
-        else
-        {
+//         else
+//         {
             //transform.localPosition = data.vector3s[0];
             Quaternion imu = data.vector4s[0];
             //             imu = Quaternion(imu.x * rhs2lhs.x,
@@ -77,7 +77,7 @@ public class SyncIMU : Holojam.Tools.SynchronizableTrackable
             transform.rotation = Quaternion.Euler(imutrans) * imu;
 
             
-        }
+       // }
     }
 
     protected override void Update()
