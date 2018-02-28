@@ -8,6 +8,6 @@
   <RelayIP>192.168.1.70</RelayIP>
 
   <!-- Index of the actor (i.e. player or headset). -->
-  <BuildIndex>1</BuildIndex>
+  <BuildIndex>2</BuildIndex>
 
 </HolojamConfig>

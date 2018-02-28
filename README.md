@@ -3,6 +3,9 @@ Combine ChalkTalk with VR/AR experience
 
 # AR configuration
 1. Go to mirageAR branch
+2. Change preview mode's actor id
+3. Change VR-CT(1,2) for broadcasting
+4. change imu(1,2) for broadcasting
 
 ## Unity project
 1. Go to `scenes/chalktalk.unity`
