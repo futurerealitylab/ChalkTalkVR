@@ -4,7 +4,9 @@
 'use_strict';
 
 //These will get unicast to no matter what!
-saved_ips = ['192.168.1.71', '192.168.1.70']
+saved_ips = ['192.168.1.73', '192.168.1.72', '192.168.1.71', '192.168.1.70']
+//saved_ips = ['174.254.13.129']
+
 
 // Server
 const dgram = require('dgram');
@@ -26,27 +28,27 @@ const inherits = require('util').inherits;
 module.exports = (
   mode = ['relay', 'web'],
   serverAddress = '0.0.0.0',
-  webPort = 9593, upstreamPort = 9592, downstreamPort = 9591,
+  webPort = 9593, upstreamPort = 9592, downstreamPorts = [9591],
   multicastAddress = '239.0.2.4'
 ) => { return new Holojam(
-  mode, serverAddress, webPort, upstreamPort, downstreamPort, multicastAddress
+  mode, serverAddress, webPort, upstreamPort, downstreamPorts, multicastAddress
 );};
 
 var Holojam = function(
-  mode, serverAddress, webPort, upstreamPort, downstreamPort, multicastAddress
+  mode, serverAddress, webPort, upstreamPort, downstreamPorts, multicastAddress
 ){
   const relay = mode.includes('relay');
   const web = mode.includes('web');
-
+console.log("hah0" + downstramPorts);
   // Relay mode overrides emitter + sink mode
   const sending = relay || mode.includes('emitter');
   const receiving = relay || mode.includes('sink');
-
+console.log("hah1");
   // Unicast
-  let sendAddress = serverAddress, sendPort = upstreamPort;
+  let sendAddress = serverAddress, sendPort = upstreamPort, sendPorts = [upstreamPort];
   // Multicast
-  if(relay){ sendAddress = multicastAddress, sendPort = downstreamPort; }
-
+  if(relay){ sendAddress = multicastAddress, sendPorts = downstreamPorts; }
+console.log("hah2");
   // Metrics
   let packetsSent = [0,0], packetsReceived = [0,0];
   let bytesSent = [0,0], bytesReceived = [0,0];
@@ -58,8 +60,11 @@ var Holojam = function(
   if(relay)
     udp.bind(upstreamPort, serverAddress);
   // Emitter + sink (client) receives downstream
-  else if(receiving)
-    udp.bind(downstreamPort, () => udp.addMembership(multicastAddress));
+  else if(receiving){
+	  for(var downstreamPort in downstramPorts){
+		udp.bind(downstreamPort, () => udp.addMembership(multicastAddress));
+	  }
+  }
   EventEmitter.call(this);
 
   if(!sending && !receiving)
@@ -72,16 +77,16 @@ var Holojam = function(
     sending? 'emitter' : 'sink',
     web? '(with web support)' : '(without web support)'
   );
-
+console.log("hah3" + downstramPorts);
   if(sending) console.log(
-    'Holojam: Sending to', (relay? multicastAddress + ':' + downstreamPort :
+    'Holojam: Sending to', (relay? multicastAddress + ':' + downstreamPorts :
     serverAddress + ':' + upstreamPort)
   );
 
   udp.on('listening', () => {
     if(receiving) console.log('Holojam: Listening',
       (relay? 'at ' + serverAddress + ':' + upstreamPort :
-      'to ' + multicastAddress + ':' + downstreamPort)
+      'to ' + multicastAddress + ':' + downstreamPorts)
     );
   });
 
@@ -120,19 +125,24 @@ var Holojam = function(
   const Emit = (nugget, buffer) => {
     if(!sending) return;
 
-    udp.send(buffer, 0, buffer.length,
-      sendPort, sendAddress,
-      (error, bytes) => { if(error) throw error; }
-    );
+		sendPorts.forEach(function(sendPort){
+			udp.send(buffer, 0, buffer.length,
+			  sendPort, sendAddress,
+			  (error, bytes) => { if(error) throw error; }
+			);
+		});
+    
 	
 	//Unicast.
     saved_ips.forEach((address) => {
-		//console.log("say hello");
-      udp.send(buffer, 0, buffer.length,
-        sendPort, address,
-        (error, bytes) => { 
-          if(error) console.log("Unicast Error: " + err); 
-      });
+	  //console.log("sending to: " + address);
+	  sendPorts.forEach(function(sendPort){
+		  udp.send(buffer, 0, buffer.length,
+			sendPort, address,
+			(error, bytes) => { 
+			  if(error) console.log("Unicast Error: " + err); 
+		  });
+	  });
     });
     if(web) this.SendToWeb(nugget);
 

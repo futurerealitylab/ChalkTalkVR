@@ -1,7 +1,7 @@
 var udp = require('dgram');
 var math3d = require('math3d');
 
-count = 0
+count = 0;
 /* process.argv.forEach(function (val, index, array) {
 	if (count > 1) {
 		ip_addresses.push(val);
@@ -11,10 +11,30 @@ count = 0
  */
 //console.log("Sending to: " + ip_addresses)
 
+// for verizon 5g
+downstramPorts = [];
+
 var sourceIP = "127.0.0.1";
 var argv = require('minimist')(process.argv.slice(2));
 if(argv["source"] != null){
 	sourceIP = argv["source"];
+}
+
+if(argv["dwPorts"] != null){
+	var dwPorts = argv["dwPorts"];
+	//var fs = require('fs');
+
+dwPorts.substr(1,dwPorts.length-2).split(",").forEach(function(port){
+			downstramPorts.push(port);
+		});
+console.log(downstramPorts);
+/* 	fs.readFileSync(dwfv, {encoding: 'utf-8'}, function(err, data) {
+		console.log("utf 8 " + data);
+		data.toString().split(" ").forEach(function(port){
+			downstramPorts.push(port);
+		});
+		console.log("read file " + downstramPorts); */
+  //});
 }
 
 var framerate = 30.;
@@ -31,7 +51,7 @@ if (argv['target-data-only'])
 	target_data_only = true;
 
 //These will get unicast to no matter what!
-saved_ips = ['192.168.1.6', '192.168.1.20', '192.168.1.28', '192.168.1.42', '192.168.1.39', '192.168.1.71']
+saved_ips = ['192.168.1.6', '192.168.1.20', '192.168.1.28', '192.168.1.42', '192.168.1.39', '192.168.1.71', '192.168.1.70']
 
 //These are overriding ip mappings. 
 tracked_ip_mappings = { 
@@ -45,8 +65,8 @@ for (var i = 1; i < 151; i++) {
 		tracked_ip_mappings[name] = ip;
 }
 
-console.log("\n");
-const holojam = require('holojam-node')(['relay']);
+console.log("\n" + downstramPorts + "\n");
+const holojam = require('holojam-node')(['relay'], '0.0.0.0', 9593, 9592, downstramPorts);
 console.log("Sending at " + framerate + " fps.");
 //holojam.ucAddresses = holojam.ucAddresses.concat(saved_ips);
 var Vector3 = math3d.Vector3;

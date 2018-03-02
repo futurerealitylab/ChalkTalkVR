@@ -15,6 +15,7 @@ Combine ChalkTalk with VR/AR experience
 ## Relay
 1. Copy `relay/index.js` to node folders under holojam_node
 2. Run `node relay/frlrelay.js` with that holojam_node
+2.a Run `node relay/frlrelay.js --dwPorts=[9590,9591]` to specify specific downstream ports
 3. Run `vivedeviceemitter.py` with default parameter under FRL.relay repo
 
 ## ChalkTalk
