@@ -307,6 +307,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GoogleARCore\SDK\Scripts\Editor\ARCoreRequiredMenuItem.cs" />
+    <Compile Include="Assets\GoogleARCore\SDK\Scripts\Editor\BuildHelper.cs" />
     <Compile Include="Assets\Holojam\Demo\Scripts\Examples\Editor\ActorAvatarEditor.cs" />
     <Compile Include="Assets\Holojam\Network\Editor\ClientEditor.cs" />
     <Compile Include="Assets\Holojam\Network\Editor\NotifierEditor.cs" />
@@ -318,6 +320,12 @@
     <Compile Include="Assets\Project\Editor\Packager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\GoogleARCore\Examples\ComputerVision\Materials\AREdgeDetectionBackground.shader" />
+    <None Include="Assets\GoogleARCore\Examples\HelloAR\Materials\Shaders\MobileDiffuseWithLightEstimation.shader" />
+    <None Include="Assets\GoogleARCore\Examples\HelloAR\Materials\Shaders\MobileSpecularWithLightEstimation.shader" />
+    <None Include="Assets\GoogleARCore\Examples\HelloAR\Materials\Shaders\PlaneGrid.shader" />
+    <None Include="Assets\GoogleARCore\Examples\HelloAR\Materials\Shaders\PointCloud.shader" />
+    <None Include="Assets\GoogleARCore\SDK\Materials\ARBackground.shader" />
     <None Include="Assets\Holojam\HolojamConfig.xml" />
     <None Include="Assets\Holojam\SampleConfig.xml" />
     <None Include="Assets\InputSystems-master\README.txt" />

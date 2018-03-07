@@ -7,12 +7,12 @@ PlayerSettings:
   productGUID: a073e488fcc3f854691f006800f8cc16
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
-  defaultScreenOrientation: 2
+  defaultScreenOrientation: 4
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: FRL
-  productName: ChalkTalkARup
+  productName: ChalkTalkARCore
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -81,7 +81,7 @@ PlayerSettings:
   resizableWindow: 1
   useMacAppStoreValidation: 0
   macAppStoreCategory: public.app-category.games
-  gpuSkinning: 1
+  gpuSkinning: 0
   graphicsJobs: 0
   xboxPIXTextureCapture: 0
   xboxEnableAvatar: 0
@@ -158,7 +158,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.FRL.ChalkTalkARup
+    Android: com.FRL.ChalkTalkARCore
     Standalone: unity.Valve.SteamVR
     Tizen: com.Company.ProductName
     iOS: com.Company.ProductName
@@ -166,7 +166,7 @@ PlayerSettings:
   buildNumber:
     iOS: 0
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 23
+  AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -253,7 +253,7 @@ PlayerSettings:
   AndroidKeyaliasName: 
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
-  AndroidEnableTango: 0
+  AndroidEnableTango: 1
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
   m_AndroidBanners:
@@ -280,9 +280,9 @@ PlayerSettings:
     m_Automatic: 0
   m_BuildTargetVRSettings:
   - m_BuildTarget: Android
-    m_Enabled: 0
+    m_Enabled: 1
     m_Devices:
-    - Oculus
+    - None
   - m_BuildTarget: Metro
     m_Enabled: 0
     m_Devices: []
@@ -634,7 +634,8 @@ PlayerSettings:
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 0
-  apiCompatibilityLevelPerPlatform: {}
+  apiCompatibilityLevelPerPlatform:
+    Android: 2
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: v5
