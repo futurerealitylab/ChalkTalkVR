@@ -5,9 +5,9 @@
   <!-- Don't add any extra whitespace! -->
 
   <!-- IP address of the main Holojam relay. -->
-  <RelayIP>192.168.1.3</RelayIP>
+  <RelayIP>192.168.1.70</RelayIP>
 
   <!-- Index of the actor (i.e. player or headset). -->
-  <BuildIndex>1</BuildIndex>
+  <BuildIndex>2</BuildIndex>
 
 </HolojamConfig>

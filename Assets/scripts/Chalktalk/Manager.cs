@@ -83,7 +83,7 @@ namespace Chalktalk {
 
 
     private void Update() {
-      if (cursor && receiver.module.gameObject.activeInHierarchy) {
+      if (cursor && receiver.module && receiver.module.gameObject.activeInHierarchy) {
         cursor.transform.position = bindingBox.GetBoundPosition(receiver.module.transform.position, BindingBox.Plane.Z, true);
         if (sendMouseMove && Holojam.Tools.BuildManager.BUILD_INDEX == 1)
           FireMouseMoveEvent(cursor.transform.position);

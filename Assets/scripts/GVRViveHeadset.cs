@@ -30,6 +30,8 @@ public class GVRViveHeadset : Trackable
     public string label = "Viewer";
     public string scope = "Vive";
 
+    float lastT = 0f;
+
     private const int MAX_LAG = 100;
 
     const int IMU_BUFFER_SIZE = 600;
@@ -41,7 +43,8 @@ public class GVRViveHeadset : Trackable
 
     public bool isYawOnlyOn = false;
 
-    
+    public Transform imuObj;
+    public bool imuOnly, rotationOnly;
 
     protected override void Awake()
     {
@@ -173,10 +176,12 @@ public class GVRViveHeadset : Trackable
         //		IMUUpdateTracking();
         //updateIMU();
         // new version support sensor fusion
-        ViveTrackerUpdateTracking();
-        calculateDiff();
-        if (Tracked)
-            correctRotation[0] = transform.rotation;
+        //ViveTrackerUpdateTracking();
+        ViveTrackerOnly();
+//         ViveTrackerReceive();
+//         calculateDiff();
+//         if (Tracked)
+//             correctRotation[0] = transform.rotation;
     }
 
     // from Connor's python script
@@ -219,6 +224,91 @@ public class GVRViveHeadset : Trackable
     {
         Quaternion res = new Quaternion(q.x * s, q.y * s, q.z * s, q.w * s);
         return res;
+    }
+
+    private void Latency(Vector3 oldRaw)
+    {
+        if (Vector3.Distance(oldRaw, transform.position) > 0.01)
+        {
+            float t = Time.time;
+            float dt = t - lastT;
+            Debug.Log("[hehe]time since last update: " + dt);
+            lastT = t;
+        }
+    }
+
+    private void ViveTrackerOnly()
+    {
+        if (Tracked) {
+            transform.position = RawPosition;
+            transform.rotation = Quaternion.Euler( offsetRot ) * RawRotation;
+        }
+
+    }
+
+    private void ViveTrackerReceive()
+    {
+        // vive tracker's data
+        Vector3 sourcePosition = new Vector3(RawPosition.x, RawPosition.y, RawPosition.z);
+        Latency(sourcePosition);
+        Quaternion sourceRotation = new Quaternion(RawRotation.x, RawRotation.y, RawRotation.z, RawRotation.w);
+        Quaternion offsetRotationQ = Quaternion.Euler(offsetRot.x, offsetRot.y, offsetRot.z);
+        sourceRotation = sourceRotation * offsetRotationQ;
+        sourcePosition += sourceRotation * offset;
+
+        bool sourceTracked = Tracked;
+
+        Quaternion imu = imuObj.rotation;
+        
+        if (sourceTracked && imu!= Quaternion.identity && !imuOnly)
+        {
+            Quaternion inv = Quaternion.Inverse(imu);
+            Quaternion optical = sourceRotation * inv;
+            //Quaternion localRotation = transform.rotation;
+
+            Quaternion oldOrientation = this.transform.rotation;
+            //Quaternion mul = oldOrientation * imu;
+            //float d = 0.5f + 0.5f * Quaternion.Dot(mul, sourceRotation);
+
+            //float t = (1f - d);
+            //t = 0.5f;
+            //Quaternion res = QSlerp (oldOrientation, optical, t);
+            //this.transform.rotation = res;
+
+            float yOpt = optical.eulerAngles.y;
+            float yOld = oldOrientation.eulerAngles.y;
+            float yDiff = Mathf.Abs(yOpt - yOld);
+            if (yDiff > 180f)
+            {
+                if (yOpt < yOld)
+                {
+                    yOpt += 360f;
+                }
+                else
+                {
+                    yOld += 360f;
+                }
+                yDiff = Mathf.Abs(yOpt - yOld);
+            }
+            float t = yDiff / 180f;
+            t = t * t;
+            float yNew = Mathf.LerpAngle(yOld, yOpt, t);
+            // zhenyi
+            this.transform.rotation = Quaternion.AngleAxis(yNew, Vector3.up);
+
+            
+
+        }
+        else
+        {
+            transform.rotation = correctRotation[0]; //Transition seamlessly to IMU when untracked
+                                                     //print ("not tracked," + transform.rotation);
+        }
+        if(!rotationOnly)
+            transform.position = sourcePosition;
+        //imu only version
+        if (imuOnly)
+            this.transform.rotation = Quaternion.identity;
     }
 
     private void ViveTrackerUpdateTracking()
