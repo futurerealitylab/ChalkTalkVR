@@ -763,6 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26074b15f9c13404d858bfedb8b8c00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSurfaceShowed: 1
   FirstPersonCamera: {fileID: 1263127107}
   TrackedPlanePrefab: {fileID: 1654175882956584, guid: 6a35c744e5010405c847fad90282d2be,
     type: 2}
@@ -5083,6 +5084,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1501239746}
         m_MethodName: SetActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 186096768}
+        m_MethodName: setSurfaceShowed
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

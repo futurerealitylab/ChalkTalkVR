@@ -34,6 +34,12 @@ namespace GoogleARCore.HelloAR
     /// </summary>
     public class HelloARController : MonoBehaviour
     {
+        public bool isSurfaceShowed = true;
+        public void setSurfaceShowed (bool _isOn)
+        {
+            isSurfaceShowed = _isOn;
+        }
+        
         /// <summary>
         /// The first-person camera being used to render the passthrough camera image (i.e. AR background).
         /// </summary>
@@ -65,7 +71,7 @@ namespace GoogleARCore.HelloAR
         /// the application to avoid per-frame allocations.
         /// </summary>
         private List<TrackedPlane> m_AllPlanes = new List<TrackedPlane>();
-
+        private List<GameObject> m_AllPlanesMesh = new List<GameObject>();
         /// <summary>
         /// True if the app is in the process of quitting due to an ARCore connection error, otherwise false.
         /// </summary>
@@ -100,6 +106,7 @@ namespace GoogleARCore.HelloAR
 
             // Iterate over planes found in this frame and instantiate corresponding GameObjects to visualize them.
             Session.GetTrackables<TrackedPlane>(m_NewPlanes, TrackableQueryFilter.New);
+
             for (int i = 0; i < m_NewPlanes.Count; i++)
             {
                 // Instantiate a plane visualization prefab and set it to track the new plane. The transform is set to
@@ -108,6 +115,7 @@ namespace GoogleARCore.HelloAR
                 GameObject planeObject = Instantiate(TrackedPlanePrefab, Vector3.zero, Quaternion.identity,
                     transform);
                 planeObject.GetComponent<TrackedPlaneVisualizer>().Initialize(m_NewPlanes[i]);
+                m_AllPlanesMesh.Add(planeObject);
             }
 
             // Disable the snackbar UI when no planes are valid.
@@ -123,7 +131,21 @@ namespace GoogleARCore.HelloAR
             }
 
             SearchingForPlaneUI.SetActive(showSearchingUI);
-
+            //FY's Code here, setall SurfacetoBeInvisiable
+            if (!isSurfaceShowed)
+            {
+                for (int i = 0; i < m_AllPlanesMesh.Count; i++)
+                {
+                    m_AllPlanesMesh[i].SetActive(false);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < m_AllPlanesMesh.Count; i++)
+                {
+                    m_AllPlanesMesh[i].SetActive(true);
+                }
+            }
             // If the player has not touched the screen, we are done with this update.
             Touch touch;
             if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
