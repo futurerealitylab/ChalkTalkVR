@@ -47,7 +47,7 @@ namespace GoogleARCore.HelloAR
         /// <summary>
         /// A model to place when a raycast from a user touch hits a plane.
         /// </summary>
-        public GameObject AndyAndroidPrefab;
+        public GameObject ChalktalkPrefab;
 
         /// <summary>
         /// A gameobject parenting UI for displaying the "searching for planes" snackbar.
@@ -138,32 +138,24 @@ namespace GoogleARCore.HelloAR
 
             if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
             {
-                AndyAndroidPrefab.SetActive(true);
+                ChalktalkPrefab.SetActive(true);
+                ChalkTalkPosScaleChange PSChange = ChalktalkPrefab.GetComponent<ChalkTalkPosScaleChange>();
+                
                 Vector3 newPose = hit.Pose.position;
                 newPose.y = FirstPersonCamera.transform.position.y;
-                AndyAndroidPrefab.transform.position = newPose;
+                ChalktalkPrefab.transform.position = newPose;
                 newPose.x = FirstPersonCamera.transform.position.x;
                 newPose.z = FirstPersonCamera.transform.position.z;
-                AndyAndroidPrefab.transform.LookAt(newPose);
-                //AndyAndroidPrefab.transform.LookAt(FirstPersonCamera.transform, new Vector3(0,1,0));
+                ChalktalkPrefab.transform.LookAt(newPose);
+                if (PSChange != null)
+                {
+                    //PSChange.rawTrans = ChalktalkPrefab.transform;
+                 }
                 // Create an anchor to allow ARCore to track the hitpoint as understanding of the physical
                 // world evolves.
                 var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-                AndyAndroidPrefab.transform.parent = anchor.transform;
-
-                // Andy should look at the camera but still be flush with the plane.
-                /*if ((hit.Flags & TrackableHitFlags.PlaneWithinPolygon) != TrackableHitFlags.None)
-                {
-                    // Get the camera position and match the y-component with the hit position.
-                    Vector3 cameraPositionSameY = FirstPersonCamera.transform.position;
-                    cameraPositionSameY.y = hit.Pose.position.y;
-
-                    // Have Andy look toward the camera respecting his "up" perspective, which may be from ceiling.
-                  //  andyObject.transform.LookAt(cameraPositionSameY, andyObject.transform.up);
-                }*/
-
-                // Make Andy model a child of the anchor.
-                //andyObject.transform.parent = anchor.transform;
+                //ChalktalkPrefab.transform.parent = anchor.transform;
+               
             }
         }
 

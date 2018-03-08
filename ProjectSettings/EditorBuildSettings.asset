@@ -8,6 +8,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/scenes/chalktalk_ar.unity
     guid: f7985620ca58d1a4089f13f1fd1a638e
-  - enabled: 1
-    path: Assets/scenes/ChalkTalkARCore.unity
-    guid: 864a5f6ad34a6a54ba559c1d106c93a4
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
