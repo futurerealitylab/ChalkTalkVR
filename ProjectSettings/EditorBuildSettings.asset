@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/scenes/ChalkTalkARCore.unity
+    guid: 2ea6621be6cf3f741a6badf01e6e5196

@@ -6038,10 +6038,10 @@ MonoBehaviour:
   m_Script: {fileID: 916676448, guid: 1362ee83563f0458bbbc776de423bfe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relayAddress: 192.168.1.70
-  upstreamPort: 9592
+  relayAddress: 10.0.18.3
+  upstreamPort: 9590
   multicastAddress: 239.0.2.4
-  downstreamPort: 9591
+  downstreamPort: 9593
   sendScope: Chalktalk
   rate: 3
   verboseLogs: 0
