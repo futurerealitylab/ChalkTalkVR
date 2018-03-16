@@ -63,6 +63,20 @@ namespace Chalktalk
 
             return new Vector3(x, y, z);
         }
+
+        public static string ParsetoString(byte[] value, int index, int len)
+        {
+            string ret = "";
+            for(int i = 0; i < len/2; i++)
+            {
+                int curbyte = ParsetoInt16(value, index + i*2);
+                int firsthalf = curbyte >> 8;
+                int secondhalf = curbyte - ((curbyte >> 8) << 8);
+                ret += (char)('A' + (firsthalf - 65));
+                ret += (char)('A' + (secondhalf - 65));
+            }
+            return ret;
+        }
     }
 }
 
