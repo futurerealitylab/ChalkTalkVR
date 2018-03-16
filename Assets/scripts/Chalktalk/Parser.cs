@@ -1,94 +1,48 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chalktalk
 {
-    public class Renderer : Holojam.Tools.Trackable
+    public enum ChalkTalkType { CURVE, PROCEDURE};
+    public class ChalkTalkObj
     {
-
-        // For DevDebug
-        public Byte[] DataViewer;
-
+        public ChalkTalkType type;
+        public ChalkTalkObj()
+        {
+            type = ChalkTalkType.CURVE;
+        }
+    }
+    public class Parser
+    {
         [SerializeField]
-        public Curve curvePrefab;
-        [SerializeField]
-        public BindingBox bindingBox;
+        private Curve curvePrefab;
 
-        [SerializeField]
-        private string label = "Display";
-
-        Chalktalk.Parser ctParser = new Chalktalk.Parser();
-
-        public List<Curve> curves = new List<Curve>();
-
-        public override string Label
+        public ChalkTalkObj Parse(byte[] bytes, Renderer renderer)
         {
-            get { return label; }
-        }
+            ChalkTalkObj ctobj = new ChalkTalkObj();
 
-        public override string Scope
-        {
-            get { return ""; }// "Chalktalk"; }
-        }
+            // Check the header
+            string header = Utility.ParsetoString(bytes, 0, 8);
 
-        protected override void UpdateTracking()
-        {
-            if (this.Tracked)
+            if(header == "CTdata01")
             {
-                DestroyCurves();
-                DataViewer = data.bytes;
-                Parse(data.bytes);
-                Draw();
+                
+                ctobj.type = ChalkTalkType.CURVE;
+                ParseStroke(bytes, ref ctobj, renderer);
+                return ctobj;
             }
-        }
-
-        private void DestroyCurves()
-        {
-            foreach (Curve curve in curves)
+            else
             {
-                DestroyImmediate(curve.gameObject);
+                ctobj.type = ChalkTalkType.PROCEDURE;
+                ParseProcedureAnimation(bytes, ref ctobj, renderer);
+                return ctobj;
             }
-            curves.Clear();
+            
         }
 
-        
-        private void Parse(byte[] bytes)
+        public void ParseStroke(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
         {
-            ChalkTalkObj ctObj = ctParser.Parse(bytes, this);
-            return;
-        }
-
-
-        private void Draw()
-        {
-            foreach (Curve curve in curves)
-            {
-                curve.Draw();
-            }
-        }
-
-        private bool boldenFrame(List<Vector3> points)
-        {
-            if (points.Count == 5)
-            {
-                for (int i = 0; i < points.Count; i++)
-                {
-                    if ((points[i].z < 1.0f) && (points[i].z > -1.0f))
-                    {
-                        break;
-                    }
-                }
-                return true;
-            }
-
-            return false;
-        }
-
-        void oldparse(byte[] bytes)
-        {
-            //Skip the "CTDATA01" String header
             int cursor = 8;
 
             // The total number of words in this packet, then get the size of the bytes size
@@ -143,7 +97,7 @@ namespace Chalktalk
                     Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
                     //point.Scale(bindingBox.transform.localScale);
                     //Move point to the bindingBox Coordinate
-                    point = bindingBox.transform.rotation * point + bindingBox.transform.position;
+                    point = renderer.bindingBox.transform.rotation * point + renderer.bindingBox.transform.position;
                     //Apply the point transform for each point
                     points.Add(point);
                     //points.Add((rotation * point + translation) * scale);
@@ -156,25 +110,40 @@ namespace Chalktalk
                 bool isFrame = boldenFrame(points);
                 // width *= (isFrame) ? 20.0f : 1.0f;
 
-                Curve curve = GameObject.Instantiate<Curve>(curvePrefab);
-                curve.transform.SetParent(this.transform);
+
+                Curve curve = GameObject.Instantiate<Curve>(renderer.curvePrefab);
+                curve.transform.SetParent(renderer.transform);
 
                 curve.points = points;
                 curve.width = width * 3;
                 curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
                 // zhenyi: not using the chalktalk color
                 curve.color = new Color(1, 1, 1, 1);
-                curves.Add(curve);
+                renderer.curves.Add(curve);
             }
         }
 
+        public void ParseProcedureAnimation(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
+        {
+
+        }
+
+        private bool boldenFrame(List<Vector3> points)
+        {
+            if (points.Count == 5)
+            {
+                for (int i = 0; i < points.Count; i++)
+                {
+                    if ((points[i].z < 1.0f) && (points[i].z > -1.0f))
+                    {
+                        break;
+                    }
+                }
+                return true;
+            }
+
+            return false;
+        }
     }
+
 }
-
-
-
-
-
-
-
-
