@@ -6039,9 +6039,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   relayAddress: 10.0.18.3
-  upstreamPort: 9590
+  upstreamPort: 9592
   multicastAddress: 239.0.2.4
-  downstreamPort: 9593
+  downstreamPort: 9591
   sendScope: Chalktalk
   rate: 3
   verboseLogs: 0

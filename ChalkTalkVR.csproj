@@ -436,6 +436,7 @@
     <Compile Include="Assets\scripts\Chalktalk\Curve.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Events.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Manager.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\Parser.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Renderer.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Utility.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkChalkMaker.cs" />
