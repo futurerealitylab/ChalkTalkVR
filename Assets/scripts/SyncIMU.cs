@@ -71,8 +71,8 @@ public class SyncIMU : Holojam.Tools.SynchronizableTrackable
 //                 -imu.w /** rhs2lhs.z*/,
 //                 -imu.z/* * rhs2lhs.w*/);
             imu.x = data.vector4s[0].x * rhs2lhs.x;
-            imu.y = data.vector4s[0].y * rhs2lhs.y;
-            imu.z = data.vector4s[0].z * rhs2lhs.z;
+            imu.y = data.vector4s[0].z * rhs2lhs.y;
+            imu.z = data.vector4s[0].y * rhs2lhs.z;
             imu.w = data.vector4s[0].w * rhs2lhs.w;
             transform.rotation = Quaternion.Euler(imutrans) * imu;
 
