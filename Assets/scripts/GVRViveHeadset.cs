@@ -6,11 +6,11 @@ using Holojam.Tools;
 
 public class GVRViveHeadset : Trackable
 {
-
-
     [SerializeField] public Vector3 offset;
     [SerializeField] public Vector3 offsetRot;
 
+    public enum Mode { IMU, GVR, FUSION }
+    public Mode cur_mode;
 
     public Transform targetTransform;
 
@@ -41,28 +41,30 @@ public class GVRViveHeadset : Trackable
     private Dictionary<float, Quaternion> imuBuffer = new Dictionary<float, Quaternion>();
     private List<float> imuBufferIdx = new List<float>();
 
-    public bool isYawOnlyOn = false;
+ //   public bool isYawOnlyOn = false;
 
     public Transform imuObj;
-    public bool imuOnly, rotationOnly;
+    //    public bool imuOnly, rotationOnly;
 
-    private Vector3 savedPosition;
-    private Quaternion savedRotation;
+    Vector3 prevPosition;
+    Quaternion prevRotation;
 
     protected override void Awake()
     {
         base.Awake();
-        savedPosition = this.transform.position;
-        correctRotation[0] = this.transform.rotation;
+
     }
 
     protected override void Update()
     {
+
         base.Update();
     }
 
     private void IMUUpdateTracking()
     {
+
+
         // vive tracker's data
         Vector3 sourcePosition = RawPosition;
         Quaternion sourceRotation = RawRotation;
@@ -82,9 +84,10 @@ public class GVRViveHeadset : Trackable
         Vector3 cameraPosition = BuildManager.IsMasterClient() ?
           GetComponentInChildren<Camera>().transform.position : Camera.main.transform.position;
         //Negate Oculus' automatic head offset (variable reliant on orientation) independent of recenters
+        transform.position = sourcePosition - cameraPosition;
+
         if (sourceTracked)
         {
-            transform.position = sourcePosition - cameraPosition;
             Quaternion imu = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.CenterEye);
             Quaternion optical = sourceRotation * Quaternion.Inverse(imu);
 
@@ -98,16 +101,37 @@ public class GVRViveHeadset : Trackable
 
             //Ignore local space rotation in the IMU calculations
             Quaternion localRotation = transform.rotation;
+            //if(actor!=null && actor.localSpace && actor.transform.parent!=null)
+            //    localRotation=Quaternion.Inverse(actor.transform.parent.rotation)*transform.rotation;
+            //else if(actor==null && localSpace && transform.parent!=null)
+            //    localRotation=Quaternion.Inverse(transform.parent.rotation)*transform.rotation;
 
             //Recalculate IMU correction if stale (generally on init/recenter)
             if (Quaternion.Dot(localRotation * imu, sourceRotation) <= correctionThreshold
               && difference >= differenceThreshold) //But not if the headset is moving quickly
                 correction = optical;
+
+            //IMU orientation (applied automatically by Oculus) is assumed below as a precondition
+            //switch (trackingType)
+            //{
+            //  case TrackingType.IMU: //IMU, absolutely oriented by optical tracking intermittently
+            //    if (BuildManager.IsMasterClient())
+            //      goto case TrackingType.OPTICAL; //Don't use IMU tracking in the editor or standalone
+            //    transform.rotation = correction;
+            //    break;
+            //  case TrackingType.OPTICAL: //Purely optical tracking, no IMU
+            //    transform.rotation = optical;
+            //    break;
+            //}
         }
         else
-        {
             transform.rotation = correction; //Transition seamlessly to IMU when untracked
-        }
+
+        //Apply local rotation if necessary
+        //if(actor!=null && actor.localSpace && actor.transform.parent!=null)
+        //  transform.rotation=actor.transform.parent.rotation*transform.rotation;
+        //else if(actor==null && localSpace && transform.parent!=null)
+        //  transform.rotation=transform.parent.rotation*transform.rotation;
     }
 
     private void updateIMU()
@@ -156,11 +180,11 @@ public class GVRViveHeadset : Trackable
         //updateIMU();
         // new version support sensor fusion
         //ViveTrackerUpdateTracking();
-        ViveTrackerOnly();
-//         ViveTrackerReceive();
+        //ViveTrackerOnly();
+         ViveTrackerReceive();
 //         calculateDiff();
-//         if (Tracked)
-//             correctRotation[0] = transform.rotation;
+         if (Tracked)
+             correctRotation[0] = transform.rotation;
     }
 
     // from Connor's python script
@@ -225,69 +249,101 @@ public class GVRViveHeadset : Trackable
 
     }
 
-    private void ViveTrackerReceive()
+    private Vector3 getCurrentPosition()
     {
-        // vive tracker's data
-        Vector3 sourcePosition = new Vector3(RawPosition.x, RawPosition.y, RawPosition.z);
-        Latency(sourcePosition);
-        Quaternion sourceRotation = new Quaternion(RawRotation.x, RawRotation.y, RawRotation.z, RawRotation.w);
-        Quaternion offsetRotationQ = Quaternion.Euler(offsetRot.x, offsetRot.y, offsetRot.z);
-        sourceRotation = sourceRotation * offsetRotationQ;
-        sourcePosition += sourceRotation * offset;
-
-        bool sourceTracked = Tracked;
-
-        Quaternion imu = imuObj.rotation;
-        
-        if (sourceTracked && imu!= Quaternion.identity && !imuOnly)
+        Vector3 sourcePosition = Vector3.zero;
+        if (Tracked)
         {
-            Debug.Log("why");
-            Quaternion inv = Quaternion.Inverse(imu);
-            Quaternion optical = sourceRotation * inv;
-            //Quaternion localRotation = transform.rotation;
-
-            Quaternion oldOrientation = this.transform.rotation;
-            //Quaternion mul = oldOrientation * imu;
-            //float d = 0.5f + 0.5f * Quaternion.Dot(mul, sourceRotation);
-
-            //float t = (1f - d);
-            //t = 0.5f;
-            //Quaternion res = QSlerp (oldOrientation, optical, t);
-            //this.transform.rotation = res;
-
-            float yOpt = optical.eulerAngles.y;
-            float yOld = oldOrientation.eulerAngles.y;
-            float yDiff = Mathf.Abs(yOpt - yOld);
-            if (yDiff > 180f)
-            {
-                if (yOpt < yOld)
-                {
-                    yOpt += 360f;
-                }
-                else
-                {
-                    yOld += 360f;
-                }
-                yDiff = Mathf.Abs(yOpt - yOld);
-            }
-            float t = yDiff / 180f;
-            t = t * t;
-            float yNew = Mathf.LerpAngle(yOld, yOpt, t);
-            // zhenyi
-            this.transform.rotation = Quaternion.AngleAxis(yNew, Vector3.up);
-
-            if (!rotationOnly)
-                transform.position = sourcePosition;
-            //imu only version
-            if (imuOnly)
-                this.transform.rotation = Quaternion.identity;
+            // vive tracker's data
+            sourcePosition = RawPosition;
+            Latency(sourcePosition);
+            Quaternion sourceRotation = RawRotation;
+            Quaternion offsetRotationQ = Quaternion.Euler(offsetRot);
+            sourceRotation = sourceRotation * offsetRotationQ;
+            sourcePosition += sourceRotation * offset;
         }
         else
+            sourcePosition = prevPosition;
+        return sourcePosition;
+    }
+
+    private Quaternion getCurrentRotation()
+    {
+        Quaternion sourceRotation = Quaternion.identity;
+        if (Tracked)
         {
-            //transform.rotation = correctRotation[0]; //Transition seamlessly to IMU when untracked
-                                                     //print ("not tracked," + transform.rotation);
+            // vive tracker's data
+            sourceRotation = RawRotation;
+            Quaternion offsetRotationQ = Quaternion.Euler(offsetRot);
+            sourceRotation = sourceRotation * offsetRotationQ;
         }
-        Debug.Log("[hehe]:" + transform.position + transform.rotation);
+        else
+            sourceRotation = prevRotation;
+        imuObj.gameObject.GetComponent<SyncIMU>().enabled = false;
+        return sourceRotation;
+    }
+
+    private Quaternion getCurrentFusionRotation()
+    {
+        Quaternion inv = Quaternion.Inverse(imuObj.rotation);
+        Quaternion optical = getCurrentRotation() * inv;
+        Quaternion oldOrientation = transform.rotation;
+
+        float yOpt = optical.eulerAngles.y;
+        float yOld = oldOrientation.eulerAngles.y;
+        float yDiff = Mathf.Abs(yOpt - yOld);
+        // gimbal lock
+        if (yDiff > 180f)
+        {
+            if (yOpt < yOld)
+            {
+                yOpt += 360f;
+            }
+            else
+            {
+                yOld += 360f;
+            }
+            yDiff = Mathf.Abs(yOpt - yOld);
+        }
+        float t = yDiff / 180f;
+        t = t * t;
+        float yNew = Mathf.LerpAngle(yOld, yOpt, t);
+        // zhenyi
+        Quaternion fusionRot = Quaternion.AngleAxis(yNew, Vector3.up);
+        return fusionRot;
+    }
+
+    private Quaternion getCurrentIMU()
+    {
+        return Quaternion.identity;
+    }
+
+    private void ViveTrackerReceive()
+    {
+        switch (cur_mode)
+        {
+            case Mode.GVR:
+                // position
+                transform.position = getCurrentPosition();
+                // rotation
+                transform.rotation = getCurrentRotation();
+                break;
+            case Mode.IMU:
+                // rotation
+                transform.rotation = getCurrentIMU();
+                break;
+            case Mode.FUSION:
+                // position from gvr
+                transform.position = getCurrentPosition();
+                // rotation fusion
+                transform.rotation = getCurrentFusionRotation();
+                break;
+            default:
+                break;
+        }
+
+        prevPosition = transform.position;
+        prevRotation = transform.rotation;
     }
 
     private void ViveTrackerUpdateTracking()

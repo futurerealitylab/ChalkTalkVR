@@ -37,12 +37,18 @@ public class SyncIMU : Holojam.Tools.SynchronizableTrackable
     // Add the scale vector to Trackable, which by default only contains position/rotation
     public override void ResetData()
     {
+
+
+        if (!Application.platform.ToString().Contains("Windows"))
+            host = true;
+        else
+            host = false;
         data = new Holojam.Network.Flake(1, 1);
 
         Input.gyro.enabled = true;
         //imutrans = new Vector3(-180, 0, 90);
         //rhs2lhs = new Vector4(-1, 1, -1, 1);
-}
+    }
 
     public Vector3 imutrans;
     public Vector4 rhs2lhs;
