@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/LenovoHackSDK/Scenes/StandardScene.unity
+- path: Assets/scenes/chalktalk_ar.unity
   isLoaded: 1
   isActive: 1
