@@ -30,6 +30,8 @@ public class GVRViveHeadset : Trackable
     public string label = "Viewer";
     public string scope = "Vive";
 
+    float lastT = 0f;
+
     private const int MAX_LAG = 100;
 
     const int IMU_BUFFER_SIZE = 600;
@@ -154,10 +156,11 @@ public class GVRViveHeadset : Trackable
         //updateIMU();
         // new version support sensor fusion
         //ViveTrackerUpdateTracking();
-        ViveTrackerReceive();
-        calculateDiff();
-        if (Tracked)
-            correctRotation[0] = transform.rotation;
+        ViveTrackerOnly();
+//         ViveTrackerReceive();
+//         calculateDiff();
+//         if (Tracked)
+//             correctRotation[0] = transform.rotation;
     }
 
     // from Connor's python script
@@ -202,10 +205,31 @@ public class GVRViveHeadset : Trackable
         return res;
     }
 
+    private void Latency(Vector3 oldRaw)
+    {
+        if (Vector3.Distance(oldRaw, transform.position) > 0.01)
+        {
+            float t = Time.time;
+            float dt = t - lastT;
+            Debug.Log("[hehe]time since last update: " + dt);
+            lastT = t;
+        }
+    }
+
+    private void ViveTrackerOnly()
+    {
+        if (Tracked) {
+            transform.position = RawPosition;
+            transform.rotation = Quaternion.Euler( offsetRot ) * RawRotation;
+        }
+
+    }
+
     private void ViveTrackerReceive()
     {
         // vive tracker's data
         Vector3 sourcePosition = new Vector3(RawPosition.x, RawPosition.y, RawPosition.z);
+        Latency(sourcePosition);
         Quaternion sourceRotation = new Quaternion(RawRotation.x, RawRotation.y, RawRotation.z, RawRotation.w);
         Quaternion offsetRotationQ = Quaternion.Euler(offsetRot.x, offsetRot.y, offsetRot.z);
         sourceRotation = sourceRotation * offsetRotationQ;
