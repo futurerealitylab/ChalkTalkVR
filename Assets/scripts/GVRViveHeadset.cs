@@ -257,9 +257,7 @@ public class GVRViveHeadset : Trackable
             // vive tracker's data
             sourcePosition = RawPosition;
             Latency(sourcePosition);
-            Quaternion sourceRotation = RawRotation;
-            Quaternion offsetRotationQ = Quaternion.Euler(offsetRot);
-            sourceRotation = sourceRotation * offsetRotationQ;
+            Quaternion sourceRotation = getCurrentRotation();
             sourcePosition += sourceRotation * offset;
         }
         else
@@ -273,44 +271,62 @@ public class GVRViveHeadset : Trackable
         if (Tracked)
         {
             // vive tracker's data
-            sourceRotation = RawRotation;
-            Quaternion offsetRotationQ = Quaternion.Euler(offsetRot);
-            sourceRotation = sourceRotation * offsetRotationQ;
+            sourceRotation = RawRotation * Quaternion.Euler(offsetRot);
         }
         else
             sourceRotation = prevRotation;
-        imuObj.gameObject.GetComponent<SyncIMU>().enabled = false;
+        //imuObj.gameObject.GetComponent<SyncIMU>().enabled = false;
         return sourceRotation;
     }
 
     private Quaternion getCurrentFusionRotation()
     {
-        Quaternion inv = Quaternion.Inverse(imuObj.rotation);
-        Quaternion optical = getCurrentRotation() * inv;
-        Quaternion oldOrientation = transform.rotation;
-
-        float yOpt = optical.eulerAngles.y;
-        float yOld = oldOrientation.eulerAngles.y;
-        float yDiff = Mathf.Abs(yOpt - yOld);
-        // gimbal lock
-        if (yDiff > 180f)
+        
+        if (Tracked)
         {
-            if (yOpt < yOld)
+            Quaternion inv = Quaternion.Inverse(imuObj.GetComponent<SyncIMU>().imuRotation);
+            Quaternion optical = getCurrentRotation() * inv;
+            float yOpt = optical.eulerAngles.y;
+            float yOld = yOpt;
+            if (transform.rotation == Quaternion.identity)
             {
-                yOpt += 360f;
+                // if it is the first tracked frame, just return the optical
+               
             }
             else
             {
-                yOld += 360f;
+                Quaternion oldOrientation = transform.rotation;
+                yOld = oldOrientation.eulerAngles.y;
             }
-            yDiff = Mathf.Abs(yOpt - yOld);
+            float yDiff = Mathf.Abs(yOpt - yOld);
+            // gimbal lock
+            if (yDiff > 180f)
+            {
+                if (yOpt < yOld)
+                {
+                    yOpt += 360f;
+                }
+                else
+                {
+                    yOld += 360f;
+                }
+                yDiff = Mathf.Abs(yOpt - yOld);
+            }
+            float t = yDiff / 180f;
+            t = t * t;
+            float yNew = Mathf.LerpAngle(yOld, yOpt, t);
+            // zhenyi
+            Quaternion fusionRot = Quaternion.AngleAxis(yNew, Vector3.up);
+            return fusionRot;
+            
         }
-        float t = yDiff / 180f;
-        t = t * t;
-        float yNew = Mathf.LerpAngle(yOld, yOpt, t);
-        // zhenyi
-        Quaternion fusionRot = Quaternion.AngleAxis(yNew, Vector3.up);
-        return fusionRot;
+        else
+        {
+            return prevRotation;
+        }
+        
+        
+        
     }
 
     private Quaternion getCurrentIMU()

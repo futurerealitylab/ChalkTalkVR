@@ -17,6 +17,8 @@ public class SyncIMU : Holojam.Tools.SynchronizableTrackable
     [SerializeField] bool host = true;
     [SerializeField] bool autoHost = false;
 
+    public Quaternion imuRotation;
+
     // As an example, allow all the Synchronizable properties to be publicly settable
     // In practice, you probably want to control some or all of these manually in code.
 
@@ -46,6 +48,7 @@ public class SyncIMU : Holojam.Tools.SynchronizableTrackable
         data = new Holojam.Network.Flake(1, 1);
 
         Input.gyro.enabled = true;
+        imuRotation = Quaternion.identity;
         //imutrans = new Vector3(-180, 0, 90);
         //rhs2lhs = new Vector4(-1, 1, -1, 1);
     }
@@ -80,7 +83,8 @@ public class SyncIMU : Holojam.Tools.SynchronizableTrackable
             imu.y = data.vector4s[0].z * rhs2lhs.y;
             imu.z = data.vector4s[0].y * rhs2lhs.z;
             imu.w = data.vector4s[0].w * rhs2lhs.w;
-            transform.rotation = Quaternion.Euler(imutrans) * imu;
+        imuRotation = Quaternion.Euler(imutrans) * imu;
+            transform.rotation = imuRotation;
 
             
        // }
