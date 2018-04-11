@@ -34,7 +34,7 @@ public class DebugNetwork : Trackable
         if (isShow) {
             tm.text = data.vector3s[0].ToString();
             tm.text += "\n" + data.vector4s[0].ToString();
-            tm.text += "\nrcvPPS:" + client.receivedPPS;
+            tm.text += "\nLatency:" + client.gameObject.GetComponent<Holojam.Network.Ping>().CorrectedLatency + "ms";
             tm.text += "\nDwPort:" + client.DownstreamPort;
         }
         else

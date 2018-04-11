@@ -447,7 +447,9 @@
     <Compile Include="Assets\scripts\getRot.cs" />
     <Compile Include="Assets\scripts\GVRViveHeadset.cs" />
     <Compile Include="Assets\scripts\IMUVis.cs" />
+    <Compile Include="Assets\scripts\MirageHeadset.cs" />
     <Compile Include="Assets\scripts\SensorFusionMirage.cs" />
+    <Compile Include="Assets\scripts\Smoothing.cs" />
     <Compile Include="Assets\scripts\SyncIMU.cs" />
     <Compile Include="Assets\scripts\SyncViveTracker.cs" />
     <Compile Include="Assets\scripts\testVT.cs" />
