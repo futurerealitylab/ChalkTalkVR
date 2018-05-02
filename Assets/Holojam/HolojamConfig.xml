@@ -4,8 +4,8 @@
   <!-- You can specify or omit any or all of these options. -->
   <!-- Don't add any extra whitespace! -->
 
-  <!-- IP address of the main Holojam relay. -->
-  <RelayIP>10.18.0.4</RelayIP>
+  <!-- IP address of the main Holojam relay.10.18.0.4 -->
+  <RelayIP>192.168.1.123</RelayIP>
 
   <!-- Index of the actor (i.e. player or headset). -->
   <BuildIndex>0</BuildIndex>
