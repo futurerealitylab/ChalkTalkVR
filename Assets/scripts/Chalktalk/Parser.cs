@@ -51,7 +51,7 @@ namespace Chalktalk
 
             for (; cursor < bytes.Length;)
             {
-                Debug.Log("Current Cursor: " + cursor);
+                //Debug.Log("Current Cursor: " + cursor);
                 //The length of the current line
                 int length = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
@@ -90,8 +90,8 @@ namespace Chalktalk
                 float width = 0;
 
                 List<Vector3> points = new List<Vector3>();
-                Debug.Log("Current Line's points count: " + (length - 12) / 4);
-                Debug.Log("Current Cursor before read the points :" + cursor);
+                //Debug.Log("Current Line's points count: " + (length - 12) / 4);
+                //Debug.Log("Current Cursor before read the points :" + cursor);
                 for (int j = 0; j < (length - 12) / 4; j++)
                 {
                     Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);

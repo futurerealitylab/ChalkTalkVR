@@ -59,7 +59,20 @@
      <Compile Include="Assets\Holojam\Tools\Editor\ActorEditor.cs" />
      <Compile Include="Assets\Holojam\Tools\Editor\BuildManagerEditor.cs" />
      <Compile Include="Assets\Holojam\Utility\Editor\HolojamUnityEditor.cs" />
+     <Compile Include="Assets\Oculus\VR\Editor\OVRBuild.cs" />
+     <Compile Include="Assets\Oculus\VR\Editor\OVREngineConfigurationUpdater.cs" />
+     <Compile Include="Assets\Oculus\VR\Editor\OVRLayerAttributeEditor.cs" />
+     <Compile Include="Assets\Oculus\VR\Editor\OVRManifestPreprocessor.cs" />
+     <Compile Include="Assets\Oculus\VR\Editor\OVRPluginUpdater.cs" />
+     <Compile Include="Assets\Oculus\VR\Editor\OVRPluginUpdaterStub.cs" />
+     <Compile Include="Assets\Oculus\VR\Editor\OVRScreenshotWizard.cs" />
+     <Compile Include="Assets\Oculus\VR\Scripts\Editor\OVRManagerEditor.cs" />
+     <Compile Include="Assets\OculusPlatform\Editor\GUIHelper.cs" />
+     <Compile Include="Assets\OculusPlatform\Editor\OculusPlatformSettingsEditor.cs" />
+     <Compile Include="Assets\OculusPlatform\Editor\OculusStandalonePlatformResponse.cs" />
+     <Compile Include="Assets\OvrAvatar\Editor\AvatarMaterialEditor.cs" />
      <Compile Include="Assets\Project\Editor\Packager.cs" />
+     <None Include="Assets\Oculus\VR\Editor\AndroidManifest.OVRSubmission.xml" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>C:/Users/snowy/Documents/GitHub/ChalkTalkVR/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
