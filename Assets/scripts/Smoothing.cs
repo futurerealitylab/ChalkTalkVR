@@ -133,7 +133,7 @@ namespace FRL.Utility
             target = Vector3.Lerp(last, target, Mathf.Pow(
               Mathf.Min(1, (last - target).magnitude / cap), pow
             ));
-            last = target;
+            //last = target;
             return target;
         }
 
@@ -150,7 +150,7 @@ namespace FRL.Utility
             target = Quaternion.Slerp(last, target, Mathf.Pow(
               Mathf.Min(1, difference / cap), pow
             ));
-            last = target;
+            //last = target;
             return target;
         }
     }

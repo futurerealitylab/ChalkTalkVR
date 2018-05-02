@@ -467,9 +467,9 @@
     <None Include="Assets\GoogleARCore\SDK\Materials\ARBackground.shader" />
     <None Include="Assets\Holojam\HolojamConfig.xml" />
     <None Include="Assets\Holojam\SampleConfig.xml" />
-    <None Include="Assets\HolojamConfig.xml" />
     <None Include="Assets\InputSystems-master\README.txt" />
     <None Include="Assets\StereoCamera\Shaders\BarrelDistortion.shader" />
+    <None Include="Assets\StreamingAssets\holojam\HolojamConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

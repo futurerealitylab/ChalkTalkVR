@@ -20,8 +20,8 @@ public class MirageHeadset : Trackable
 
     public FRL.Utility.SmoothingType smoothing;
 
-    private Vector3 lastPosition = Vector3.zero;
-    private Quaternion lastRotation = Quaternion.identity;
+    private Vector3 prevPosition = Vector3.zero;
+    public Quaternion prevRotation = Quaternion.identity;
     private bool lastTracked = false;
     private Quaternion lastIMURot;
     private FRL.Utility.Smoother smoother;
@@ -42,14 +42,15 @@ public class MirageHeadset : Trackable
     protected override void Awake()
     {
         base.Awake();
-        lastPosition = transform.position;
-        lastRotation = transform.rotation;
+        prevPosition = transform.position;
+        prevRotation = transform.rotation;
     }
 
     protected override void Update()
     {
 
-        base.Update();
+        //base.Update();
+		UpdateTracking();
     }
 
     Quaternion IMURot;
@@ -59,30 +60,42 @@ public class MirageHeadset : Trackable
 
         this.smoother = FRL.Utility.Smoother.GetSmoother(smoothing);
 
-        IMURot = imuObj.GetComponent<SyncIMU>().imuRotation;
+        //IMURot = imuObj.GetComponent<SyncIMU>().imuRotation;
+		// for test
+		IMURot = imuObj.transform.localRotation;
+		//print ("imu rotation:" + imuObj.transform.rotation.ToString ("F3"));
+		print ("imu local rotation:" + imuObj.transform.localRotation.ToString ("F3"));
+		if (IMURot == Quaternion.identity)
+			return;
         var newIMU = Quaternion.Slerp(lastIMURot, IMURot, lowPassFactor);
         lastIMURot = IMURot;
         IMURot = newIMU;
 
-        velocity = (transform.position - lastPosition) / Time.deltaTime;
+        velocity = (transform.position - prevPosition) / Time.deltaTime;
         velocity = Vector3.ClampMagnitude(velocity, maxMagnitude);
 
-        imuOnly = !Tracked;
+        //imuOnly = !Tracked;
 
         if (cur_mode != Mode.IMU) transform.position = GetCurrentPosition();
         if (cur_mode != Mode.GVR) transform.rotation = GetCurrentRotation();
-
-        lastPosition = transform.position;
-        lastRotation = transform.rotation;
+		print ("transform.rotation:" + transform.rotation.eulerAngles.ToString ("F3"));
+        prevPosition = transform.position;
+        prevRotation = transform.rotation;
+		print ("prevRotation:" + prevRotation.eulerAngles.ToString ("F3"));
         lastTracked = Tracked;
         if (lastTracked) lastTrackedTime = Time.time;
         lastVelocity = velocity;
     }
-
+    public Quaternion sourceRotation;
     private Quaternion GetCurrentRotation()
     {
-        var sourceRotation = RawRotation * Quaternion.Euler(offsetRot);
+		print ("------\nRawRotation:" + RawRotation.eulerAngles.ToString("F3"));
+        sourceRotation = RawRotation * Quaternion.Euler(offsetRot);
+		print ("sourceRotation:" + sourceRotation.eulerAngles.ToString("F3"));
         Quaternion inv = Quaternion.Inverse(IMURot);
+		print ("IMURot:" + IMURot.ToString("F3"));
+		print ("inv:" + inv.eulerAngles.ToString("F3"));
+		print ("last tracked:" + lastTracked);
 
         //If we're using sensor fusion, Camera rotation should be IMU rotation.
         //if (cur_mode == Mode.FUSION) transform.localRotation = IMURot;
@@ -90,24 +103,33 @@ public class MirageHeadset : Trackable
 
         if (Tracked)
         {
-            if (cur_mode == Mode.FUSION)
+            if (cur_mode == Mode.FUSION )
             {
-                //Sensor fusion. Calculate the y-rotation difference, and return.
-                sourceRotation *= inv;
-                if (smoother != null) sourceRotation = smoother.Smooth(sourceRotation, ref lastRotation, Time.deltaTime);
-                return Quaternion.AngleAxis(sourceRotation.eulerAngles.y, Vector3.up);
+				//Sensor fusion. Calculate the y-rotation difference, and return.
+				sourceRotation *= inv;
+				print ("sourceRotation after /imu:" + sourceRotation.eulerAngles.ToString ("F3"));
+				if (lastTracked) {
+					print ("prevRotation:" + prevRotation.eulerAngles.ToString ("F3"));
+					if (smoother != null)
+						sourceRotation = smoother.Smooth (sourceRotation, ref prevRotation, Time.deltaTime);
+					print ("prevRotation:" + prevRotation.eulerAngles.ToString ("F3"));
+					print ("sourceRotation after smooth:" + sourceRotation.eulerAngles.ToString ("F3"));
+					return Quaternion.AngleAxis (sourceRotation.eulerAngles.y, Vector3.up);
+				} else {
+					return Quaternion.AngleAxis (sourceRotation.eulerAngles.y, Vector3.up);
+				}
             }
             else
             {
                 //No sensor fusion. Smooth based on smoother.
-                if (smoother != null) sourceRotation = smoother.Smooth(sourceRotation, ref lastRotation, Time.deltaTime);
-                return sourceRotation;
+                if (smoother != null) sourceRotation = smoother.Smooth(sourceRotation, ref prevRotation, Time.deltaTime);
+				return Quaternion.AngleAxis(sourceRotation.eulerAngles.y, Vector3.up);
             }
         }
         else
         {
             //Untracked. Return last rotation.
-            return lastRotation;
+			return Quaternion.AngleAxis(prevRotation.eulerAngles.y, Vector3.up);
         }
     }
 
@@ -118,11 +140,11 @@ public class MirageHeadset : Trackable
         if (Tracked)
         {
             if (lastTracked && smoother != null)
-                return smoother.Smooth(sourcePosition, ref lastPosition, Time.deltaTime);
+                return smoother.Smooth(sourcePosition, ref prevPosition, Time.deltaTime);
             else
                 return sourcePosition;
         }
         else
-            return lastPosition;
+            return prevPosition;
     }
 }
