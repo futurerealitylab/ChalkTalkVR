@@ -95,7 +95,7 @@ public class OculusMgr : MonoBehaviour {
 	}
 
 
-
+	float prevControlPress = 0;
 	private void Update() {
 		//OVRInput.Update ();
 
@@ -105,27 +105,35 @@ public class OculusMgr : MonoBehaviour {
 			//print (touchpos.ToString("F3"));
 			cursor.transform.position = bindingBox.GetBoundPosition(oculusCtrl.gameObject.transform.position, BindingBox.Plane.Z, true);
 
+			float curControlPress = OVRInput.Get (OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch + (int)ac);
 
-			if (OVRInput.Get (OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch + (int)ac) > 0.9) {
-				print ("PrimaryIndexTrigger state:" + OVRInput.Get (OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch + (int)ac));
-				FireMouseDownEvent (cursor.transform.position);
+			if (curControlPress > 0.9 && prevControlPress <= 0.9) {
+				//print ("PrimaryIndexTrigger state:" + OVRInput.Get (OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch + (int)ac));
+				FireMouseDownEvent (cursor.transform.localPosition);
+				print ("Mouse Down");
 				ctc.Data = 0;
-				ctc.Pos = cursor.transform.position;
-				ctc.Rot = cursor.transform.rotation.eulerAngles;
-			} else if (OVRInput.Get (OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch + (int)ac) < 0.1) {
-				print ("PrimaryIndexTrigger state:" + OVRInput.Get (OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch + (int)ac));
-				FireMouseUpEvent (cursor.transform.position);
+
+			} else if (curControlPress < 0.1 && prevControlPress >= 0.1) {
+				//print ("PrimaryIndexTrigger state:" + OVRInput.Get (OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch + (int)ac));
+				FireMouseUpEvent (cursor.transform.localPosition);
+				print ("Mouse Up");
 				ctc.Data = 2;
-				ctc.Pos = cursor.transform.position;
-				ctc.Rot = cursor.transform.rotation.eulerAngles;
 			} else {
 				if (sendMouseMove && Holojam.Tools.BuildManager.BUILD_INDEX == 1) {
-					FireMouseMoveEvent (cursor.transform.position);
+					//print ("Mouse Move");
+					FireMouseMoveEvent (cursor.transform.localPosition);
 					ctc.Data = 1;
-					ctc.Pos = cursor.transform.position;
-					ctc.Rot = cursor.transform.rotation.eulerAngles;
 				}
 			}
+			Vector3 pos = cursor.transform.localPosition;
+			pos.y = -pos.y + (float)GetResolution (resolutionType).height / (float)GetResolution (resolutionType).width * 5f/*width of the plane*/ - 1;
+			pos.y /= ((float)GetResolution (resolutionType).height / (float)GetResolution (resolutionType).width * 5f);
+			pos.z = -pos.z + 5f / 2f;
+			pos.z /= 5f;
+			ctc.Pos = pos;
+			ctc.Rot = cursor.transform.eulerAngles;
+			print (cursor.transform.localPosition + "\t" + pos);
+			prevControlPress = curControlPress;
 		}
 
 		if (keyText) {
