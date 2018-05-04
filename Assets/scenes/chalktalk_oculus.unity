@@ -140,7 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 22042136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5d933a53a245cf4cb509f389aa59bb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c2714b452508a745a4daa9d55cc930e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!23 &22042138
@@ -1825,6 +1825,12 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &333015661 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010372160784, guid: 84c8b8609f9bb434eaf5248f17ff1293,
+    type: 2}
+  m_PrefabInternal: {fileID: 1664117414}
+  m_Script: {fileID: 11500000, guid: e53b07ad62d980a4da9fffff0b05fd2e, type: 3}
 --- !u!1 &374330994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,12 +1926,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &398481637 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000010372160784, guid: 84c8b8609f9bb434eaf5248f17ff1293,
-    type: 2}
-  m_PrefabInternal: {fileID: 1664117414}
-  m_Script: {fileID: 11500000, guid: e53b07ad62d980a4da9fffff0b05fd2e, type: 3}
 --- !u!1 &421375430
 GameObject:
   m_ObjectHideFlags: 0
@@ -4004,11 +4004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893ff502ac9844026bffa091d6369f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FovAuto: 0
-  FovRadians: 1.69
-  BarrelDistortionShader: {fileID: 4800000, guid: d1856b4cfae464790b5513116b7e8f1f,
-    type: 3}
-  BarrelDistortionMaterial: {fileID: 0}
 --- !u!92 &895302310
 Behaviour:
   m_ObjectHideFlags: 0
@@ -4108,12 +4103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1fe46d46a2943b68fafa1b56b3ac9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MultiCamera: {fileID: 520302546}
-  LeftCamera: {fileID: 895302312}
-  RightCamera: {fileID: 1588649113}
-  LocalFrameOffsetX: 0.15
-  LocalFrameOffsetY: 0.2
-  LocalFrameAllX: 0.015
 --- !u!143 &930961628
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5868,11 +5857,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893ff502ac9844026bffa091d6369f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FovAuto: 0
-  FovRadians: 1.69
-  BarrelDistortionShader: {fileID: 4800000, guid: d1856b4cfae464790b5513116b7e8f1f,
-    type: 3}
-  BarrelDistortionMaterial: {fileID: 0}
 --- !u!92 &1588649111
 Behaviour:
   m_ObjectHideFlags: 0
@@ -6540,6 +6524,12 @@ MonoBehaviour:
   motif: {r: 0.26, g: 0.86, b: 0.6, a: 1}
   animatedEyes: {fileID: 0}
   skinMaterial: {fileID: 2100000, guid: 1a2223d6c2ec2416e93d2d473a91d084, type: 2}
+--- !u!114 &1842502834 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011404857786, guid: 84c8b8609f9bb434eaf5248f17ff1293,
+    type: 2}
+  m_PrefabInternal: {fileID: 1664117414}
+  m_Script: {fileID: 11500000, guid: e53b07ad62d980a4da9fffff0b05fd2e, type: 3}
 --- !u!1 &1852690971
 GameObject:
   m_ObjectHideFlags: 0
@@ -6764,10 +6754,10 @@ MonoBehaviour:
   m_Script: {fileID: 916676448, guid: 1362ee83563f0458bbbc776de423bfe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relayAddress: 192.168.1.123
-  upstreamPort: 9590
+  relayAddress: 192.168.1.126
+  upstreamPort: 9592
   multicastAddress: 239.0.2.4
-  downstreamPort: 9592
+  downstreamPort: 9591
   sendScope: Chalktalk
   rate: 3
   verboseLogs: 0
@@ -6817,7 +6807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c24cc55009b456a97b1416395bce63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configFilePath: Assets/Holojam/HolojamConfig.xml
+  configFilePath: Assets/Holojam/HolojamConfig-.xml
 --- !u!1 &1924622482
 GameObject:
   m_ObjectHideFlags: 0
@@ -6902,12 +6892,6 @@ Transform:
   m_Father: {fileID: 112317108}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1944509309 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000011404857786, guid: 84c8b8609f9bb434eaf5248f17ff1293,
-    type: 2}
-  m_PrefabInternal: {fileID: 1664117414}
-  m_Script: {fileID: 11500000, guid: e53b07ad62d980a4da9fffff0b05fd2e, type: 3}
 --- !u!1 &1946840904
 GameObject:
   m_ObjectHideFlags: 0
@@ -7289,7 +7273,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1987635966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01aa59c2c0e83ad40983ed6f748f1a07, type: 3}
+  m_Script: {fileID: 11500000, guid: fb3f54003d2ff2347a4b337a0fced7bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionType: 0
@@ -7298,8 +7282,8 @@ MonoBehaviour:
   keyText: {fileID: 1581971200}
   ac: 0
   oculusCtrls:
-  - {fileID: 1944509309}
-  - {fileID: 398481637}
+  - {fileID: 1842502834}
+  - {fileID: 333015661}
   sendMouseMove: 1
 --- !u!1 &2047169417
 GameObject:

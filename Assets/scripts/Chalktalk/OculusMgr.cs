@@ -109,19 +109,19 @@ public class OculusMgr : MonoBehaviour {
 
 			if (curControlPress > 0.9 && prevControlPress <= 0.9) {
 				//print ("PrimaryIndexTrigger state:" + OVRInput.Get (OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch + (int)ac));
-				FireMouseDownEvent (cursor.transform.localPosition);
+				//FireMouseDownEvent (cursor.transform.localPosition);
 				print ("Mouse Down");
 				ctc.Data = 0;
 
 			} else if (curControlPress < 0.1 && prevControlPress >= 0.1) {
 				//print ("PrimaryIndexTrigger state:" + OVRInput.Get (OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch + (int)ac));
-				FireMouseUpEvent (cursor.transform.localPosition);
+				//FireMouseUpEvent (cursor.transform.localPosition);
 				print ("Mouse Up");
 				ctc.Data = 2;
 			} else {
 				if (sendMouseMove && Holojam.Tools.BuildManager.BUILD_INDEX == 1) {
 					//print ("Mouse Move");
-					FireMouseMoveEvent (cursor.transform.localPosition);
+					//FireMouseMoveEvent (cursor.transform.localPosition);
 					ctc.Data = 1;
 				}
 			}
