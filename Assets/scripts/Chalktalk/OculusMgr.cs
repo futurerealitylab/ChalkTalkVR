@@ -97,9 +97,13 @@ public class OculusMgr : MonoBehaviour {
 
 	float prevControlPress = 0;
 	private void Update() {
-		//OVRInput.Update ();
+        //OVRInput.Update ();
 
-		if (cursor) {
+        //print(OVRInput.Get(OVRInput.Button.PrimaryHandTrigger));
+        if(OVRInput.Get(OVRInput.Button.PrimaryHandTrigger))
+            ctc.sendsetter = !ctc.sendsetter;
+
+        if (cursor) {
 			
 			//Vector3 touchpos = OVRInput.GetControllerPositionTracked (oculusCtrl);
 			//print (touchpos.ToString("F3"));
