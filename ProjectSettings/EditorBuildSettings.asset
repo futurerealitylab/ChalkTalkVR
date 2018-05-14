@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/scenes/chalktalk_oculus.unity
     guid: 81b68e5383ac8cb4b88b78ba389398ef
-  - enabled: 1
+  - enabled: 0
     path: Assets/CurvedUI/Demo Scenes/13 OculusVR Starter.unity
     guid: dc119db224c293b4696571d89342a5f5
+  - enabled: 1
+    path: Assets/CurvedUI/Demo Scenes/Oculus3DObj.unity
+    guid: c01c82c0fc9ba074ab0fb1c6581ad9dd
