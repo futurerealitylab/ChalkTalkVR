@@ -18,3 +18,6 @@ Combine ChalkTalk with VR/AR experience
 
 ## ViveEmitter
 1. run `python ViveDeviceEmitter\vivedeviceemitter.py`
+
+## Protocol Explanation
+1. Go to [here](https://docs.google.com/document/d/1B0B9DPfJXHRIH_ofRfQr3uMqprVrp_BBgSyhWiQdOms/edit?usp=sharing)
