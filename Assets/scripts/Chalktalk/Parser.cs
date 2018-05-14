@@ -41,6 +41,14 @@ namespace Chalktalk
             
         }
 
+        public Vector3 ApplyCurveTransformation(Vector3 p, Renderer renderer)
+        {
+            Vector3 positionInCanvasSpace = renderer.mySettings.transform.worldToLocalMatrix.MultiplyPoint3x4(p);
+            p = renderer.mySettings.CanvasToCurvedCanvas(positionInCanvasSpace);
+            //transform.rotation = Quaternion.LookRotation(renderer.mySettings.CanvasToCurvedCanvasNormal(transform.parent.localPosition), transform.parent.up);
+            return p;
+        }
+
         public void ParseStroke(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
         {
             int cursor = 8;
@@ -95,9 +103,13 @@ namespace Chalktalk
                 for (int j = 0; j < (length - 12) / 4; j++)
                 {
                     Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
-                    //point.Scale(bindingBox.transform.localScale);
+                    point = Vector3.Scale(point, renderer.bindingBox.transform.localScale);
                     //Move point to the bindingBox Coordinate
+                    //Debug.Log("bf:" + point);
                     point = renderer.bindingBox.transform.rotation * point + renderer.bindingBox.transform.position;
+                    //Debug.Log("mid:" + point);
+                    point = ApplyCurveTransformation(point, renderer);
+                    //Debug.Log("af:" + point);
                     //Apply the point transform for each point
                     points.Add(point);
                     //points.Add((rotation * point + translation) * scale);
@@ -112,7 +124,8 @@ namespace Chalktalk
 
 
                 Curve curve = GameObject.Instantiate<Curve>(renderer.curvePrefab);
-                curve.transform.SetParent(renderer.transform);
+                //curve.transform.SetParent(renderer.transform);
+                curve.transform.SetParent(renderer.curvedParent);
 
                 curve.points = points;
                 curve.width = width * 3;

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4546246896434010}
   - component: {fileID: 120851253342742546}
   - component: {fileID: 114158627861272978}
+  - component: {fileID: 114242345130415658}
   m_Layer: 0
   m_Name: CurvePrefab
   m_TagString: Untagged
@@ -56,6 +57,24 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   width: 0
   id: 0
+--- !u!114 &114242345130415658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332583882693216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e62188adca544cf1b96ccf1630f15f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DoNotTesselate: 0
+  savedPos: {x: 0, y: 0, z: 0}
+  savedUp: {x: 0, y: 0, z: 0}
+  savedRectSize: {x: 0, y: 0}
+  savedColor: {r: 0, g: 0, b: 0, a: 0}
+  savedTextUV0: {x: 0, y: 0}
+  savedFill: 0
 --- !u!120 &120851253342742546
 LineRenderer:
   m_ObjectHideFlags: 1

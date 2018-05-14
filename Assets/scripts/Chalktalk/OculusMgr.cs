@@ -136,7 +136,7 @@ public class OculusMgr : MonoBehaviour {
 			pos.z /= 5f;
 			ctc.Pos = pos;
 			ctc.Rot = cursor.transform.eulerAngles;
-			print (cursor.transform.localPosition + "\t" + pos);
+			//print (cursor.transform.localPosition + "\t" + pos);
 			prevControlPress = curControlPress;
 		}
 
