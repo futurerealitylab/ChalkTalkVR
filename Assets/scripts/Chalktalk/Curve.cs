@@ -63,7 +63,9 @@ namespace Chalktalk
                     }
                     shape.triangles = indices;
                     Material mymat = new Material(defaultMat);
-                    mymat.SetColor("_EmissionColor", color);
+                    // similar to what chalktalk do to the color
+                    Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
+                    mymat.SetColor("_EmissionColor", c);
                     mr.material = mymat;
                     //mr.material.color = color;
 
