@@ -116,8 +116,8 @@ namespace Chalktalk
 
                 curve.points = points;
                 curve.width = width * 3;
-                // curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
-                curve.color = color;
+                curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
+                //curve.color = color;
                 // zhenyi: not using the chalktalk color
                 //curve.color = new Color(1, 1, 1, 1);
                 curve.type = (ChalktalkDrawType)type;

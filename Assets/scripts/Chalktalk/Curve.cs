@@ -8,10 +8,12 @@ namespace Chalktalk
 {
     public enum ChalktalkDrawType { STROKE, FILL };
 
-    [RequireComponent(typeof(LineRenderer))]
+    
+
+    //[RequireComponent(typeof(LineRenderer))]
     public class Curve : MonoBehaviour
     {
-
+        public Material defaultMat;
         private LineRenderer line;
 
         public List<Vector3> points = new List<Vector3>();
@@ -19,17 +21,12 @@ namespace Chalktalk
         public float width = 0f;
         public int id = 0;
         public ChalktalkDrawType type;
-        public GameObject go;
-
-        private void Awake()
-        {
-            line = GetComponent<LineRenderer>();
-        }
 
         public void Draw()
         {
             switch (type) {
                 case ChalktalkDrawType.STROKE:
+                    line = this.gameObject.AddComponent<LineRenderer>();
                     line.positionCount = points.Count;
                     line.SetPositions(points.ToArray());
                     line.startColor = color;
@@ -42,10 +39,11 @@ namespace Chalktalk
                 case ChalktalkDrawType.FILL:
                     GameObject go = this.gameObject;
                     Mesh shape = go.GetComponent<Mesh>();
+                    MeshRenderer mr = null;
                     MeshFilter filter = null;
                     if (shape == null) {
                         shape = new Mesh();
-                        go.AddComponent<MeshRenderer>();
+                        mr = go.AddComponent<MeshRenderer>();
                         filter = go.AddComponent<MeshFilter>();
                     } else {
                         filter = go.GetComponent<MeshFilter>();
@@ -54,20 +52,45 @@ namespace Chalktalk
 
                     int countSides = points.Count;
                     int countTris = countSides - 2;
-                    int[] indices = new int[countTris * 3];
-                    for (int i = 2; i < countSides; ++i) {
-                        indices[i - 2] = 0;
-                        indices[i - 1] = i - 1;
-                        indices[i] = i;
+                    int[] indices = new int[countTris * 3 * 2];
+                    for (int i = 0, off = 0; i < countTris; ++i, off += 6) {
+                        indices[off] = 0;
+                        indices[off + 1] = i + 1;
+                        indices[off + 2] = i + 2;
+                        indices[off + 3] = 0;
+                        indices[off + 4] = i + 2;
+                        indices[off + 5] = i + 1;
                     }
                     shape.triangles = indices;
+                    Material mymat = new Material(defaultMat);
+                    mymat.SetColor("_EmissionColor", color);
+                    mr.material = mymat;
+                    //mr.material.color = color;
+
+                    //Vector3[] V = {
+                    //    new Vector3(0f, 0f, 0f),
+                    //    new Vector3(1f, 0f, 0f),
+                    //    new Vector3(1f, 1f, 0f),
+                    //    new Vector3(0f, 1f, 0f)
+                    //};
+
+                    //int[] I = {
+                    //    0, 1, 2,
+                    //    2, 3, 0
+                    //};
+
+                    //shape.vertices = V;
+                    //shape.triangles = I;
+                    shape.RecalculateBounds();
+                    shape.RecalculateNormals();
                     
 
                     filter.mesh = shape;
 
                     break;
                 default:
-                    goto case ChalktalkDrawType.STROKE;
+                    //goto case ChalktalkDrawType.STROKE;
+                    break;
             }
 
 
