@@ -2,10 +2,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FRL.Network;
+using FRL.Utility;
+using UnityEngine.UI;
 
 namespace Chalktalk
 {
-    public class Renderer : Holojam.Tools.Trackable
+
+    public class DisplayObj
+    {
+        public string label;
+        public bool isTracked;
+        public byte[] bytes;
+
+        public void updateTracking()
+        {
+            isTracked = XRNetworkClient.IsTracked(label);
+            if(isTracked)
+                bytes = XRNetworkClient.GetBytes(label);
+        }
+
+        public DisplayObj()
+        {
+            label = "label";
+        }
+
+        public DisplayObj(string l)
+        {
+            label = l;
+        }
+    }
+
+    public class Renderer : MonoBehaviour
     {
 
         // For DevDebug
@@ -19,29 +47,27 @@ namespace Chalktalk
         [SerializeField]
         private string label = "Display";
 
+        DisplayObj displayObj;
+
         Chalktalk.Parser ctParser = new Chalktalk.Parser();
 
         public List<Curve> curves = new List<Curve>();
 
-        public override string Label
+        void Start()
         {
-            get { return label; }
+            displayObj = new DisplayObj(label);
+            // To karl: create or assign label to DisplayObj when you need to. And then retrieve bytes through public members.
         }
 
-        public override string Scope
+        protected void Update()
         {
-            get { return ""; }// "Chalktalk"; }
-        }
-
-        protected override void UpdateTracking()
-        {
-            if (this.Tracked)
-            {
                 DestroyCurves();
-                DataViewer = data.bytes;
-                Parse(data.bytes);
+            // get bytes by label
+            displayObj.updateTracking();
+                DataViewer = displayObj.bytes;
+                Parse(displayObj.bytes);
+
                 Draw();
-            }
         }
 
         private void DestroyCurves()
