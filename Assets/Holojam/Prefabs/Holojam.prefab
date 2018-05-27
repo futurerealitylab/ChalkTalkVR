@@ -785,6 +785,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -1248,6 +1249,7 @@ MonoBehaviour:
   smooth: 0
   offset: {x: 0, y: 0, z: 0}
   offsetRot: {x: 0, y: 0, z: 0}
+  cur_mode: 0
   targetTransform: {fileID: 0}
   difference: 1
   correctness: 1
@@ -1260,10 +1262,7 @@ MonoBehaviour:
   correctRotation:
   - {x: 0, y: 0, z: 0, w: 1}
   - {x: 0, y: 0, z: 0, w: 1}
-  isYawOnlyOn: 0
   imuObj: {fileID: 4517024498807934}
-  imuOnly: 0
-  rotationOnly: 0
 --- !u!114 &114978534575245836
 MonoBehaviour:
   m_ObjectHideFlags: 1

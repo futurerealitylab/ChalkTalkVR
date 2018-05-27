@@ -105,7 +105,6 @@
     <Compile Include="Assets\scripts\Chalktalk\Parser.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Renderer.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Utility.cs" />
-    <Compile Include="Assets\scripts\DebugNetwork.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkChalkMaker.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkController.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkLine.cs" />
@@ -115,23 +114,50 @@
     <Compile Include="Assets\scripts\Deprecated\CTRenderer.cs" />
     <Compile Include="Assets\scripts\getRot.cs" />
     <Compile Include="Assets\scripts\GVRViveHeadset.cs" />
+    <Compile Include="Assets\scripts\HolojamRelated\DebugNetwork.cs" />
+    <Compile Include="Assets\scripts\HolojamRelated\MirageHeadset.cs" />
+    <Compile Include="Assets\scripts\HolojamRelated\SyncIMU.cs" />
+    <Compile Include="Assets\scripts\HolojamRelated\TrackedLabelObj.cs" />
     <Compile Include="Assets\scripts\IMUVis.cs" />
-    <Compile Include="Assets\scripts\MirageHeadset.cs" />
     <Compile Include="Assets\scripts\SensorFusionMirage.cs" />
-    <Compile Include="Assets\scripts\Smoothing.cs" />
-    <Compile Include="Assets\scripts\SyncIMU.cs" />
     <Compile Include="Assets\scripts\SyncViveTracker.cs" />
     <Compile Include="Assets\scripts\testVT.cs" />
     <Compile Include="Assets\scripts\TmpEvent.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Canon.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Chunk.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Exchange.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Flake.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Smoothing.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Translation.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\XRNetworkClient.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\XRTrackedObject.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\Flake.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\Nugget.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\NuggetType.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\Vector3.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\Vector4.cs" />
+    <Compile Include="Assets\scripts\Tracking\Utility\Drawer.cs" />
+    <Compile Include="Assets\scripts\Utility\Global.cs" />
+    <Compile Include="Assets\scripts\Utility\MouseLook.cs" />
+    <Compile Include="Assets\scripts\Utility\ObjectByteConverter.cs" />
+    <Compile Include="Assets\scripts\Utility\Smoothing.cs" />
+    <Compile Include="Assets\scripts\Utility\XRSystem.cs" />
+    <Compile Include="Assets\scripts\XR\XRDevice.cs" />
+    <Compile Include="Assets\scripts\XR\XRDriftCorrection.cs" />
+    <Compile Include="Assets\scripts\XR\XRHMD.cs" />
+    <Compile Include="Assets\scripts\XR\XRManager.cs" />
+    <Compile Include="Assets\scripts\XR\XRModel.cs" />
+    <Compile Include="Assets\scripts\XR\XRMouseLook.cs" />
     <Compile Include="Assets\TestLootat.cs" />
     <None Include="Assets\Holojam\SampleConfig.xml" />
     <None Include="Assets\Holojam\HolojamConfig.xml" />
+    <None Include="Assets\scripts\Tracking\Plugins\FlatBuffers\LICENSE.txt" />
     <None Include="Assets\InputSystems-master\README.txt" />
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/FRL/Documents/Karl/ChalkTalkVR/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/FRL/Documents/Karl/ChalkTalkVR/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>C:/Users/FRL/Documents/Karl/ChalkTalkVR/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.0b13/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -310,26 +336,17 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.0b13/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Timeline">
-      <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.0b13/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIAutomation">
-      <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.0b13/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.GoogleAudioSpatializer">
-      <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.0b13/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.0b13/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>C:/Program Files/Unity/Hub/Editor/2018.1.0b13/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Holojam-Core">
       <HintPath>C:/Users/FRL/Documents/Karl/ChalkTalkVR/Assets/Holojam/Holojam-Core.dll</HintPath>
     </Reference>
     <Reference Include="FlatBuffers">
       <HintPath>C:/Users/FRL/Documents/Karl/ChalkTalkVR/Assets/Holojam/Plugins/FlatBuffers.dll</HintPath>
+    </Reference>
+    <Reference Include="FlatBuffers">
+      <HintPath>C:/Users/FRL/Documents/Karl/ChalkTalkVR/Assets/scripts/Tracking/Plugins/FlatBuffers/FlatBuffers.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.4/UnityEngine.Advertisements.dll</HintPath>

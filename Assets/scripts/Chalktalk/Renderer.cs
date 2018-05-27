@@ -14,22 +14,46 @@ namespace Chalktalk
         public string label;
         public bool isTracked;
         public byte[] bytes;
+        public int sliceCount;
+        public int sliceId;
 
-        public void updateTracking()
+        public bool UpdateTracking()
         {
             isTracked = XRNetworkClient.IsTracked(label);
-            if(isTracked)
+            if (isTracked) {
                 bytes = XRNetworkClient.GetBytes(label);
+                sliceCount = XRNetworkClient.GetInt(label, 0);
+                sliceId = XRNetworkClient.GetInt(label, 1);
+                return true;
+            }
+            return false;
+        }
+
+        public bool UpdateTracking(string l) {
+            isTracked = XRNetworkClient.IsTracked(l);
+            if (isTracked) {
+                bytes = XRNetworkClient.GetBytes(l);
+                sliceCount = XRNetworkClient.GetInt(l, 0);
+                sliceId = XRNetworkClient.GetInt(l, 1);
+                return true;
+            }
+            return false;
+        }
+
+        public override string ToString() {
+            return "BYTE LENGTH: " + bytes.Length + " SLICE COUNT: " + sliceCount + " SLICE ID: " + sliceId;
         }
 
         public DisplayObj()
         {
             label = "label";
+            bytes = new byte[0];
         }
 
         public DisplayObj(string l)
         {
             label = l;
+            bytes = new byte[0];
         }
     }
 
@@ -45,7 +69,7 @@ namespace Chalktalk
         public BindingBox bindingBox;
 
         [SerializeField]
-        private string label = "Display";
+        private string label = "Display1";
 
         DisplayObj displayObj;
 
@@ -53,21 +77,78 @@ namespace Chalktalk
 
         public List<Curve> curves = new List<Curve>();
 
+        public List<string> trackedLabels = new List<string>();
+        public uint countBatches = 0;
+        public uint countSlicesArrived = 0;
+
         void Start()
         {
             displayObj = new DisplayObj(label);
+            trackedLabels.Add(label);
             // To karl: create or assign label to DisplayObj when you need to. And then retrieve bytes through public members.
         }
 
+        public int sliceCount = 2;
+
+        public List<byte[]> allBytes = new List<byte[]>();
+
         protected void Update()
         {
-                DestroyCurves();
-            // get bytes by label
-            displayObj.updateTracking();
-                DataViewer = displayObj.bytes;
-                Parse(displayObj.bytes);
+            allBytes.Clear();
+            DestroyCurves();
 
-                Draw();
+            for (int i = 0; i < 2; ++i) {
+                // get bytes by label
+                if (displayObj.UpdateTracking("Display" + (i + 1))) {
+                    DataViewer = displayObj.bytes;
+
+                    Debug.Log("Display" + (i + 1) + " arrived");
+                    Debug.Log("SLICE COUNT: " + displayObj.sliceCount + " SLICE ID: " + displayObj.sliceId);
+                    allBytes.Add(displayObj.bytes);
+
+                    //string s = "{";
+                    //for (int j = 0; j < allBytes[i].Length; ++j) {
+                    //    s += allBytes[i][j] + ", ";
+                    //}
+                    //s += "}";
+                    //Debug.Log(s);
+                } else {
+                    Debug.Log("Display" + (i + 1) + " did not arrive");
+                }
+            }
+
+            int len = 8;
+            for (int i = 0; i < allBytes.Count; ++i) {
+                len += allBytes[i].Length - 8; 
+            }
+
+            byte[] flatBytes = new byte[len];
+            for (int i = 0; i < 8; ++i) {
+                flatBytes[i] = allBytes[0][i];
+            }
+            int ptr = 8;
+            for (int i = 0; i < allBytes.Count; ++i) {
+                for (int j = 8; j < allBytes[i].Length; ++j) {
+                    flatBytes[ptr] = allBytes[i][j];
+                    ++ptr;
+                }
+            }
+
+            string S = "{";
+            for (int i = 0; i < flatBytes.Length; ++i) {
+                S += flatBytes[i] + ", ";
+            }
+            S += "}";
+
+            Debug.Log("LEN: " + flatBytes.Length);
+            Debug.Log(flatBytes);
+
+            if (flatBytes.Length > 0) {
+                ctParser.Parse(flatBytes, this);
+            }
+
+
+            Draw();
         }
 
         private void DestroyCurves()

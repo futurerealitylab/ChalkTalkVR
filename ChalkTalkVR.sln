@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChalkTalkVR", "ChalkTalkVR.csproj", "{95E999E1-C966-2904-DA57-AB70B1E6ADBA}"
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChalkTalkVR", "Assembly-CSharp.csproj", "{A13B4B82-2753-91B3-81ED-04EF4E82F88F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChalkTalkVR.Plugins", "ChalkTalkVR.Plugins.csproj", "{F946B34D-CD4C-8FB7-FDA0-F111A709EDFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChalkTalkVR", "Assembly-CSharp-firstpass.csproj", "{D33FB605-82B6-4881-DA87-4676211664F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChalkTalkVR.Editor", "ChalkTalkVR.Editor.csproj", "{C1A9B537-7F16-52B0-AD7D-0F75FEE4FF03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChalkTalkVR", "Assembly-CSharp-Editor.csproj", "{A4575D7A-D8D4-6119-58BE-655A7ABE9A87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,18 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{95E999E1-C966-2904-DA57-AB70B1E6ADBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95E999E1-C966-2904-DA57-AB70B1E6ADBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95E999E1-C966-2904-DA57-AB70B1E6ADBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95E999E1-C966-2904-DA57-AB70B1E6ADBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F946B34D-CD4C-8FB7-FDA0-F111A709EDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F946B34D-CD4C-8FB7-FDA0-F111A709EDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F946B34D-CD4C-8FB7-FDA0-F111A709EDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F946B34D-CD4C-8FB7-FDA0-F111A709EDFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C1A9B537-7F16-52B0-AD7D-0F75FEE4FF03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C1A9B537-7F16-52B0-AD7D-0F75FEE4FF03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C1A9B537-7F16-52B0-AD7D-0F75FEE4FF03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C1A9B537-7F16-52B0-AD7D-0F75FEE4FF03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A13B4B82-2753-91B3-81ED-04EF4E82F88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A13B4B82-2753-91B3-81ED-04EF4E82F88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A13B4B82-2753-91B3-81ED-04EF4E82F88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A13B4B82-2753-91B3-81ED-04EF4E82F88F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D33FB605-82B6-4881-DA87-4676211664F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D33FB605-82B6-4881-DA87-4676211664F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D33FB605-82B6-4881-DA87-4676211664F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D33FB605-82B6-4881-DA87-4676211664F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4575D7A-D8D4-6119-58BE-655A7ABE9A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4575D7A-D8D4-6119-58BE-655A7ABE9A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4575D7A-D8D4-6119-58BE-655A7ABE9A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4575D7A-D8D4-6119-58BE-655A7ABE9A87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

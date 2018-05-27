@@ -43,6 +43,7 @@ namespace Chalktalk
 
         public void ParseStroke(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
         {
+            // data byte cursor (skip the 8-byte header)
             int cursor = 8;
 
             // The total number of words in this packet, then get the size of the bytes size
