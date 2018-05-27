@@ -144,35 +144,20 @@ namespace Chalktalk
 
             if (!isIdle && slicesArrived == sliceCount) {
                 slicesArrived = 0;
-                //sliceCount = 1;
+                sliceCount = 1;
                 isIdle = true;
 
                 DestroyCurves();
 
-
                 mergedBytes = new byte[batchLen];
-                // copy header from first slice
                 int ptr = 0;
-                Buffer.BlockCopy(allBytes[0], 0, mergedBytes, ptr, 8);
-                //for (; ptr < 8; ++ptr) {
-                //    mergedBytes[ptr] = allBytes[0][ptr];
-                //}
-                ptr += 8;
-
-                // copy the rest of the byte arrays ( TODO send slices from client without duplicate headers per slice)
-                for (uint i = 0; i < allBytes.Length; ++i) {
+                for (int i = 0; i < allBytes.Length; ++i) {
                     byte[] byteSlice = allBytes[i];
-                    Buffer.BlockCopy(byteSlice, 8, mergedBytes, ptr, byteSlice.Length - 8);
-                    //for (uint j = 8; j < byteSlice.Length; ++j) {
-                    //    mergedBytes[ptr] = byteSlice[j];
-                    //    ++ptr;
-                    //}
-                    ptr += (byteSlice.Length - 8);
+                    Buffer.BlockCopy(byteSlice, 0, mergedBytes, ptr, byteSlice.Length);
+                    ptr += byteSlice.Length;
                 }
 
-                if (batchLen != ptr) {
-                    Debug.LogWarningFormat("batch byte length " + batchLen + " does not equal total copied byte length " + ptr);
-                }
+                Debug.AssertFormat(batchLen != ptr, "batch byte length " + batchLen + " does not equal total copied byte length " + ptr);
 
                 //string S = "{";
                 //for (int i = 0; i < mergedBytes.Length; ++i) {
