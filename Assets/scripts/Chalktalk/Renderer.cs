@@ -1,4 +1,7 @@
-﻿using System;
+﻿#define DEBUG_PRINT
+
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,16 +17,20 @@ namespace Chalktalk
         public string label;
         public bool isTracked;
         public byte[] bytes;
+        public int batchByteLength;
         public int sliceCount;
         public int sliceId;
+        public int batchTimestamp;
 
         public bool UpdateTracking()
         {
             isTracked = XRNetworkClient.IsTracked(label);
             if (isTracked) {
                 bytes = XRNetworkClient.GetBytes(label);
-                sliceCount = XRNetworkClient.GetInt(label, 0);
-                sliceId = XRNetworkClient.GetInt(label, 1);
+                batchByteLength = XRNetworkClient.GetInt(label, 0);
+                sliceCount = XRNetworkClient.GetInt(label, 1);
+                sliceId = XRNetworkClient.GetInt(label, 2);
+                batchTimestamp = XRNetworkClient.GetInt(label, 3);
                 return true;
             }
             return false;
@@ -33,15 +40,17 @@ namespace Chalktalk
             isTracked = XRNetworkClient.IsTracked(l);
             if (isTracked) {
                 bytes = XRNetworkClient.GetBytes(l);
-                sliceCount = XRNetworkClient.GetInt(l, 0);
-                sliceId = XRNetworkClient.GetInt(l, 1);
+                batchByteLength = XRNetworkClient.GetInt(l, 0);
+                sliceCount = XRNetworkClient.GetInt(l, 1);
+                sliceId = XRNetworkClient.GetInt(l, 2);
+                batchTimestamp = XRNetworkClient.GetInt(l, 3);
                 return true;
             }
             return false;
         }
 
         public override string ToString() {
-            return "BYTE LENGTH: " + bytes.Length + " SLICE COUNT: " + sliceCount + " SLICE ID: " + sliceId;
+            return "BATCH BYTE LENGTH: " + batchByteLength + ", BYTE LENGTH: " + bytes.Length + ", SLICE COUNT: " + sliceCount + ", SLICE ID: " + sliceId + ", BATCH TIMESTAMP: " + batchTimestamp;
         }
 
         public DisplayObj()
@@ -78,8 +87,6 @@ namespace Chalktalk
         public List<Curve> curves = new List<Curve>();
 
         public List<string> trackedLabels = new List<string>();
-        public uint countBatches = 0;
-        public uint countSlicesArrived = 0;
 
         void Start()
         {
@@ -88,67 +95,95 @@ namespace Chalktalk
             // To karl: create or assign label to DisplayObj when you need to. And then retrieve bytes through public members.
         }
 
-        public int sliceCount = 2;
+        public int batchLen = 0;
+        public int sliceCount = 1;
+        public bool[] sliceArrived = null;
+        public int slicesArrived = 0;
+        public byte[] mergedBytes = null;
+        bool isIdle = true;
+        int timeStamp = -1;
 
-        public List<byte[]> allBytes = new List<byte[]>();
+        public byte[][] allBytes = null;
 
         protected void Update()
         {
-            allBytes.Clear();
-            DestroyCurves();
-
-            for (int i = 0; i < 2; ++i) {
+            for (int i = 0; i < sliceCount; ++i) {
+                if (!isIdle && sliceArrived[i]) {
+                    continue;
+                }
                 // get bytes by label
                 if (displayObj.UpdateTracking("Display" + (i + 1))) {
+                    if (isIdle) {
+                        isIdle = false;
+
+                        sliceCount  = displayObj.sliceCount;
+                        allBytes    = new byte[sliceCount][];
+                        sliceArrived = new bool[sliceCount];
+                        batchLen = displayObj.batchByteLength;
+
+                        timeStamp = displayObj.batchTimestamp;
+
+                    }
+
+
                     DataViewer = displayObj.bytes;
-
+#if DEBUG_PRINT             
                     Debug.Log("Display" + (i + 1) + " arrived");
-                    Debug.Log("SLICE COUNT: " + displayObj.sliceCount + " SLICE ID: " + displayObj.sliceId);
-                    allBytes.Add(displayObj.bytes);
+                    Debug.Log(displayObj);
+#endif
+                    allBytes[i] = displayObj.bytes;
+                    ++slicesArrived;
+                    sliceArrived[i] = true;
 
-                    //string s = "{";
-                    //for (int j = 0; j < allBytes[i].Length; ++j) {
-                    //    s += allBytes[i][j] + ", ";
-                    //}
-                    //s += "}";
-                    //Debug.Log(s);
                 } else {
-                    Debug.Log("Display" + (i + 1) + " did not arrive");
+#if DEBUG_PRINT             
+                    Debug.Log("Display" + (i + 1) + " did not arrive yet");
+#endif
                 }
             }
 
-            int len = 8;
-            for (int i = 0; i < allBytes.Count; ++i) {
-                len += allBytes[i].Length - 8; 
-            }
+            if (!isIdle && slicesArrived == sliceCount) {
+                slicesArrived = 0;
+                //sliceCount = 1;
+                isIdle = true;
 
-            byte[] flatBytes = new byte[len];
-            for (int i = 0; i < 8; ++i) {
-                flatBytes[i] = allBytes[0][i];
-            }
-            int ptr = 8;
-            for (int i = 0; i < allBytes.Count; ++i) {
-                for (int j = 8; j < allBytes[i].Length; ++j) {
-                    flatBytes[ptr] = allBytes[i][j];
-                    ++ptr;
+                DestroyCurves();
+
+
+                mergedBytes = new byte[batchLen];
+                // copy header from first slice
+                int ptr = 0;
+                Buffer.BlockCopy(allBytes[0], 0, mergedBytes, ptr, 8);
+                //for (; ptr < 8; ++ptr) {
+                //    mergedBytes[ptr] = allBytes[0][ptr];
+                //}
+                ptr += 8;
+
+                // copy the rest of the byte arrays ( TODO send slices from client without duplicate headers per slice)
+                for (uint i = 0; i < allBytes.Length; ++i) {
+                    byte[] byteSlice = allBytes[i];
+                    Buffer.BlockCopy(byteSlice, 8, mergedBytes, ptr, byteSlice.Length - 8);
+                    //for (uint j = 8; j < byteSlice.Length; ++j) {
+                    //    mergedBytes[ptr] = byteSlice[j];
+                    //    ++ptr;
+                    //}
+                    ptr += (byteSlice.Length - 8);
                 }
+
+                if (batchLen != ptr) {
+                    Debug.LogWarningFormat("batch byte length " + batchLen + " does not equal total copied byte length " + ptr);
+                }
+
+                //string S = "{";
+                //for (int i = 0; i < mergedBytes.Length; ++i) {
+                //    S += mergedBytes[i] + ", ";
+                //}
+                //S += "}";
+
+                ctParser.Parse(mergedBytes, this);
+
+                Draw();
             }
-
-            string S = "{";
-            for (int i = 0; i < flatBytes.Length; ++i) {
-                S += flatBytes[i] + ", ";
-            }
-            S += "}";
-
-            Debug.Log("LEN: " + flatBytes.Length);
-            Debug.Log(flatBytes);
-
-            if (flatBytes.Length > 0) {
-                ctParser.Parse(flatBytes, this);
-            }
-
-
-            Draw();
         }
 
         private void DestroyCurves()
