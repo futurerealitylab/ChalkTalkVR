@@ -1,4 +1,5 @@
 ﻿#define DEBUG_PRINT
+#define FAIL_FAST
 
 
 using System;
@@ -8,29 +9,33 @@ using UnityEngine;
 using FRL.Network;
 using FRL.Utility;
 using UnityEngine.UI;
+using UnityEditor;
 
 namespace Chalktalk
 {
 
-    public class DisplayObj
-    {
+    public class DisplayObj {
         public string label;
         public bool isTracked;
         public byte[] bytes;
         public int batchByteLength;
         public int sliceCount;
         public int sliceId;
-        public int batchTimestamp;
 
-        public bool UpdateTracking()
-        {
+
+        public int batchTimestamp;
+        public int batchTimestampOverflow;
+
+        public bool UpdateTracking() {
             isTracked = XRNetworkClient.IsTracked(label);
             if (isTracked) {
                 bytes = XRNetworkClient.GetBytes(label);
                 batchByteLength = XRNetworkClient.GetInt(label, 0);
                 sliceCount = XRNetworkClient.GetInt(label, 1);
                 sliceId = XRNetworkClient.GetInt(label, 2);
+
                 batchTimestamp = XRNetworkClient.GetInt(label, 3);
+                batchTimestampOverflow = XRNetworkClient.GetInt(label, 4);
                 return true;
             }
             return false;
@@ -43,18 +48,24 @@ namespace Chalktalk
                 batchByteLength = XRNetworkClient.GetInt(l, 0);
                 sliceCount = XRNetworkClient.GetInt(l, 1);
                 sliceId = XRNetworkClient.GetInt(l, 2);
+
                 batchTimestamp = XRNetworkClient.GetInt(l, 3);
+                batchTimestampOverflow = XRNetworkClient.GetInt(label, 4); // TODO handle very, VERY long runs of Chalktalk lasting beyond 414 days?
                 return true;
             }
             return false;
         }
 
         public override string ToString() {
-            return "BATCH BYTE LENGTH: " + batchByteLength + ", BYTE LENGTH: " + bytes.Length + ", SLICE COUNT: " + sliceCount + ", SLICE ID: " + sliceId + ", BATCH TIMESTAMP: " + batchTimestamp;
+            return 
+                "{BATCH BYTE LENGTH: " + batchByteLength + 
+                ", BYTE LENGTH: " + bytes.Length + 
+                ", SLICE COUNT: " + sliceCount + 
+                ", SLICE ID: " + sliceId + 
+                ", BATCH TIMESTAMP: " + batchTimestamp + ", BATCH TIMESTAMP OVERFLOW: " + batchTimestampOverflow + "}";
         }
 
-        public DisplayObj()
-        {
+        public DisplayObj() {
             label = "label";
             bytes = new byte[0];
         }
@@ -64,7 +75,7 @@ namespace Chalktalk
             label = l;
             bytes = new byte[0];
         }
-    }
+}
 
     public class Renderer : MonoBehaviour
     {
@@ -95,79 +106,149 @@ namespace Chalktalk
             // To karl: create or assign label to DisplayObj when you need to. And then retrieve bytes through public members.
         }
 
-        public int batchLen = 0;
-        public int sliceCount = 1;
-        public bool[] sliceArrived = null;
-        public int slicesArrived = 0;
-        public byte[] mergedBytes = null;
-        bool isIdle = true;
-        int timeStamp = -1;
+        public class BatchData {
+            public int byteLength     = 0;
+            public int slicesArrived  = 0;
+            public byte[][] slices    = null;
+            public ulong timestampKey = 0;
 
-        public byte[][] allBytes = null;
+            public static int timestampMostRecentlyCompleted         = 0;
+            public static int timestampOverflowMostRecentlyCompleted = 0;
+            public static ulong timestampKeyMostRecentlyCompleted    = 0;
+
+            public override string ToString() {
+                return "{KEY: " + timestampKey + ", ARRIVED: " + slicesArrived + ", SLICE COUNT: " + slices.Length + "}";
+            }
+        }
+
+
+        public int sliceCount = 1;
+        public byte[] mergedBytes = null;
+        bool readyToDraw = false;
+
+        public Dictionary<ulong, BatchData> timestampMap = new Dictionary<ulong, BatchData>();
+
+        public BatchData completeBatchData = new BatchData(); // sentinel data to avoid need for null checks
 
         protected void Update()
         {
-            for (int i = 0; i < sliceCount; ++i) {
-                if (!isIdle && sliceArrived[i]) {
+            int labelCount = XRNetworkClient.LabelCount();
+            Debug.Log("LABEL COUNT: " + labelCount);
+            for (int i = 0; i < labelCount; ++i) {
+                // try to update tracking on label (i + 1)
+                if (!displayObj.UpdateTracking("Display" + (i + 1))) {
+#if DEBUG_PRINT
+                    Debug.Log("Display" + (i + 1) + " did not arrive yet: frame: " + Time.frameCount);
+#endif
                     continue;
                 }
-                // get bytes by label
-                if (displayObj.UpdateTracking("Display" + (i + 1))) {
-                    if (isIdle) {
-                        isIdle = false;
-
-                        sliceCount  = displayObj.sliceCount;
-                        allBytes    = new byte[sliceCount][];
-                        sliceArrived = new bool[sliceCount];
-                        batchLen = displayObj.batchByteLength;
-
-                        timeStamp = displayObj.batchTimestamp;
-
-                    }
-
-
-                    DataViewer = displayObj.bytes;
-#if DEBUG_PRINT             
-                    Debug.Log("Display" + (i + 1) + " arrived");
-                    Debug.Log(displayObj);
+                // ignore data belonging to old batches
+                if ((ulong)displayObj.batchTimestamp < BatchData.timestampKeyMostRecentlyCompleted) {
+#if DEBUG_PRINT
+                    Debug.Log("OUTDATED DATA ARRIVED: frame: " + Time.frameCount);
 #endif
-                    allBytes[i] = displayObj.bytes;
-                    ++slicesArrived;
-                    sliceArrived[i] = true;
+                    continue;
+                }
 
+#if DEBUG_PRINT             
+                Debug.Log("Display" + (i + 1) + " arrived: frame: " + Time.frameCount);
+                //Debug.Log(displayObj);
+#endif
+
+                // retrieve or create batch data
+                BatchData batch;
+                // if the timestamp has not been registered, create new batch data
+                if (!timestampMap.TryGetValue((ulong)displayObj.batchTimestamp, out batch)) {
+                    batch = new BatchData {
+                        byteLength = displayObj.batchByteLength,
+                        slices = new byte[displayObj.sliceCount][],
+                        timestampKey = (ulong)displayObj.batchTimestamp,
+                    };
+                    timestampMap[(ulong)displayObj.batchTimestamp] = batch;
+#if DEBUG_PRINT
+                    Debug.Log("BATCH DOES NOT EXIST YET: frame: " + Time.frameCount + " IDX: " + i);
                 } else {
-#if DEBUG_PRINT             
-                    Debug.Log("Display" + (i + 1) + " did not arrive yet");
+                    Debug.Log("BATCH EXISTS: frame: " + Time.frameCount);
 #endif
+                }
+
+                // store byte data as a slice
+                batch.slices[i] = displayObj.bytes;
+
+                ++batch.slicesArrived;
+
+                // if slices arrived matches the expected number of slices for this batch,
+                // mark as complete and for drawing
+#if DEBUG_PRINT
+                Debug.Log(batch + ": " + Time.frameCount);
+
+                Debug.Log(
+                    "CHECKING FOR COMPLETED BATCH: " + 
+                    (batch.slicesArrived == batch.slices.Length &&
+                    batch.timestampKey > completeBatchData.timestampKey) + ": frame: " + Time.frameCount
+                );
+#endif
+
+                if (batch.slicesArrived == batch.slices.Length &&
+                    batch.timestampKey > completeBatchData.timestampKey) 
+                {
+                    completeBatchData = batch;
+                    BatchData.timestampKeyMostRecentlyCompleted = batch.timestampKey;
+                    readyToDraw = true;
                 }
             }
 
-            if (!isIdle && slicesArrived == sliceCount) {
-                slicesArrived = 0;
-                sliceCount = 1;
-                isIdle = true;
+            if (readyToDraw) {
+                readyToDraw = false;
+#if DEBUG_PRINT
+                Debug.Log("DRAWING: frame: " + Time.frameCount);
+#endif
 
-                DestroyCurves();
+                mergedBytes = new byte[completeBatchData.byteLength];
 
-                mergedBytes = new byte[batchLen];
                 int ptr = 0;
-                for (int i = 0; i < allBytes.Length; ++i) {
-                    byte[] byteSlice = allBytes[i];
-                    Buffer.BlockCopy(byteSlice, 0, mergedBytes, ptr, byteSlice.Length);
-                    ptr += byteSlice.Length;
+                {
+                    byte[][] slices = completeBatchData.slices;
+                    int length = slices.Length;
+                    for (int i = 0; i < length; ++i) {
+                        byte[] byteSlice = slices[i];
+
+                        Buffer.BlockCopy(byteSlice, 0, mergedBytes, ptr, byteSlice.Length);
+                        ptr += byteSlice.Length;
+                    }
+                }
+                
+
+                Debug.AssertFormat(completeBatchData.byteLength == ptr, "batch byte length " + completeBatchData.byteLength + " does not equal total copied byte length " + ptr);
+
+                if (completeBatchData.byteLength != ptr) {
+#if FAIL_FAST
+                    EditorApplication.isPlaying = false;
+#else
+                    return;
+#endif
                 }
 
-                Debug.AssertFormat(batchLen != ptr, "batch byte length " + batchLen + " does not equal total copied byte length " + ptr);
+                DataViewer = mergedBytes;
 
-                //string S = "{";
-                //for (int i = 0; i < mergedBytes.Length; ++i) {
-                //    S += mergedBytes[i] + ", ";
-                //}
-                //S += "}";
+                DestroyCurves();
 
                 ctParser.Parse(mergedBytes, this);
 
                 Draw();
+
+//#if DEBUG_PRINT
+                Debug.Log("TIMESTAMP MAP COUNT BEFORE REMOVE OPERATIONS: " + timestampMap.Count + " frame: " + Time.frameCount);
+//#endif
+                List<ulong> toRemove = new List<ulong>();
+                foreach (KeyValuePair<ulong, BatchData> entry in timestampMap) {
+                    if (entry.Key < BatchData.timestampKeyMostRecentlyCompleted) {
+                        toRemove.Add(entry.Key);
+                    }
+                }
+                foreach (ulong key in toRemove) {
+                    timestampMap.Remove(key);
+                }
             }
         }
 

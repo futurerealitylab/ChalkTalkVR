@@ -47,7 +47,10 @@ namespace FRL.Network {
       this.label = label;
       instances.Add(this);
       lookup.Add(label, this);
+      Chunk.mostRecent = this;
     }
+
+    public static Chunk mostRecent = null;
 
     /// <summary>
     /// The difference between the current timestamp and the last.

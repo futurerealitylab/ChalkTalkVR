@@ -94,6 +94,16 @@ namespace FRL.Network {
       return Chunk.lookup[label].data.vector4s[index];
     }
 
+    public static Chunk MostRecentChunk()
+    {
+        return Chunk.mostRecent;
+    }
+
+    public static int LabelCount() 
+    {
+        return Chunk.lookup.Count;
+    }
+
     public static int GetInt(string label, int index) {
       if (!IsTracked(label) || Chunk.lookup[label].data.ints.Length < (index + 1)) return 0;
       return Chunk.lookup[label].data.ints[index];
