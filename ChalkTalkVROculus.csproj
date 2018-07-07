@@ -526,6 +526,7 @@
     <Compile Include="Assets\scripts\Chalktalk\Parser.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Renderer.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Utility.cs" />
+    <Compile Include="Assets\scripts\CurvedUICtrl.cs" />
     <Compile Include="Assets\scripts\DebugNetwork.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkChalkMaker.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkController.cs" />

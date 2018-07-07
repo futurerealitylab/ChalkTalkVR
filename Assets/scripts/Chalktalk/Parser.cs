@@ -43,9 +43,12 @@ namespace Chalktalk
 
         public Vector3 ApplyCurveTransformation(Vector3 p, Renderer renderer)
         {
-            Vector3 positionInCanvasSpace = renderer.mySettings.transform.worldToLocalMatrix.MultiplyPoint3x4(p);
-            p = renderer.mySettings.CanvasToCurvedCanvas(positionInCanvasSpace);
-            //transform.rotation = Quaternion.LookRotation(renderer.mySettings.CanvasToCurvedCanvasNormal(transform.parent.localPosition), transform.parent.up);
+            if(renderer.mySettings != null)
+            {
+                Vector3 positionInCanvasSpace = renderer.mySettings.transform.worldToLocalMatrix.MultiplyPoint3x4(p);
+                p = renderer.mySettings.CanvasToCurvedCanvas(positionInCanvasSpace);
+                //transform.rotation = Quaternion.LookRotation(renderer.mySettings.CanvasToCurvedCanvasNormal(transform.parent.localPosition), transform.parent.up);
+            }
             return p;
         }
 
@@ -130,8 +133,9 @@ namespace Chalktalk
                 curve.points = points;
                 curve.width = width * 3;
                 curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
+                curve.type = (ChalktalkDrawType)type;
                 // zhenyi: not using the chalktalk color
-                curve.color = new Color(1, 1, 1, 1);
+                //curve.color = new Color(1, 1, 1, 1);
                 renderer.curves.Add(curve);
             }
         }

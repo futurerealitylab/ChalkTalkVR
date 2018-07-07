@@ -18,6 +18,8 @@ namespace CurvedUI
         [SerializeField]
         bool hideWhenNotAimingAtCanvas = false;
 
+        public Transform chalktalkCursor;
+
 
         // Update is called once per frame
         protected void Update()
@@ -45,6 +47,7 @@ namespace CurvedUI
                         int selectablesUnderPointer = cuiSettings.GetObjectsUnderPointer().FindAll(x => x.GetComponent<Graphic>() != null && x.GetComponent<Graphic>().depth != -1).Count;
 
                         length = selectablesUnderPointer == 0 ? 10000 : Vector3.Distance(hit.point, this.transform.position);
+                        chalktalkCursor.position = hit.point;
                     }
                     else if (hideWhenNotAimingAtCanvas) length = 0;
                 }
