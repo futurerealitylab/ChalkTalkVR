@@ -41,7 +41,7 @@ namespace CurvedUI
 
         //Cyllinder settings
         [SerializeField]
-        int angle = 90;
+        public int angle = 90;
         [SerializeField]
         bool preserveAspect = true;
 
@@ -63,8 +63,8 @@ namespace CurvedUI
 
 
         //stored variables
-        Vector2 savedRectSize;
-        float savedRadius;
+        public Vector2 savedRectSize;
+        public float savedRadius;
         Canvas myCanvas;
         RectTransform m_rectTransform;
 
