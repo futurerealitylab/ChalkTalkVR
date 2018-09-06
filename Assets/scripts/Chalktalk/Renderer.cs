@@ -141,7 +141,6 @@ namespace Chalktalk
                 int type = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
 
-
                 //Parse the width of the line
                 float width = 0;
 

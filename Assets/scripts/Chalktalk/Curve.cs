@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Chalktalk
 {
-    public enum ChalktalkDrawType { STROKE, FILL };
+    public enum ChalktalkDrawType { STROKE, FILL, TEXT };
 
 
 
@@ -95,6 +95,8 @@ namespace Chalktalk
 
                     filter.mesh = shape;
 
+                    break;
+                case ChalktalkDrawType.TEXT:
                     break;
                 default:
                     //goto case ChalktalkDrawType.STROKE;

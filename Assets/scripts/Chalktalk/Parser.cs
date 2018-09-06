@@ -54,10 +54,20 @@ namespace Chalktalk
 
         public void ParseStroke(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
         {
+            Debug.Log("ParseStroke");
+
+            //string S = "";
+            //foreach (byte b in bytes) {
+            //    S += b + ", ";
+            //}
+            //Debug.Log(S);
+
             int cursor = 8;
 
             // The total number of words in this packet, then get the size of the bytes size
             int curveCount = Utility.ParsetoInt16(bytes, cursor);
+
+            //Debug.Log("CURVE COUNT: " + curveCount);
             cursor += 2;
 
             for (; cursor < bytes.Length;)
@@ -66,7 +76,7 @@ namespace Chalktalk
                 //The length of the current line
                 int length = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
-
+                //Debug.Log("current length:\t" + length);
                 // if the line data is less than 12, we skip this one curve
                 // TODO: implement the new curve module so that we can keep the curve with the same id
                 if (length < 12)
@@ -95,49 +105,70 @@ namespace Chalktalk
                 //Parse the type of the stroke
                 int type = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
-
+                Debug.Log("CT type:" + type);
 
                 //Parse the width of the line
                 float width = 0;
 
+                // parse the stork for type 0 and type 1
+                // TODO: new function for parsing type 2
                 List<Vector3> points = new List<Vector3>();
                 //Debug.Log("Current Line's points count: " + (length - 12) / 4);
                 //Debug.Log("Current Cursor before read the points :" + cursor);
-                for (int j = 0; j < (length - 12) / 4; j++)
-                {
-                    Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
-                    point = Vector3.Scale(point, renderer.bindingBox.transform.localScale);
-                    //Move point to the bindingBox Coordinate
-                    //Debug.Log("bf:" + point);
-                    point = renderer.bindingBox.transform.rotation * point + renderer.bindingBox.transform.position;
-                    //Debug.Log("mid:" + point);
-                    point = ApplyCurveTransformation(point, renderer);
-                    //Debug.Log("af:" + point);
-                    //Apply the point transform for each point
-                    points.Add(point);
-                    //points.Add((rotation * point + translation) * scale);
-                    cursor += 6;
-                    width = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
-                    cursor += 2;
+
+                //Debug.Log("LENGTH: " + length);
+
+                if (type == 2) {
+                    //cursor += (length-12)*2;    // text display with format, header (12 bytes) + n * 2 * 8-bit-char
+                    for(int j = 0; j < (length-12); j++)
+                    {
+                        int curInt = Utility.ParsetoInt16(bytes, cursor);
+                        string curIntBin = System.Convert.ToString(curInt, 2);
+                        int res1 = curInt >> 8;
+                        int res2 = curInt - (res1 << 8);
+                        Debug.Log("curInt: " + curIntBin + "\tres1: " + res1 + "\tres2: " + res2 );
+                        Debug.Log("RES CHAR:" + (char)(res1) + " " + (char)(res2));
+                        cursor += 2;
+                    }
+                } else {
+                    for (int j = 0; j < (length - 12) / 4; j++)
+                    {
+                        Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
+                        point = Vector3.Scale(point, renderer.bindingBox.transform.localScale);
+                        //Move point to the bindingBox Coordinate
+                        //Debug.Log("bf:" + point);
+                        point = renderer.bindingBox.transform.rotation * point + renderer.bindingBox.transform.position;
+                        //Debug.Log("mid:" + point);
+                        point = ApplyCurveTransformation(point, renderer);
+                        //Debug.Log("af:" + point);
+                        //Apply the point transform for each point
+                        points.Add(point);
+                        //points.Add((rotation * point + translation) * scale);
+                        cursor += 6;
+                        width = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
+                        cursor += 2;
+                    }
+
+                    // bold the framework
+                    bool isFrame = boldenFrame(points);
+                    // width *= (isFrame) ? 20.0f : 1.0f;
+
+
+                    Curve curve = GameObject.Instantiate<Curve>(renderer.curvePrefab);
+                    //curve.transform.SetParent(renderer.transform);
+                    curve.transform.SetParent(renderer.curvedParent);
+
+                    curve.points = points;
+                    curve.width = width * 3;
+                    curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
+                    curve.type = (ChalktalkDrawType)type;
+                    // zhenyi: not using the chalktalk color
+                    //curve.color = new Color(1, 1, 1, 1);
+                    renderer.curves.Add(curve);
                 }
-
-                // bold the framework
-                bool isFrame = boldenFrame(points);
-                // width *= (isFrame) ? 20.0f : 1.0f;
-
-
-                Curve curve = GameObject.Instantiate<Curve>(renderer.curvePrefab);
-                //curve.transform.SetParent(renderer.transform);
-                curve.transform.SetParent(renderer.curvedParent);
-
-                curve.points = points;
-                curve.width = width * 3;
-                curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
-                curve.type = (ChalktalkDrawType)type;
-                // zhenyi: not using the chalktalk color
-                //curve.color = new Color(1, 1, 1, 1);
-                renderer.curves.Add(curve);
             }
+
+            Debug.Log("END");
         }
 
         public void ParseProcedureAnimation(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
