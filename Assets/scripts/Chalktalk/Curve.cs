@@ -13,12 +13,19 @@ namespace Chalktalk
     {
         public Material defaultMat;
         private LineRenderer line;
+        private TextMesh textMesh;
 
         public List<Vector3> points = new List<Vector3>();
         public Color color = Color.white;
         public float width = 0f;
         public int id = 0;
+
+        // TODO probably separate into separate structure / code path or make an all-encompassing structure to hold everything
+        public string text;
+
         public ChalktalkDrawType type;
+
+
 
         public void Draw()
         {
@@ -97,6 +104,13 @@ namespace Chalktalk
 
                     break;
                 case ChalktalkDrawType.TEXT:
+                    textMesh = gameObject.AddComponent<TextMesh>();
+                    transform.localRotation = Quaternion.Euler(0, 90, 0);
+                    transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+//                    textMesh.fontSize = 3;
+                    //textMesh.font = Resources.Load("Nevis") as Font;
+                    textMesh.text = text;
+                    textMesh.fontSize = 32;
                     break;
                 default:
                     //goto case ChalktalkDrawType.STROKE;

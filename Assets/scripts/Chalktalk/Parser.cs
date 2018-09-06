@@ -120,15 +120,26 @@ namespace Chalktalk
 
                 if (type == 2) {
                     //cursor += (length-12)*2;    // text display with format, header (12 bytes) + n * 2 * 8-bit-char
+                    string textStr = "";
                     for(int j = 0; j < (length-12); j++)
                     {
                         int curInt = Utility.ParsetoInt16(bytes, cursor);
-                        string curIntBin = System.Convert.ToString(curInt, 2);
                         int res1 = curInt >> 8;
                         int res2 = curInt - (res1 << 8);
-                        Debug.Log("curInt: " + curIntBin + "\tres1: " + res1 + "\tres2: " + res2 );
-                        Debug.Log("RES CHAR:" + (char)(res1) + " " + (char)(res2));
+                        textStr += ((char)res1).ToString() + ((char)res2).ToString();
                         cursor += 2;
+                    }
+                    if (textStr.Length > 0)
+                    {
+                        // do something
+                        Debug.Log("WEE: " + textStr);
+
+                        Curve curve = GameObject.Instantiate<Curve>(renderer.curvePrefab);
+                        //curve.transform.SetParent(renderer.transform);
+                        curve.transform.SetParent(renderer.curvedParent);
+                        curve.type = (ChalktalkDrawType)type;
+                        curve.text = textStr;
+                        renderer.curves.Add(curve);
                     }
                 } else {
                     for (int j = 0; j < (length - 12) / 4; j++)
