@@ -147,6 +147,7 @@ namespace Chalktalk
                         translation = renderer.bindingBox.transform.rotation * translation + renderer.bindingBox.transform.position;
                         translation = ApplyCurveTransformation(translation, renderer);
                         curve.textPos = translation;
+                        curve.textScale = scale;
                     }
                 } else {
                     for (int j = 0; j < (length - 12) / 4; j++)
