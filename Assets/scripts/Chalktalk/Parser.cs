@@ -102,6 +102,8 @@ namespace Chalktalk
                 float scale = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
                 cursor += 2;
 
+                Debug.Log("header transformation:" + translation.ToString("F3") +"\t"+ scale.ToString("F3"));
+
                 //Parse the type of the stroke
                 int type = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
@@ -140,6 +142,11 @@ namespace Chalktalk
                         curve.type = (ChalktalkDrawType)type;
                         curve.text = textStr;
                         renderer.curves.Add(curve);
+                        // TODO
+                        translation = Vector3.Scale(translation, renderer.bindingBox.transform.localScale);
+                        translation = renderer.bindingBox.transform.rotation * translation + renderer.bindingBox.transform.position;
+                        translation = ApplyCurveTransformation(translation, renderer);
+                        curve.textPos = translation;
                     }
                 } else {
                     for (int j = 0; j < (length - 12) / 4; j++)

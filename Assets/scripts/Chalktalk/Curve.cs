@@ -14,6 +14,7 @@ namespace Chalktalk
         public Material defaultMat;
         private LineRenderer line;
         private TextMesh textMesh;
+        public Vector3 textPos;
 
         public List<Vector3> points = new List<Vector3>();
         public Color color = Color.white;
@@ -111,6 +112,7 @@ namespace Chalktalk
                     //textMesh.font = Resources.Load("Nevis") as Font;
                     textMesh.text = text;
                     textMesh.fontSize = 32;
+                    transform.localPosition = textPos;
                     break;
                 default:
                     //goto case ChalktalkDrawType.STROKE;
