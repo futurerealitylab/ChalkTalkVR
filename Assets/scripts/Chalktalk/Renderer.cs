@@ -15,6 +15,10 @@ namespace Chalktalk
         public Curve curvePrefab;
         [SerializeField]
         public BindingBox bindingBox;
+        [SerializeField]
+        public Transform curvedParent;
+
+        public CurvedUI.CurvedUISettings mySettings;
 
         [SerializeField]
         private string label = "Display";
@@ -22,6 +26,12 @@ namespace Chalktalk
         Chalktalk.Parser ctParser = new Chalktalk.Parser();
 
         public List<Curve> curves = new List<Curve>();
+
+        public override void ResetData()
+        {
+            base.ResetData();
+            mySettings = GetComponentInParent<CurvedUI.CurvedUISettings>();
+        }
 
         public override string Label
         {
@@ -48,6 +58,10 @@ namespace Chalktalk
         {
             foreach (Curve curve in curves)
             {
+                if (curve.testMesh)
+                {
+                   DestroyImmediate(curve.testMesh);
+                }
                 DestroyImmediate(curve.gameObject);
             }
             curves.Clear();
@@ -131,7 +145,6 @@ namespace Chalktalk
                 int type = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
 
-
                 //Parse the width of the line
                 float width = 0;
 
@@ -141,6 +154,7 @@ namespace Chalktalk
                 for (int j = 0; j < (length - 12) / 4; j++)
                 {
                     Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
+                    print(point);
                     //point.Scale(bindingBox.transform.localScale);
                     //Move point to the bindingBox Coordinate
                     point = bindingBox.transform.rotation * point + bindingBox.transform.position;

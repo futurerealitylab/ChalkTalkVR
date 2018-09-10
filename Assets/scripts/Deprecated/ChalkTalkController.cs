@@ -11,6 +11,8 @@ public class ChalkTalkController : Holojam.Network.Controller
     [SerializeField]
     bool sending = false;
 
+    public bool sendsetter = false;
+
     // Controller property overrides
 
     public override string Label
@@ -135,6 +137,8 @@ public class ChalkTalkController : Holojam.Network.Controller
     protected override void Update()
     {
         if (!Application.isPlaying) return;
+
+        sending = sendsetter;
 
         //Debug.Log("ControllerTemplate updating", this);
         //Debug.Log(Data);
