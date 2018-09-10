@@ -16,12 +16,14 @@ namespace Chalktalk
         private TextMesh textMesh;
         public Vector3 textPos;
         public float textScale;
-        public static float CT_TEXT_SCALE_FACTOR = 0.638f;
+        public static float CT_TEXT_SCALE_FACTOR = 0.638f * 0.855f;
 
         public List<Vector3> points = new List<Vector3>();
         public Color color = Color.white;
         public float width = 0f;
         public int id = 0;
+
+        public GameObject testMesh;
 
         // TODO probably separate into separate structure / code path or make an all-encompassing structure to hold everything
         public string text;
@@ -107,22 +109,31 @@ namespace Chalktalk
 
                     break;
                 case ChalktalkDrawType.TEXT:
+
+
+                   // goto default;
+
                     textMesh = gameObject.AddComponent<TextMesh>();
+                    textMesh.anchor = TextAnchor.MiddleCenter;
+
+                    // reorient to face towards you
                     transform.localRotation = Quaternion.Euler(0, 90, 0);
                     //transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
 
 //                    textMesh.fontSize = 3;
                     //textMesh.font = Resources.Load("Nevis") as Font;
                     textMesh.text = text;
-                    textMesh.fontSize = 32;
+                    textMesh.fontSize = 355;
+                    textMesh.characterSize = 0.1f;
+                    textMesh.color = color;
                     transform.localPosition = textPos;
+
                     transform.localScale = new Vector3(
-                        textScale * CT_TEXT_SCALE_FACTOR,
-                        textScale * CT_TEXT_SCALE_FACTOR, 1.0f);
+                    textScale* CT_TEXT_SCALE_FACTOR,
+                    textScale *CT_TEXT_SCALE_FACTOR, 1.0f);
 
                     break;
                 default:
-                    //goto case ChalktalkDrawType.STROKE;
                     break;
             }
 

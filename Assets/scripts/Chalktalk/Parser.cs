@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//#define USE_TEST_MESH_FOR_TEXT
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +19,8 @@ namespace Chalktalk
     {
         [SerializeField]
         private Curve curvePrefab;
+
+        public const float TEMP_TEX_Y_OFF = 0.045f;
 
         public ChalkTalkObj Parse(byte[] bytes, Renderer renderer)
         {
@@ -102,8 +106,7 @@ namespace Chalktalk
                 float scale = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
                 cursor += 2;
 
-                Debug.Log("header transformation:" + translation.ToString("F3") +"\t"+ scale.ToString("F3"));
-
+                //Debug.Log("header transformation:" + translation.ToString("F3") +"\t"+ scale.ToString("F3"));
                 //Parse the type of the stroke
                 int type = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
@@ -131,11 +134,7 @@ namespace Chalktalk
                         textStr += ((char)res1).ToString() + ((char)res2).ToString();
                         cursor += 2;
                     }
-                    if (textStr.Length > 0)
-                    {
-                        // do something
-                        Debug.Log("WEE: " + textStr);
-
+                    if (textStr.Length > 0) {
                         Curve curve = GameObject.Instantiate<Curve>(renderer.curvePrefab);
                         //curve.transform.SetParent(renderer.transform);
                         curve.transform.SetParent(renderer.curvedParent);
@@ -143,15 +142,47 @@ namespace Chalktalk
                         curve.text = textStr;
                         renderer.curves.Add(curve);
                         // TODO
+
+                        // translation.y = (-1 + (2 * translation.y)) * (1080.0f / 1920.0f);
+
+                        translation.y -= renderer.bindingBox.transform.position.y;
+                        translation.y *= 1080.0f / 1920.0f;
+                        translation.y += renderer.bindingBox.transform.position.y;
+
                         translation = Vector3.Scale(translation, renderer.bindingBox.transform.localScale);
+
+
+                        //translation.y -= 0.638f / 2;
+                        //translation = Vector3.Scale(translation, new Vector3(scale*0.638f,scale*0.638f,1));
+                        //translation = Vector3.Scale(translation, new Vector3(scale*0.698f,scale*0.698f,1));
+
+
                         translation = renderer.bindingBox.transform.rotation * translation + renderer.bindingBox.transform.position;
                         translation = ApplyCurveTransformation(translation, renderer);
-                        curve.textPos = translation;
+                        curve.textPos = translation + new Vector3(0.0f, -TEMP_TEX_Y_OFF, 0.0f);
                         curve.textScale = scale;
+
+                        curve.color = color;
+
+
+                        //Debug.Log(translation);
+#if USE_TEST_MESH_FOR_TEXT
+                        curve.testMesh = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                        curve.transform.SetParent(renderer.curvedParent);
+                        curve.testMesh.transform.localRotation = Quaternion.Euler(0, 90, 0);
+                        //curve.testMesh.transform.localPosition = new Vector3(0.0f, 0.0f, translation.z);
+                        curve.testMesh.transform.localPosition = translation;
+
+                        curve.testMesh.transform.localScale = // new Vector3((Mathf.Sin(Time.time) + 1.0f) / 2.0f, (Mathf.Sin(Time.time) + 1.0f) / 2.0f, (Mathf.Sin(Time.time) + 1.0f) / 2.0f);
+                            new Vector3(scale, scale, scale);
+
+                        curve.testMesh.transform.Translate(new Vector3(0.0f, -TEMP_TEX_Y_OFF, 0.0f));
+#endif
+
+                        //
                     }
                 } else {
-                    for (int j = 0; j < (length - 12) / 4; j++)
-                    {
+                    for (int j = 0; j < (length - 12) / 4; j++) {
                         Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
                         point = Vector3.Scale(point, renderer.bindingBox.transform.localScale);
                         //Move point to the bindingBox Coordinate
@@ -159,6 +190,7 @@ namespace Chalktalk
                         point = renderer.bindingBox.transform.rotation * point + renderer.bindingBox.transform.position;
                         //Debug.Log("mid:" + point);
                         point = ApplyCurveTransformation(point, renderer);
+                        
                         //Debug.Log("af:" + point);
                         //Apply the point transform for each point
                         points.Add(point);
@@ -179,7 +211,8 @@ namespace Chalktalk
 
                     curve.points = points;
                     curve.width = width * 3;
-                    curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
+                    //curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
+                    curve.color = color;
                     curve.type = (ChalktalkDrawType)type;
                     // zhenyi: not using the chalktalk color
                     //curve.color = new Color(1, 1, 1, 1);

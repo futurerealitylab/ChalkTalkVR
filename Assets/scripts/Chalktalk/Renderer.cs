@@ -58,6 +58,10 @@ namespace Chalktalk
         {
             foreach (Curve curve in curves)
             {
+                if (curve.testMesh)
+                {
+                   DestroyImmediate(curve.testMesh);
+                }
                 DestroyImmediate(curve.gameObject);
             }
             curves.Clear();
