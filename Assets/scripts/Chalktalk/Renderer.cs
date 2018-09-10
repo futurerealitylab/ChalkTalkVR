@@ -58,6 +58,10 @@ namespace Chalktalk
         {
             foreach (Curve curve in curves)
             {
+                if (curve.testMesh)
+                {
+                   DestroyImmediate(curve.testMesh);
+                }
                 DestroyImmediate(curve.gameObject);
             }
             curves.Clear();
@@ -140,7 +144,6 @@ namespace Chalktalk
                 //Parse the type of the stroke
                 int type = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
-
 
                 //Parse the width of the line
                 float width = 0;

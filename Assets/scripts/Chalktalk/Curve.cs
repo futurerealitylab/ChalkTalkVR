@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Chalktalk
 {
-    public enum ChalktalkDrawType { STROKE, FILL };
+    public enum ChalktalkDrawType { STROKE, FILL, TEXT };
 
 
 
@@ -13,12 +13,24 @@ namespace Chalktalk
     {
         public Material defaultMat;
         private LineRenderer line;
+        private TextMesh textMesh;
+        public Vector3 textPos;
+        public float textScale;
+        public static float CT_TEXT_SCALE_FACTOR = 0.638f * 0.855f;
 
         public List<Vector3> points = new List<Vector3>();
         public Color color = Color.white;
         public float width = 0f;
         public int id = 0;
+
+        public GameObject testMesh;
+
+        // TODO probably separate into separate structure / code path or make an all-encompassing structure to hold everything
+        public string text;
+
         public ChalktalkDrawType type;
+
+
 
         public void Draw()
         {
@@ -68,10 +80,20 @@ namespace Chalktalk
                         indices[off + 5] = i + 1;
                     }
                     shape.triangles = indices;
+                    //
+                    string outputPoints = "FILLED SHAPE points:\t";
+                    foreach(Vector3 p in points)
+                        outputPoints  += p.ToString("F3") + "\t";
+                    //Debug.Log(outputPoints);
+                    string outputIndices = "FILLED SHAPE indices:\t";
+                    foreach (int index in indices)
+                        outputIndices += index.ToString("F3") + "\t";
+                    //Debug.Log(outputIndices);
                     Material mymat = new Material(defaultMat);
                     // similar to what chalktalk do to the color
                     c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
                     mymat.SetColor("_EmissionColor", c);
+                    mymat.color = c;
                     mr.material = mymat;
                     //mr.material.color = color;
 
@@ -96,8 +118,32 @@ namespace Chalktalk
                     filter.mesh = shape;
 
                     break;
+                case ChalktalkDrawType.TEXT:
+
+
+                   // goto default;
+
+                    textMesh = gameObject.AddComponent<TextMesh>();
+                    textMesh.anchor = TextAnchor.MiddleCenter;
+
+                    // reorient to face towards you
+                    transform.localRotation = Quaternion.Euler(0, 90, 0);
+                    //transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+
+//                    textMesh.fontSize = 3;
+                    //textMesh.font = Resources.Load("Nevis") as Font;
+                    textMesh.text = text;
+                    textMesh.fontSize = 355;
+                    textMesh.characterSize = 0.1f;
+                    textMesh.color = color;
+                    transform.localPosition = textPos;
+
+                    transform.localScale = new Vector3(
+                    textScale* CT_TEXT_SCALE_FACTOR,
+                    textScale *CT_TEXT_SCALE_FACTOR, 1.0f);
+
+                    break;
                 default:
-                    //goto case ChalktalkDrawType.STROKE;
                     break;
             }
 

@@ -8,19 +8,18 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1332583882693216}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1332583882693216
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4546246896434010}
   - component: {fileID: 114158627861272978}
-  - component: {fileID: 114242345130415658}
   m_Layer: 0
   m_Name: CurvePrefab
   m_TagString: Untagged
@@ -31,7 +30,7 @@ GameObject:
 --- !u!4 &4546246896434010
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332583882693216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -44,7 +43,7 @@ Transform:
 --- !u!114 &114158627861272978
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332583882693216}
   m_Enabled: 1
@@ -52,27 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a9c0d6c8c99ab4d8a4ca6885941326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMat: {fileID: 2100000, guid: 9d04bb20f78059a459d3ece93661194c, type: 2}
+  defaultMat: {fileID: 2100000, guid: 3e3dd24751021a340857c483d6a662ee, type: 2}
+  textPos: {x: 0, y: 0, z: 0}
+  textScale: 0
   points: []
   color: {r: 1, g: 1, b: 1, a: 1}
   width: 0
   id: 0
+  testMesh: {fileID: 0}
+  text: 
   type: 0
---- !u!114 &114242345130415658
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1332583882693216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e62188adca544cf1b96ccf1630f15f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DoNotTesselate: 0
-  savedPos: {x: 0, y: 0, z: 0}
-  savedUp: {x: 0, y: 0, z: 0}
-  savedRectSize: {x: 0, y: 0}
-  savedColor: {r: 0, g: 0, b: 0, a: 0}
-  savedTextUV0: {x: 0, y: 0}
-  savedFill: 0
