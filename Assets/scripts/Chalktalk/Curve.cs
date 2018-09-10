@@ -80,10 +80,20 @@ namespace Chalktalk
                         indices[off + 5] = i + 1;
                     }
                     shape.triangles = indices;
+                    //
+                    string outputPoints = "FILLED SHAPE points:\t";
+                    foreach(Vector3 p in points)
+                        outputPoints  += p.ToString("F3") + "\t";
+                    //Debug.Log(outputPoints);
+                    string outputIndices = "FILLED SHAPE indices:\t";
+                    foreach (int index in indices)
+                        outputIndices += index.ToString("F3") + "\t";
+                    //Debug.Log(outputIndices);
                     Material mymat = new Material(defaultMat);
                     // similar to what chalktalk do to the color
                     c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
                     mymat.SetColor("_EmissionColor", c);
+                    mymat.color = c;
                     mr.material = mymat;
                     //mr.material.color = color;
 
