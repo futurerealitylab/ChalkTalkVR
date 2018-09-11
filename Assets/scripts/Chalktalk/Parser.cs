@@ -58,7 +58,7 @@ namespace Chalktalk
 
         public void ParseStroke(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
         {
-            Debug.Log("ParseStroke");
+            //Debug.Log("ParseStroke");
 
             //string S = "";
             //foreach (byte b in bytes) {
@@ -110,7 +110,7 @@ namespace Chalktalk
                 //Parse the type of the stroke
                 int type = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
-                Debug.Log("CT type:" + type);
+                //Debug.Log("CT type:" + type);
 
                 //Parse the width of the line
                 float width = 0;
@@ -220,7 +220,7 @@ namespace Chalktalk
                 }
             }
 
-            Debug.Log("END");
+            //Debug.Log("END");
         }
 
         public void ParseProcedureAnimation(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
