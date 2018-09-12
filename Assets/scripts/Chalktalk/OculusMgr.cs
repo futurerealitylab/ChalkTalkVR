@@ -159,10 +159,12 @@ public class OculusMgr : MonoBehaviour {
             case DeviceType.OCULUS_RIFT:
                 {
                     OVRInput.Controller activeController = OVRInput.GetActiveController();
-                    if (activeController == OVRInput.Controller.None)
+                    if (activeController != OVRInput.Controller.LTouch && activeController != OVRInput.Controller.RTouch)
                         return;
 
-                    cursor.transform.position = bindingBox.GetBoundPosition(oculusCtrls[activeController - OVRInput.Controller.LTouch].gameObject.transform.position, BindingBox.Plane.Z, true);
+                    int ctrlIdx = activeController - OVRInput.Controller.LTouch;
+                    cursor.transform.position = bindingBox.GetBoundPosition(oculusCtrls[ctrlIdx].gameObject.transform.position, 
+                        BindingBox.Plane.Z, true);
 
                     curControlPress = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
 
