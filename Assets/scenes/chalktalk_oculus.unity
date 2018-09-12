@@ -2507,7 +2507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1043250332
 Transform:
   m_ObjectHideFlags: 0
@@ -2532,6 +2532,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf630429873c818469b1baaf05e710f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curControlThumbClick: 0
+  curControlOne: 0
+  curControlThree: 0
+  currentVirtualBoard: {fileID: 1987635971}
+  state: 0
 --- !u!1 &1111023761
 GameObject:
   m_ObjectHideFlags: 0
@@ -3960,6 +3965,7 @@ GameObject:
   - component: {fileID: 1987635968}
   - component: {fileID: 1987635967}
   - component: {fileID: 1987635972}
+  - component: {fileID: 1987635973}
   m_Layer: 0
   m_Name: Chalktalk (3)
   m_TagString: Untagged
@@ -4065,6 +4071,22 @@ MonoBehaviour:
   - {fileID: 333015661}
   deviceType: 0
   sendMouseMove: 1
+--- !u!114 &1987635973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1987635966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf630429873c818469b1baaf05e710f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curControlThumbClick: 0
+  curControlOne: 0
+  curControlThree: 0
+  currentVirtualBoard: {fileID: 1987635971}
+  state: 0
 --- !u!1 &2047169417
 GameObject:
   m_ObjectHideFlags: 0

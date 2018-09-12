@@ -8,10 +8,18 @@ public class ScreenshotMgr : MonoBehaviour {
     List<GameObject> staticCurveObjs;
 
     public bool curControlThumbClick, curControlOne, curControlThree;
+    public Transform currentVirtualBoard;
+    public bool state;
+
+    float countdown = 2f;
+
+    private ChalkTalkController ctc;
 
     // Use this for initialization
     void Start () {
         staticCurveObjs = new List<GameObject>();
+        state = false;
+        ctc = gameObject.GetComponent<ChalkTalkController>();
     }
 	
 	// Update is called once per frame
@@ -19,11 +27,25 @@ public class ScreenshotMgr : MonoBehaviour {
         curControlThumbClick = OVRInput.Get(OVRInput.Button.PrimaryThumbstick);
         curControlOne = OVRInput.Get(OVRInput.Button.One);
         curControlThree = OVRInput.Get(OVRInput.Button.Three);
-        if (curControlOne || curControlThree) {
-            print("thumb click");
-            SaveScreenShot();
+        if (state) {
+            countdown -= Time.deltaTime;
+            if (countdown < 0) {
+                state = false;
+                countdown = 2;
+
+            }
+            ctc.Wipe = 0;
         }
 
+        if (!state && (curControlOne || curControlThree)) {
+            print("click down");
+            state = true;
+            SaveScreenShot();
+            // send to chalktalk
+            ctc.Wipe = 3;
+        }
+        
+        // after two seconds, restore state;
     }
 
     public void SaveScreenShot()
@@ -39,5 +61,7 @@ public class ScreenshotMgr : MonoBehaviour {
             go.SetActive(false);
             //staticCurveObjs[staticCurveObjs.Count - 1].transform.parent = transform;
         }
+        // move the virtual board
+        currentVirtualBoard.position += Vector3.one;
     }
 }
