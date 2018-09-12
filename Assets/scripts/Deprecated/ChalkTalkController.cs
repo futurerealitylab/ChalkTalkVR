@@ -41,7 +41,8 @@ public class ChalkTalkController : Holojam.Network.Controller
     }
 
 
-
+    // 0,1,2 means mouse up and down
+    
     public int Data
     {
         get
@@ -51,6 +52,15 @@ public class ChalkTalkController : Holojam.Network.Controller
         set
         {
             data.ints[0] = value;
+        }
+    }
+    // 3 means wipe aka save
+    public int Wipe {
+        get {
+            return data.ints[1];
+        }
+        set {
+            data.ints[1] = value;
         }
     }
 
@@ -168,7 +178,7 @@ public class ChalkTalkController : Holojam.Network.Controller
     public override void ResetData()
     {
         data = new Holojam.Network.Flake(
-          2, 0, 2, 1, 0, false
+          2, 0, 2, 2, 0, false
         );
     }
 }

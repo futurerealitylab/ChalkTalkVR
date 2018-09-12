@@ -77,7 +77,7 @@ public class AvatarManager : Holojam.Network.Controller {
             Oculus.Avatar.CAPI.ovrAvatarPacket_Write(args.Packet.ovrNativePacket, size, avatardata);
             latestPosture.Clear();
             latestPosture.AddRange(avatardata);
-            print("send seq: " + localSequence);
+            //print("send seq: " + localSequence);
             //print("send size: " + size + "\t" + (int)size);
             //print("send avatardata: " + BitConverter.ToString(avatardata));
             // end of trick
