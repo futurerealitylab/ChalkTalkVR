@@ -474,8 +474,8 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 146131493}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.625, y: 0.625, z: 0.5}
   m_Children:
   - {fileID: 132322379}
@@ -2532,11 +2532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf630429873c818469b1baaf05e710f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curControlThumbClick: 0
-  curControlOne: 0
-  curControlThree: 0
-  currentVirtualBoard: {fileID: 1987635971}
-  state: 0
 --- !u!1 &1111023761
 GameObject:
   m_ObjectHideFlags: 0
@@ -4079,7 +4074,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1987635966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf630429873c818469b1baaf05e710f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b45daca4ac470e41aad725136dace9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   curControlThumbClick: 0

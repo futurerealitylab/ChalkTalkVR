@@ -145,11 +145,12 @@ namespace Chalktalk
 
                         // translation.y = (-1 + (2 * translation.y)) * (1080.0f / 1920.0f);
 
-                        translation.y -= renderer.bindingBox.transform.position.y;
-                        translation.y *= 1080.0f / 1920.0f;
-                        translation.y += renderer.bindingBox.transform.position.y;
-
                         translation = Vector3.Scale(translation, renderer.bindingBox.transform.localScale);
+
+                        //translation.y -= renderer.bindingBox.transform.position.y;
+                        //translation.y *= 1080.0f / 1920.0f;
+                        //translation.y += renderer.bindingBox.transform.position.y;
+
 
 
                         //translation.y -= 0.638f / 2;
@@ -159,7 +160,7 @@ namespace Chalktalk
 
                         translation = renderer.bindingBox.transform.rotation * translation + renderer.bindingBox.transform.position;
                         translation = ApplyCurveTransformation(translation, renderer);
-                        curve.textPos = translation + new Vector3(0.0f, -TEMP_TEX_Y_OFF, 0.0f);
+                        curve.textPos = translation; //+ new Vector3(0.0f, -TEMP_TEX_Y_OFF, 0.0f);
                         curve.textScale = scale;
 
                         curve.color = color;
