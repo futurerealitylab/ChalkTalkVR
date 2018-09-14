@@ -330,12 +330,14 @@
     <Compile Include="Assets\OculusPlatform\Scripts\WindowsPlatform.cs" />
     <Compile Include="Assets\scripts\ActivityToggler.cs" />
     <Compile Include="Assets\scripts\Avatars\AvatarManager.cs" />
+    <Compile Include="Assets\scripts\Avatars\RoleCtrl.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Curve.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Events.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Manager.cs" />
     <Compile Include="Assets\scripts\Chalktalk\OculusMgr.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Parser.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Renderer.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\ScreenshotMgr.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Utility.cs" />
     <Compile Include="Assets\scripts\CurvedUICtrl.cs" />
     <Compile Include="Assets\scripts\DebugNetwork.cs" />
@@ -358,6 +360,7 @@
     <Compile Include="Assets\scripts\testVT.cs" />
     <Compile Include="Assets\scripts\TmpEvent.cs" />
     <Compile Include="Assets\TestLootat.cs" />
+    <Compile Include="Assets\WorldInitializer.cs" />
     <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_PC_SingleComponent.shader" />
     <None Include="Assets\Oculus\VR\Resources\OVRMRUnlitTransparent.shader" />
     <None Include="Assets\Oculus\VR\Resources\OVRMRChromaKey.cginc" />
