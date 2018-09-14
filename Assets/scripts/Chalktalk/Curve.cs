@@ -33,7 +33,6 @@ namespace Chalktalk
         public ChalktalkDrawType type;
 
 
-
         public void Draw()
         {
             switch (type)
@@ -45,6 +44,8 @@ namespace Chalktalk
                     Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
                     line.startColor = c;
                     line.endColor = c;
+                    line.numCornerVertices = 20;
+                    line.numCapVertices = 20;
                     line.material = defaultMat;
                     line.material.color = c;
                     line.material.SetColor("_EmissionColor", c);

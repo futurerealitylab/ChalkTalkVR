@@ -212,7 +212,7 @@ namespace Chalktalk
                     curve.transform.SetParent(renderer.curvedParent);
 
                     curve.points = points;
-                    curve.width = width * 3;
+                    curve.width = width * 3 * 0.25f;
                     //curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
                     curve.color = color;
                     curve.type = (ChalktalkDrawType)type;
