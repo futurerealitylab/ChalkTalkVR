@@ -7,10 +7,11 @@ public class RoleCtrl : MonoBehaviour {
     public enum Role { Presentor, Audience};
     public Role role;
 
-    public Transform world, mirrorWorld;
+    Transform world, mirrorWorld;
+    public Transform Chalktalkboard, mycmr, localAvatar, remoteAvatar;
 
-    // Use this for initialization
-    void Start () {
+    void unused()
+    {
         switch (role) {
             case Role.Presentor:
                 // presentor will see himself mirrored, so only remoteAvatar in world
@@ -39,7 +40,29 @@ public class RoleCtrl : MonoBehaviour {
                 break;
             default:
                 break;
-        }	
+        }
+    }
+
+    void tryint()
+    {
+        switch (role) {
+            case Role.Audience:
+                localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                mycmr.localRotation = Quaternion.Euler(0, 180, 0);
+                Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
+                break;
+            case Role.Presentor:
+                remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
+        tryint();
 	}
 	
 	// Update is called once per frame

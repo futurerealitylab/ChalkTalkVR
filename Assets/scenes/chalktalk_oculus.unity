@@ -1860,9 +1860,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfb6ed36bdda2541910c528aa9c0e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  role: 1
-  world: {fileID: 1597395180}
-  mirrorWorld: {fileID: 1637513672}
+  role: 0
+  Chalktalkboard: {fileID: 146131498}
+  mycmr: {fileID: 1958001893}
+  localAvatar: {fileID: 419024763}
+  remoteAvatar: {fileID: 1585279308}
 --- !u!4 &652935228
 Transform:
   m_ObjectHideFlags: 0
@@ -3567,7 +3569,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 143252, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 143252, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
       propertyPath: m_Name
@@ -3852,7 +3854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1637513671
 MonoBehaviour:
   m_ObjectHideFlags: 0
