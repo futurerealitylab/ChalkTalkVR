@@ -8,7 +8,7 @@ using System.Text;
 
 public class AvatarManager : Holojam.Network.Controller {
     [SerializeField]
-    private string label = "Avatar1";
+    public string label = "Avatar1";
 
     public override void ResetData()
     {

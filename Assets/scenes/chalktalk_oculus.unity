@@ -1386,7 +1386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e13f6bd8e6a9a34eb35bd1e73b5a97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: Avatar1
+  label: Avatar2
   ovrAvatar: {fileID: 419024761}
   isLocal: 1
 --- !u!114 &419024761 stripped
@@ -1857,10 +1857,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 652935226}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdfb6ed36bdda2541910c528aa9c0e2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b1cc85cdd7ce0c49b03ec894c99cd88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  role: 0
+  role: 1
   Chalktalkboard: {fileID: 146131498}
   mycmr: {fileID: 1958001893}
   localAvatar: {fileID: 419024763}
@@ -3605,7 +3605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e13f6bd8e6a9a34eb35bd1e73b5a97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: Avatar2
+  label: Avatar1
   ovrAvatar: {fileID: 1585279310}
   isLocal: 0
 --- !u!1 &1590671663
@@ -4052,6 +4052,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b45daca4ac470e41aad725136dace9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curControlThumbClick: 0
+  curControlOne: 0
+  curControlThree: 0
+  currentVirtualBoard: {fileID: 0}
+  state: 0
 --- !u!114 &1665753222
 MonoBehaviour:
   m_ObjectHideFlags: 0

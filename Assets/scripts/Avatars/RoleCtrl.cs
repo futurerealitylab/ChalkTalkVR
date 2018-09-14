@@ -9,6 +9,7 @@ public class RoleCtrl : MonoBehaviour {
 
     Transform world, mirrorWorld;
     public Transform Chalktalkboard, mycmr, localAvatar, remoteAvatar;
+    public string localLabel, remoteLabel;
 
     void unused()
     {
@@ -67,7 +68,10 @@ public class RoleCtrl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         tryint();
-	}
+        localAvatar.GetComponent<AvatarManager>().label = localLabel;
+        remoteAvatar.GetComponent<AvatarManager>().label = remoteLabel;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
