@@ -201,6 +201,7 @@ public class OculusMgr : MonoBehaviour {
 
     float curControlPress = 0;
     float prevControlPress = 0;
+    public Vector3 pos;
 	private void Update() {
         //OVRInput.Update ();
 
@@ -210,15 +211,18 @@ public class OculusMgr : MonoBehaviour {
         if (cursor) {
             MapOculusInput();
 
-            Vector3 pos = cursor.transform.localPosition;
+            pos = cursor.transform.localPosition;
+            //Vector3 pos = cursor.transform.position;
             // 			pos.y = -pos.y + (float)GetResolution (resolutionType).height / (float)GetResolution (resolutionType).width * 5f/*width of the plane*/ - 1;
             // 			pos.y /= ((float)GetResolution (resolutionType).height / (float)GetResolution (resolutionType).width * 5f);
             // 			pos.z = -pos.z + 5f / 2f;
             // 			pos.z /= 5f;
             float scale = (float)GetResolution(resolutionType).width / (float)GetResolution(resolutionType).height;
-            pos.y = (-pos.y - 0.5f) / scale + 1f;
-            pos.z = -pos.z / 3 + 0.5f;
-            ctc.Pos = pos;
+            Vector3 newpos = pos;
+            // because bindingbox is rotated by 90 degree in y axis, so x->-z z->x
+            newpos.y = (-pos.y / bindingBox.transform.localScale.x / 2 * scale + 0.5f);// / scale;
+            newpos.z = -pos.z/bindingBox.transform.localScale.x/2 + 0.5f;
+            ctc.Pos = newpos;
 			ctc.Rot = cursor.transform.eulerAngles;
 			//print (cursor.transform.localPosition + "\t" + pos);
 			prevControlPress = curControlPress;
