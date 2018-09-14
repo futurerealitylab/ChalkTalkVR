@@ -70,7 +70,8 @@ public class RoleCtrl : MonoBehaviour {
         tryint();
         localAvatar.GetComponent<AvatarManager>().label = localLabel;
         remoteAvatar.GetComponent<AvatarManager>().label = remoteLabel;
-
+        Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection = (role == Role.Audience) ? 270 : 90;
+        print("Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection:" + Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection);
     }
 	
 	// Update is called once per frame

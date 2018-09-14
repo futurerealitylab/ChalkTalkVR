@@ -23,7 +23,9 @@ namespace Chalktalk
         public float width = 0f;
         public int id = 0;
 
-        public GameObject testMesh;
+        public float facingDirection;
+
+        //public GameObject testMesh;
 
         // TODO probably separate into separate structure / code path or make an all-encompassing structure to hold everything
         public string text;
@@ -127,7 +129,7 @@ namespace Chalktalk
                     textMesh.anchor = TextAnchor.MiddleCenter;
 
                     // reorient to face towards you
-                    transform.localRotation = Quaternion.Euler(0, 90, 0);
+                    transform.localRotation = Quaternion.Euler(0, facingDirection, 0);
                     //transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
 
 //                    textMesh.fontSize = 3;

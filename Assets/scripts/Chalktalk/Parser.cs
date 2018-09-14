@@ -142,7 +142,8 @@ namespace Chalktalk
                         curve.text = textStr;
                         renderer.curves.Add(curve);
                         // TODO
-
+                        curve.facingDirection = renderer.facingDirection;
+                        Debug.Log("curve.facingDirection = renderer.facingDirection: " + curve.facingDirection);
                         // translation.y = (-1 + (2 * translation.y)) * (1080.0f / 1920.0f);
 
                         translation = Vector3.Scale(translation, renderer.bindingBox.transform.localScale);
