@@ -48,12 +48,16 @@ public class RoleCtrl : MonoBehaviour {
         switch (role) {
             case Role.Audience:
                 localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                //localAvatar.localScale = Vector3.back;
                 mycmr.localRotation = Quaternion.Euler(0, 180, 0);
-                Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
+                //mycmr.localScale = Vector3.back;
+                //Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
+                //Chalktalkboard.localScale = Vector3.back;
                 break;
             case Role.Presentor:
                 remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
-                
+                //remoteAvatar.localScale = Vector3.back;
+
                 break;
             default:
                 break;
