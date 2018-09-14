@@ -1865,6 +1865,8 @@ MonoBehaviour:
   mycmr: {fileID: 1958001893}
   localAvatar: {fileID: 419024763}
   remoteAvatar: {fileID: 1585279308}
+  localLabel: zhenyi
+  remoteLabel: karl
 --- !u!4 &652935228
 Transform:
   m_ObjectHideFlags: 0
@@ -2607,11 +2609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf630429873c818469b1baaf05e710f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curControlThumbClick: 0
-  curControlOne: 0
-  curControlThree: 0
-  currentVirtualBoard: {fileID: 0}
-  state: 0
 --- !u!1 &1079516539
 GameObject:
   m_ObjectHideFlags: 0
@@ -3685,8 +3682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc330b1c4f3758641aacd94cb0990ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setAngle: 0
-  angle: 180
 --- !u!1 &1634319435
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,8 +3861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc330b1c4f3758641aacd94cb0990ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setAngle: 1
-  angle: 180
 --- !u!4 &1637513672
 Transform:
   m_ObjectHideFlags: 0
@@ -3992,7 +3985,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11437430, guid: 84c8b8609f9bb434eaf5248f17ff1293, type: 2}
       propertyPath: ShowThirdPerson
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 158226, guid: 84c8b8609f9bb434eaf5248f17ff1293, type: 2}
       propertyPath: m_IsActive
