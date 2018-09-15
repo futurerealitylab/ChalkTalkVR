@@ -14,7 +14,7 @@ namespace Chalktalk
         public Material defaultMat;
         private LineRenderer line;
         private TextMesh textMesh;
-        public Vector3 textPos;
+        public Vector3 textPos = Vector3.zero;
         public float textScale;
         public static float CT_TEXT_SCALE_FACTOR = 0.638f * 0.855f;
 
@@ -139,7 +139,15 @@ namespace Chalktalk
                     textMesh.fontSize = 355;
                     textMesh.characterSize = 0.1f;
                     textMesh.color = color;
-                    transform.localPosition = textPos;
+                    if (!float.IsNaN(textPos.x))
+                    {
+                        transform.localPosition = textPos;
+                    }
+                    else
+                    {
+                        transform.localPosition = Vector3.zero;
+                    }
+                    
 
                     transform.localScale = new Vector3(
                     textScale* CT_TEXT_SCALE_FACTOR,
