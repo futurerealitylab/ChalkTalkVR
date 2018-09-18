@@ -8,8 +8,10 @@ public class RoleCtrl : MonoBehaviour {
     public Role role;
 
     Transform world, mirrorWorld;
-    public Transform Chalktalkboard, mycmr, localAvatar, remoteAvatar;
-    public string localLabel, remoteLabel;
+    public Transform Chalktalkboard, mycmr, localAvatar;
+    public Transform [] remoteAvatars;
+    public string localLabel;
+    public string [] remoteLabels;
 
     void unused()
     {
@@ -56,7 +58,8 @@ public class RoleCtrl : MonoBehaviour {
                 //Chalktalkboard.localScale = Vector3.back;
                 break;
             case Role.Presentor:
-                remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                foreach(Transform remoteAvatar in remoteAvatars)
+                    remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
                 //remoteAvatar.localScale = Vector3.back;
 
                 break;
@@ -69,7 +72,8 @@ public class RoleCtrl : MonoBehaviour {
     void Start () {
         tryint();
         localAvatar.GetComponent<AvatarManager>().label = localLabel;
-        remoteAvatar.GetComponent<AvatarManager>().label = remoteLabel;
+        for(int i = 0; i < remoteLabels.Length; i++)
+            remoteAvatars[i].GetComponent<AvatarManager>().label = remoteLabels[i];
         Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection = (role == Role.Audience) ? 270 : 90;
         print("Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection:" + Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection);
     }

@@ -1574,6 +1574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localSpace: 1
   smooth: 0
+  facingDirection: 0
   DataViewer: 
   curvePrefab: {fileID: 114158627861272978, guid: 7234d5b2ee84ae24688376becf7216ff,
     type: 2}
@@ -1864,9 +1865,13 @@ MonoBehaviour:
   Chalktalkboard: {fileID: 146131498}
   mycmr: {fileID: 1958001893}
   localAvatar: {fileID: 419024763}
-  remoteAvatar: {fileID: 1585279308}
+  remoteAvatars:
+  - {fileID: 1585279308}
+  - {fileID: 1741654298}
   localLabel: zhenyi
-  remoteLabel: karl
+  remoteLabels:
+  - A1
+  - A2
 --- !u!4 &652935228
 Transform:
   m_ObjectHideFlags: 0
@@ -3482,6 +3487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localSpace: 1
   smooth: 0
+  facingDirection: 0
   DataViewer: 
   curvePrefab: {fileID: 114158627861272978, guid: 7234d5b2ee84ae24688376becf7216ff,
     type: 2}
@@ -3668,6 +3674,7 @@ Transform:
   - {fileID: 374330997}
   - {fileID: 1958001893}
   - {fileID: 22042141}
+  - {fileID: 1741654298}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4110,6 +4117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localSpace: 1
   smooth: 0
+  facingDirection: 0
   DataViewer: 
   curvePrefab: {fileID: 114158627861272978, guid: 7234d5b2ee84ae24688376becf7216ff,
     type: 2}
@@ -4134,6 +4142,90 @@ MonoBehaviour:
   cursor: {fileID: 1232031332}
   keyText: {fileID: 794762748}
   sendMouseMove: 1
+--- !u!1001 &1741654297
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1597395180}
+    m_Modifications:
+    - target: {fileID: 496618, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496618, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496618, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496618, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496618, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496618, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496618, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 496618, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11464902, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: StartWithControllers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 143252, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 143252, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+      propertyPath: m_Name
+      value: RemoteAvatar2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 90bf33f968e6bb44ea0208fc82c90a44, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!4 &1741654298 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 496618, guid: 90bf33f968e6bb44ea0208fc82c90a44,
+    type: 2}
+  m_PrefabInternal: {fileID: 1741654297}
+--- !u!1 &1741654299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 143252, guid: 90bf33f968e6bb44ea0208fc82c90a44,
+    type: 2}
+  m_PrefabInternal: {fileID: 1741654297}
+--- !u!114 &1741654300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11464902, guid: 90bf33f968e6bb44ea0208fc82c90a44,
+    type: 2}
+  m_PrefabInternal: {fileID: 1741654297}
+  m_Script: {fileID: 11500000, guid: 00f3402a2ea5bff4880c0313515240cd, type: 3}
+--- !u!114 &1741654301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1741654299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e13f6bd8e6a9a34eb35bd1e73b5a97b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: Avatar1
+  ovrAvatar: {fileID: 1741654300}
+  isLocal: 0
 --- !u!1 &1746754224
 GameObject:
   m_ObjectHideFlags: 0
@@ -4574,6 +4666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localSpace: 1
   smooth: 0
+  facingDirection: 0
   DataViewer: 
   curvePrefab: {fileID: 114158627861272978, guid: 7234d5b2ee84ae24688376becf7216ff,
     type: 2}
