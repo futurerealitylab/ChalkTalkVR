@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Focus_Type
+public enum Gaze_Type
 {
     NONE          = 0,
     AUDIENCE_A    = 1,
@@ -15,10 +15,10 @@ public enum Focus_Type
 
 
 
-public struct FocusData
+public struct GazeData
 {
-    public Focus_Type typeParticipant;
-    public Focus_Type typeBoard;
+    public Gaze_Type typeParticipant;
+    public Gaze_Type typeBoard;
     public Vector3 focusPointParticipantA;
     public Vector3 focusPointParticipantB;
     public Vector3 focusPointBoard;
@@ -33,13 +33,13 @@ public class FocusDataPoint
 {
     public float time;
     public int frame;
-    public FocusData presenter;
-    public FocusData audienceA;
-    public FocusData audienceB;
+    public GazeData presenter;
+    public GazeData audienceA;
+    public GazeData audienceB;
 
     public FocusDataPoint() {
-        presenter.typeParticipant = Focus_Type.NONE;
-        presenter.typeBoard = Focus_Type.BOARD;
+        presenter.typeParticipant = Gaze_Type.NONE;
+        presenter.typeBoard = Gaze_Type.BOARD;
     }
 
     public override string ToString()

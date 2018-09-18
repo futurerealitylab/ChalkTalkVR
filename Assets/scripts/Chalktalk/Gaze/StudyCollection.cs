@@ -74,10 +74,10 @@ public class StudyCollection : MonoBehaviour {
         RaycastHit hitPAA;
         if (Physics.Raycast(this.presenter.transform.position, this.presenter.transform.forward, out hitPAA, Mathf.Infinity, this.layerA))
         {
-            if (hitPAA.collider.gameObject == audienceA)
+            //if (hitPAA.collider.gameObject == audienceA)
             {
                 //Debug.Log("PRESENTER LOOKS AT AUDIENCE A");
-                F.presenter.typeParticipant = Focus_Type.AUDIENCE_A;
+                F.presenter.typeParticipant = Gaze_Type.AUDIENCE_A;
                 F.presenter.focusPointParticipantA = hitPAA.point;
             }
         }
@@ -85,9 +85,9 @@ public class StudyCollection : MonoBehaviour {
         RaycastHit hitPAB;
         if (Physics.Raycast(this.presenter.transform.position, this.presenter.transform.forward, out hitPAB, Mathf.Infinity, this.layerB))
         {
-            if (hitPAB.collider.gameObject == audienceB)
+            //if (hitPAB.collider.gameObject == audienceB)
             {
-                F.presenter.typeParticipant |= Focus_Type.AUDIENCE_B;
+                F.presenter.typeParticipant |= Gaze_Type.AUDIENCE_B;
                 F.presenter.focusPointParticipantB = hitPAB.point;
 
                 Debug.Log("PRESENTER LOOKS AT AUDIENCE B");
@@ -99,7 +99,7 @@ public class StudyCollection : MonoBehaviour {
         {
             if (hitPB.collider.gameObject == board)
             {
-                F.presenter.typeBoard = Focus_Type.BOARD;
+                F.presenter.typeBoard = Gaze_Type.BOARD;
                 F.presenter.focusPointBoard = hitPB.point;
 
                 //Debug.Log("PRESENTER LOOKS AT BOARD");
@@ -112,7 +112,7 @@ public class StudyCollection : MonoBehaviour {
         {
             if (hitAP.collider.gameObject == presenter)
             {
-                F.audienceA.typeParticipant = Focus_Type.PRESENTER;
+                F.audienceA.typeParticipant = Gaze_Type.PRESENTER;
                 F.audienceA.focusPointParticipantA = hitAP.point;
 
                 //Debug.Log("AUDIENCE A LOOKS AT PRESENTER");
@@ -124,7 +124,7 @@ public class StudyCollection : MonoBehaviour {
         {
             if (hitBP.collider.gameObject == presenter)
             {
-                F.audienceB.typeParticipant = Focus_Type.PRESENTER;
+                F.audienceB.typeParticipant = Gaze_Type.PRESENTER;
                 F.audienceB.focusPointParticipantA = hitBP.point;
                 Debug.Log("AUDIENCE B LOOKS AT PRESENTER");
             }
@@ -136,7 +136,7 @@ public class StudyCollection : MonoBehaviour {
         {
             if (hitAB.collider.gameObject == board)
             {
-                F.audienceA.typeBoard = Focus_Type.BOARD;
+                F.audienceA.typeBoard = Gaze_Type.BOARD;
                 F.audienceA.focusPointBoard = hitAB.point;
 
                 //Debug.Log("AUDIENCE A LOOKS AT BOARD");
@@ -148,7 +148,7 @@ public class StudyCollection : MonoBehaviour {
         {
             if (hitBB.collider.gameObject == board)
             {
-                F.audienceB.typeBoard = Focus_Type.BOARD;
+                F.audienceB.typeBoard = Gaze_Type.BOARD;
                 F.audienceB.focusPointBoard = hitBB.point;
 
                 //Debug.Log("AUDIENCE B LOOKS AT BOARD");
@@ -160,7 +160,7 @@ public class StudyCollection : MonoBehaviour {
         EyeContactDataPoint prev = this.contact[this.contact.Count - 1];
         
         bool updatedEyeContact = false;
-        if (F.presenter.typeParticipant == Focus_Type.AUDIENCE_BOTH && F.audienceA.typeParticipant == Focus_Type.PRESENTER && F.audienceB.typeParticipant == Focus_Type.PRESENTER)
+        if (F.presenter.typeParticipant == Gaze_Type.AUDIENCE_BOTH && F.audienceA.typeParticipant == Gaze_Type.PRESENTER && F.audienceB.typeParticipant == Gaze_Type.PRESENTER)
         {
             if (prev.type != Eye_Contact_Type.PRESENTER_WITH_BOTH)
             {
@@ -172,10 +172,14 @@ public class StudyCollection : MonoBehaviour {
 
                 Debug.Log("P W BOTH");
             }
+
+            Debug.DrawLine(presenter.transform.position, audienceA.transform.position, Color.green);
+            Debug.DrawLine(presenter.transform.position, audienceB.transform.position, Color.green);
+
         }
         else
         {
-            if (F.presenter.typeParticipant == Focus_Type.AUDIENCE_A && F.audienceA.typeParticipant == Focus_Type.PRESENTER)
+            if (F.presenter.typeParticipant == Gaze_Type.AUDIENCE_A && F.audienceA.typeParticipant == Gaze_Type.PRESENTER)
             {
                 if (prev.type != Eye_Contact_Type.PRESENTER_WITH_A)
                 {
@@ -188,8 +192,10 @@ public class StudyCollection : MonoBehaviour {
                 }
                 Debug.Log("P W A");
 
+                Debug.DrawLine(presenter.transform.position, audienceA.transform.position, Color.green);
+
             }
-            else if (F.presenter.typeParticipant == Focus_Type.AUDIENCE_B && F.audienceB.typeParticipant == Focus_Type.PRESENTER)
+            else if (F.presenter.typeParticipant == Gaze_Type.AUDIENCE_B && F.audienceB.typeParticipant == Gaze_Type.PRESENTER)
             {
                 if (prev.type != Eye_Contact_Type.PRESENTER_WITH_B)
                 {
@@ -198,12 +204,13 @@ public class StudyCollection : MonoBehaviour {
                     EC.frameStart = Time.frameCount;
                     prev.duration = EC.timeStart - prev.timeStart;
                     updatedEyeContact = true;
-
                 }
                 Debug.Log("P W B");
 
+                Debug.DrawLine(presenter.transform.position, audienceB.transform.position, Color.green);
+
             }
-            else if (F.presenter.typeParticipant == Focus_Type.NONE) // TODO fix bug by checking whether any audience members are not looking by adjusting this if statement
+            else if (F.presenter.typeParticipant == Gaze_Type.NONE || F.audienceA.typeParticipant != Gaze_Type.PRESENTER || F.audienceB.typeParticipant != Gaze_Type.PRESENTER) // TODO fix bug by checking whether any audience members are not looking by adjusting this if statement
             {
                 if (prev.type != Eye_Contact_Type.NONE)
                 {
