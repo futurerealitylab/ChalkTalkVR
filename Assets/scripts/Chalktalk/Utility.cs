@@ -17,6 +17,11 @@ namespace Chalktalk
             return (float)number / 65535f * 2.0f - 1.0f;
         }
 
+        public static float ParsetoRealFloat(byte[] value, int index)
+        {
+            return BitConverter.ToSingle(value, index);
+        }
+
         public static int ParsetoUInt16(byte[] value, int index)
         {
             return BitConverter.ToUInt16(value, index);
@@ -54,12 +59,30 @@ namespace Chalktalk
             float w = Mathf.Sqrt(1.0f - x * x - y * y - z * z);
             return new Quaternion(x, y, z, w);
         }
+        public static Quaternion ParsetoRealQuaternion(byte[] value, int index, float scale)
+        {
+            float x = BitConverter.ToSingle(value, index) * scale;
+            float y = BitConverter.ToSingle(value, index + 4) * scale;
+            float z = BitConverter.ToSingle(value, index + 8) * scale;
+            float w = Mathf.Sqrt(1.0f - x * x - y * y - z * z);
+            return new Quaternion(x, y, z, w);
+        }
         public static Vector3 ParsetoVector3(byte[] value, int index, float scale)
         {
             int ix = ParsetoInt16(value, index);
             float x = ParsetoFloat(ParsetoInt16(value, index)) * scale;
             float y = ParsetoFloat(ParsetoInt16(value, index + 2)) * scale;
             float z = ParsetoFloat(ParsetoInt16(value, index + 4)) * scale;
+
+            return new Vector3(x, y, z);
+        }
+
+        public static Vector3 ParsetoRealVector3(byte[] value, int index, float scale)
+        {
+            int ix = ParsetoInt16(value, index);
+            float x = BitConverter.ToSingle(value, index) * scale;
+            float y = BitConverter.ToSingle(value, index + 4) * scale;
+            float z = BitConverter.ToSingle(value, index + 8) * scale;
 
             return new Vector3(x, y, z);
         }
