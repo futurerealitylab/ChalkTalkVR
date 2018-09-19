@@ -24,6 +24,8 @@ namespace Chalktalk
         public int id = 0;
 
         public float facingDirection;
+        public Font myfont;
+        public Material fontMat;
 
         //public GameObject testMesh;
 
@@ -136,6 +138,8 @@ namespace Chalktalk
 //                    textMesh.fontSize = 3;
                     //textMesh.font = Resources.Load("Nevis") as Font;
                     textMesh.text = text;
+                    //textMesh.font = myfont;
+                    //textMesh.font.material = fontMat;
                     textMesh.fontSize = 355;
                     textMesh.characterSize = 0.1f;
                     textMesh.color = color;
