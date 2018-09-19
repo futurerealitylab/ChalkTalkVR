@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - screenshot
+  - emptyhead
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - UI
   - 
   - 
-  - audienceA
-  - audienceB
+  - audience1
+  - audience2
   - presenter
   - board
   - 

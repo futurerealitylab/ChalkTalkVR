@@ -247,9 +247,10 @@ public class StudyCollection : MonoBehaviour {
     }
 #else
 
-    public GameObject presenter;
-    public GameObject audienceA;
-    public GameObject audienceB;
+    [SerializeField]
+    GameObject presenter;
+    public GameObject[] audiences;
+
     public GameObject board;
 
     public LayerMask layerP;
@@ -354,11 +355,33 @@ public class StudyCollection : MonoBehaviour {
         this.eyePresB.Add(new EyeContactData());
     }
 
-    public void Update()
+    bool isInit = false;
+    void initialize()
     {
+        if (isInit)
+            return;
+
+        presenter = Camera.main.gameObject;
+        // assign audience A and B
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("emptyhead");
+        audiences = new GameObject[gos.Length];
+        for(int i = 0; i < gos.Length; i++) {
+            audiences[i] = gos[i];
+            audiences[i].layer = 8 + i;
+            isInit = true;
+        }
+        
+    }
+
+        public void Update()
+    {
+        initialize();
+
         Debug.DrawLine(presenter.transform.position, presenter.transform.forward * 80.0f, Color.red);
-        Debug.DrawLine(audienceA.transform.position, audienceA.transform.forward * 80.0f, Color.blue);
-        Debug.DrawLine(audienceB.transform.position, audienceB.transform.forward * 80.0f, Color.blue);
+        foreach(GameObject audience in audiences) {
+            Debug.DrawLine(audience.transform.position, audience.transform.forward * 80.0f, Color.blue);
+        }
+        
 
         float timeNow = Time.time;
         int frameCount = Time.frameCount;
@@ -378,6 +401,7 @@ public class StudyCollection : MonoBehaviour {
                     this.gazePresA.Add(g);
 
                     eyeContact[0] += 1;
+                    Debug.Log("presenter watching A: " + eyeContact[0]);
                 }
             }
             { // Presenter to B
@@ -407,62 +431,46 @@ public class StudyCollection : MonoBehaviour {
             }
         }
         {
-            GameObject src = this.audienceA;
-            { // A to presenter
-                RaycastHit hit;
-                if (Physics.Raycast(src.transform.position, src.transform.forward, out hit, Mathf.Infinity, this.layerP))
-                {
-                    GazeData g = new GazeData();
-                    g.timeStamp = timeNow;
-                    g.frameCount = frameCount;
-                    g.positionTarget = hit.point;
-                    this.gazeAPres.Add(g);
-
-                    eyeContact[0] += 1;
+            foreach(GameObject audience in audiences) {
+                GameObject src = audience;
+                { // A to presenter
+                    RaycastHit hit;
+                    if (Physics.Raycast(src.transform.position, src.transform.forward, out hit, Mathf.Infinity, this.layerP)) {
+                        GazeData g = new GazeData();
+                        g.timeStamp = timeNow;
+                        g.frameCount = frameCount;
+                        g.positionTarget = hit.point;
+                        if((1 << audience.layer) == layerA) {
+                            this.gazeAPres.Add(g);
+                            eyeContact[0] += 1;
+                        }                            
+                        else if((1 << audience.layer) == layerB) {
+                            this.gazeBPres.Add(g);
+                            eyeContact[1] += 1;
+                        }
+                        Debug.Log("audience watching presenter " + eyeContact[0]);
+                    }
+                }
+                { // A to board
+                    RaycastHit hit;
+                    if (Physics.Raycast(src.transform.position, src.transform.forward, out hit, Mathf.Infinity, this.layerBoard)) {
+                        GazeData g = new GazeData();
+                        g.timeStamp = timeNow;
+                        g.frameCount = frameCount;
+                        g.positionTarget = hit.point;
+                        if ((1 << audience.layer) == layerA) {
+                            this.gazeABoard.Add(g);
+                        }
+                        else if((1 << audience.layer)  == layerB) {
+                            this.gazeBBoard.Add(g);
+                        }
+                        Debug.DrawLine(src.transform.position, hit.point, Color.magenta);
+                    }
                 }
             }
-            { // A to board
-                RaycastHit hit;
-                if (Physics.Raycast(src.transform.position, src.transform.forward, out hit, Mathf.Infinity, this.layerBoard))
-                {
-                    GazeData g = new GazeData();
-                    g.timeStamp = timeNow;
-                    g.frameCount = frameCount;
-                    g.positionTarget = hit.point;
-                    this.gazeABoard.Add(g);
-                }
-            }
+            
         }
         {
-            GameObject src = this.audienceB;
-            { // B to presenter
-                RaycastHit hit;
-                if (Physics.Raycast(src.transform.position, src.transform.forward, out hit, Mathf.Infinity, this.layerP))
-                {
-                    GazeData g = new GazeData();
-                    g.timeStamp = timeNow;
-                    g.frameCount = frameCount;
-                    g.positionTarget = hit.point;
-                    this.gazeBPres.Add(g);
-
-                    eyeContact[1] += 1;                    
-                }
-
-            }
-            { // B to board
-                RaycastHit hit;
-                if (Physics.Raycast(src.transform.position, src.transform.forward, out hit, Mathf.Infinity, this.layerBoard))
-                {
-                    GazeData g = new GazeData();
-                    g.timeStamp = timeNow;
-                    g.frameCount = frameCount;
-                    g.positionTarget = hit.point;
-                    this.gazeBBoard.Add(g);
-
-                    Debug.DrawLine(src.transform.position, hit.point, Color.magenta);
-                }
-            }
-
 
             // eye contact checks
 
@@ -477,7 +485,6 @@ public class StudyCollection : MonoBehaviour {
                     eye.frameStart = frameCount;
                     eye.type = Target_Type.A;
                     eyePresA.Add(eye);
-
 
                     Debug.Log(eyePresA[eyePresA.Count - 1]);
                 }
@@ -525,11 +532,12 @@ public class StudyCollection : MonoBehaviour {
 
             if (eyePresA[eyePresA.Count - 1].type != Target_Type.NONE)
             {
-                Debug.DrawLine(presenter.transform.position, audienceA.transform.position, Color.green);
+                Debug.DrawLine(presenter.transform.position, audiences[0].transform.position, Color.green);
             }
             if (eyePresB[eyePresB.Count - 1].type != Target_Type.NONE)
             {
-                Debug.DrawLine(presenter.transform.position, audienceB.transform.position, Color.green);
+                if(audiences.Length > 1)
+                    Debug.DrawLine(presenter.transform.position, audiences[1].transform.position, Color.green);
             }
 
 

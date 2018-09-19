@@ -18,6 +18,8 @@ public class RoleCtrl : MonoBehaviour {
 
     public GameObject emptyHeadPrefab;
 
+    public GameObject dataCollection;
+
     void unused()
     {
         switch (role) {
@@ -65,6 +67,8 @@ public class RoleCtrl : MonoBehaviour {
                 GameObject go = Instantiate(emptyHeadPrefab);
                 go.GetComponent<HeadFlake>().isPresenter = false;
                 go.GetComponent<HeadFlake>().label = localLabel + "head";
+                //
+                dataCollection.SetActive(false);
                 break;
             case Role.Presentor:
                 foreach(Transform remoteAvatar in remoteAvatars)
@@ -76,7 +80,8 @@ public class RoleCtrl : MonoBehaviour {
                     go2.GetComponent<HeadFlake>().isPresenter = true;
                     go2.GetComponent<HeadFlake>().label = remoteLabels[i] + "head";
                 }
-                
+
+                dataCollection.SetActive(true);
                 break;
             default:
                 break;
