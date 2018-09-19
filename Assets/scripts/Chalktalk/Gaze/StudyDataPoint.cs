@@ -1,6 +1,10 @@
-﻿using System.Collections;
+﻿//#define OLD
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if OLD
 
 public enum Gaze_Type
 {
@@ -74,4 +78,52 @@ public class EyeContactDataPoint
         return "[" + (int)type + ", " + this.timeStart + ", " + this.frameStart + ", " + this.duration + "]";
     }
 }
+
+#else
+
+public struct GazeData
+{
+    public float timeStamp;
+    public int frameCount;
+    public Vector3 positionTarget;
+
+    public override string ToString()
+    {
+        return this.timeStamp + ", " + this.frameCount + ", " + this.positionTarget.ToString("F3");
+    }
+}
+
+public enum Target_Type
+{
+    NONE,
+    A,
+    B,
+    ENUM_COUNT
+}
+
+public class EyeContactData
+{
+    public Target_Type type;
+    public float timeStart;
+    public int frameStart;
+    public float timeElapsed;
+
+    public void setElapsed(float elapsed)
+    {
+        this.timeElapsed = elapsed;
+    }
+
+    public override string ToString()
+    {
+        return this.timeStart + ", " + this.frameStart + ", " + this.timeElapsed + ", " + this.type;
+    }
+}
+
+public struct TransformData
+{
+    public Vector3 position;
+    public Quaternion orientation;
+}
+
+#endif
 

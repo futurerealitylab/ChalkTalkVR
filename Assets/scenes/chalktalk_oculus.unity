@@ -2504,6 +2504,9 @@ MonoBehaviour:
   layerBoard:
     serializedVersion: 2
     m_Bits: 2048
+  namePresenter: 
+  nameAudienceA: 
+  nameAudienceB: 
 --- !u!4 &921598640
 Transform:
   m_ObjectHideFlags: 0
