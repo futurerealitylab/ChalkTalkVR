@@ -223,8 +223,8 @@ public class OculusMgr : MonoBehaviour {
             float scale = (float)GetResolution(resolutionType).width / (float)GetResolution(resolutionType).height;
             Vector3 newpos = pos;
             // because bindingbox is rotated by 90 degree in y axis, so x->-z z->x
-            newpos.y = (-pos.y / bindingBox.transform.localScale.x / 2 * scale + 0.5f);// / scale;
-            newpos.z = -pos.z/bindingBox.transform.localScale.x/2 + 0.5f;
+            newpos.y = (-(pos.y-bindingBox.transform.position.y) / bindingBox.transform.localScale.y / 2 * scale + 0.5f);// / scale;
+            newpos.z = -(pos.z - bindingBox.transform.position.z) /bindingBox.transform.localScale.x/2 + 0.5f;
             ctc.Pos = newpos;
 			ctc.Rot = cursor.transform.eulerAngles;
 			//print (cursor.transform.localPosition + "\t" + pos);
