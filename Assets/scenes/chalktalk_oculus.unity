@@ -1861,7 +1861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1cc85cdd7ce0c49b03ec894c99cd88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  role: 0
+  role: 1
   Chalktalkboard: {fileID: 146131498}
   mycmr: {fileID: 1958001893}
   localAvatar: {fileID: 419024763}
@@ -3981,6 +3981,7 @@ MonoBehaviour:
   - {fileID: 1485734697}
   deviceType: 0
   sendMouseMove: 1
+  isPresenter: 0
   pos: {x: 0, y: 0, z: 0}
 --- !u!114 &1665753223
 MonoBehaviour:
@@ -4529,6 +4530,7 @@ MonoBehaviour:
   - {fileID: 333015661}
   deviceType: 0
   sendMouseMove: 1
+  isPresenter: 0
   pos: {x: 0, y: 0, z: 0}
 --- !u!1001 &2055155237
 Prefab:

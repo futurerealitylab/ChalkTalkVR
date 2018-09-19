@@ -97,6 +97,7 @@ public class RoleCtrl : MonoBehaviour {
         }
         tryint();
         Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection = (role == Role.Audience) ? 270 : 90;
+        Chalktalkboard.parent.GetComponent<OculusMgr>().isPresenter = role == Role.Presentor;
         print("Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection:" + Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection);
     }
 	

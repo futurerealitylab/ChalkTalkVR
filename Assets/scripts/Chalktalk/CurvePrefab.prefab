@@ -28,6 +28,10 @@ Prefab:
       propertyPath: fontMat
       value: 
       objectReference: {fileID: 2100000, guid: 5f5c35d33d065484f9cbb4e1382ede6e, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1332583882693216}

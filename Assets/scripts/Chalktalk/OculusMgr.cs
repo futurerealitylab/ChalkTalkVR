@@ -102,8 +102,11 @@ public class OculusMgr : MonoBehaviour {
 
 	}
 
+    public bool isPresenter = false;
     void ToggleChalkTalkSend()
     {
+        if (!isPresenter)
+            return;
         switch (deviceType)
         {
             case DeviceType.OCULUS_GO:
