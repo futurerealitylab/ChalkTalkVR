@@ -1866,13 +1866,12 @@ MonoBehaviour:
   mycmr: {fileID: 1958001893}
   localAvatar: {fileID: 419024763}
   remoteAvatars: []
-  localLabel: zhenyi
+  localLabel: A1
   remoteLabels:
   - A1
-  - A2
-  remoteAvatarPrefab: {fileID: 1787976711503236, guid: 40f04260aad884d4f833bc955abde247,
+  remoteAvatarPrefab: {fileID: 1787976711503236, guid: 0e5a0f5104c8405498a02c7b31fb81ca,
     type: 2}
-  emptyHeadPrefab: {fileID: 1543465551585430, guid: 35a9685423786494c89a7e8f66cffa17,
+  emptyHeadPrefab: {fileID: 1543465551585430, guid: c3dad154a403bc74b95d51bede72dfa7,
     type: 2}
 --- !u!4 &652935228
 Transform:
