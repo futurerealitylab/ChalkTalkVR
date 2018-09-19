@@ -120,9 +120,9 @@ public class AvatarManager : Holojam.Network.Controller {
             int size = reader.ReadInt32();
             byte[] sdkData = reader.ReadBytes(size);
             System.IntPtr packet = Oculus.Avatar.CAPI.ovrAvatarPacket_Read((System.UInt32)size, sdkData);
-            print("recv seq: " + remoteSequence);
-            print("recv size: " + size);
-            print("recv avatardata: " + BitConverter.ToString(sdkData));
+            //print("recv seq: " + remoteSequence);
+            //print("recv size: " + size);
+            //print("recv avatardata: " + BitConverter.ToString(sdkData));
             // testing
             ovrAvatar.GetComponent<OvrAvatarRemoteDriver>().QueuePacket(remoteSequence, new OvrAvatarPacket { ovrNativePacket = packet });
             //this.GetComponent<SpacetimeAvatar>().DriveParallelOrGhostAvatarPosture(remoteSequence, sdkData);

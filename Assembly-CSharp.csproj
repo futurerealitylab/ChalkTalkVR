@@ -349,6 +349,8 @@
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkSender.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkStylus.cs" />
     <Compile Include="Assets\scripts\Deprecated\CTRenderer.cs" />
+    <Compile Include="Assets\scripts\Gaze\StudyCollection.cs" />
+    <Compile Include="Assets\scripts\Gaze\StudyDataPoint.cs" />
     <Compile Include="Assets\scripts\getRot.cs" />
     <Compile Include="Assets\scripts\GVRViveHeadset.cs" />
     <Compile Include="Assets\scripts\IMUVis.cs" />
