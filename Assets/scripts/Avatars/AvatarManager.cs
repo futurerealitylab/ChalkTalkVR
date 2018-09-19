@@ -108,12 +108,12 @@ public class AvatarManager : Holojam.Network.Controller {
 
     private void DeserializeAndQueuePacketData(byte[] avatardata)
     {
-        using (MemoryStream inputStream = new MemoryStream(avatardata)) {
-            if (avatardata.Length < 4) {
-                Debug.LogWarning("avatardata length < 4");
-                return;
-            }
-                
+        if (avatardata.Length < 4) {
+            Debug.LogWarning("avatardata length < 4");
+            return;
+        }
+
+        using (MemoryStream inputStream = new MemoryStream(avatardata)) {       
             BinaryReader reader = new BinaryReader(inputStream);
             int remoteSequence = reader.ReadInt32();
             //ulong remoteAvatarId = (ulong)reader.ReadUInt64();

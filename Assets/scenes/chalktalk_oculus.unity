@@ -1299,14 +1299,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1cc85cdd7ce0c49b03ec894c99cd88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  role: 0
+  role: 1
   Chalktalkboard: {fileID: 146131498}
   mycmr: {fileID: 1958001893}
   localAvatar: {fileID: 419024763}
   remoteAvatars: []
-  localLabel: zhenyi
+  localLabel: A1
   remoteLabels:
-  - A1
+  - zhenyi
   remoteAvatarPrefab: {fileID: 1787976711503236, guid: 40f04260aad884d4f833bc955abde247,
     type: 2}
   emptyHeadPrefab: {fileID: 1543465551585430, guid: 35a9685423786494c89a7e8f66cffa17,

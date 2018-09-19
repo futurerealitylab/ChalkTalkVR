@@ -1,4 +1,5 @@
 ﻿//#define OLD
+//#define DEBUG
 
 using System.Collections;
 using System.Collections.Generic;
@@ -398,10 +399,13 @@ public class StudyCollection : MonoBehaviour {
                     g.timeStamp = timeNow;
                     g.frameCount = frameCount;
                     g.positionTarget = hit.point;
+                    Debug.Log(hit.point);
                     this.gazePresA.Add(g);
 
                     eyeContact[0] += 1;
+#if DEBUG
                     Debug.Log("presenter watching A: " + eyeContact[0]);
+#endif
                 }
             }
             { // Presenter to B
@@ -448,7 +452,9 @@ public class StudyCollection : MonoBehaviour {
                             this.gazeBPres.Add(g);
                             eyeContact[1] += 1;
                         }
+#if DEBUG
                         Debug.Log("audience watching presenter " + eyeContact[0]);
+#endif
                     }
                 }
                 { // A to board
@@ -464,7 +470,9 @@ public class StudyCollection : MonoBehaviour {
                         else if((1 << audience.layer)  == layerB) {
                             this.gazeBBoard.Add(g);
                         }
+#if DEBUG
                         Debug.DrawLine(src.transform.position, hit.point, Color.magenta);
+#endif
                     }
                 }
             }
@@ -485,8 +493,9 @@ public class StudyCollection : MonoBehaviour {
                     eye.frameStart = frameCount;
                     eye.type = Target_Type.A;
                     eyePresA.Add(eye);
-
+#if DEBUG
                     Debug.Log(eyePresA[eyePresA.Count - 1]);
+#endif
                 }
             }
             else if (eyePresA[eyePresA.Count - 1].type != Target_Type.NONE)
@@ -498,8 +507,9 @@ public class StudyCollection : MonoBehaviour {
                 eye.frameStart = frameCount;
                 eye.type = Target_Type.NONE;
                 eyePresA.Add(eye);
-
+#if DEBUG
                 Debug.Log(eyePresA[eyePresA.Count - 1]);
+#endif
             }
 
             if (eyeContact[1] == 2)
@@ -513,8 +523,9 @@ public class StudyCollection : MonoBehaviour {
                     eye.frameStart = frameCount;
                     eye.type = Target_Type.B;
                     eyePresB.Add(eye);
-
+#if DEBUG
                     Debug.Log(eyePresB[eyePresB.Count - 1]);
+#endif
                 }
             }
             else if (eyePresB[eyePresB.Count - 1].type != Target_Type.NONE)
@@ -526,10 +537,12 @@ public class StudyCollection : MonoBehaviour {
                 eye.frameStart = frameCount;
                 eye.type = Target_Type.NONE;
                 eyePresB.Add(eye);
-
+#if DEBUG
                 Debug.Log(eyePresB[eyePresB.Count - 1]);
+#endif
             }
 
+#if DEBUG
             if (eyePresA[eyePresA.Count - 1].type != Target_Type.NONE)
             {
                 Debug.DrawLine(presenter.transform.position, audiences[0].transform.position, Color.green);
@@ -539,6 +552,7 @@ public class StudyCollection : MonoBehaviour {
                 if(audiences.Length > 1)
                     Debug.DrawLine(presenter.transform.position, audiences[1].transform.position, Color.green);
             }
+#endif
 
 
             if (writeAll)
@@ -555,5 +569,5 @@ public class StudyCollection : MonoBehaviour {
     } 
 
 #endif
-}
+                }
 
