@@ -9,9 +9,12 @@ public class RoleCtrl : MonoBehaviour {
 
     Transform world, mirrorWorld;
     public Transform Chalktalkboard, mycmr, localAvatar;
-    public Transform [] remoteAvatars;
+    [SerializeField]
+    private Transform [] remoteAvatars;
     public string localLabel;
     public string [] remoteLabels;
+
+    public GameObject remoteAvatarPrefab;
 
     void unused()
     {
@@ -70,10 +73,16 @@ public class RoleCtrl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        tryint();
+        
         localAvatar.GetComponent<AvatarManager>().label = localLabel;
-        for(int i = 0; i < remoteLabels.Length; i++)
-            remoteAvatars[i].GetComponent<AvatarManager>().label = remoteLabels[i];
+        remoteAvatars = new Transform[remoteLabels.Length];
+        for (int i = 0; i < remoteLabels.Length; i++) {
+            GameObject go = Instantiate(remoteAvatarPrefab, localAvatar.parent);
+            AvatarManager am = go.GetComponent<AvatarManager>();
+            am.label = remoteLabels[i];
+            remoteAvatars[i] = go.transform;
+        }
+        tryint();
         Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection = (role == Role.Audience) ? 270 : 90;
         print("Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection:" + Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection);
     }
