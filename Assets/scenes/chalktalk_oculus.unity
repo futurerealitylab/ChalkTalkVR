@@ -1872,6 +1872,8 @@ MonoBehaviour:
   - A2
   remoteAvatarPrefab: {fileID: 1787976711503236, guid: 40f04260aad884d4f833bc955abde247,
     type: 2}
+  emptyHeadPrefab: {fileID: 1543465551585430, guid: 35a9685423786494c89a7e8f66cffa17,
+    type: 2}
 --- !u!4 &652935228
 Transform:
   m_ObjectHideFlags: 0

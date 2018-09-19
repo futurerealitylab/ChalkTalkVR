@@ -16,6 +16,8 @@ public class RoleCtrl : MonoBehaviour {
 
     public GameObject remoteAvatarPrefab;
 
+    public GameObject emptyHeadPrefab;
+
     void unused()
     {
         switch (role) {
@@ -59,12 +61,22 @@ public class RoleCtrl : MonoBehaviour {
                 //mycmr.localScale = Vector3.back;
                 //Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
                 //Chalktalkboard.localScale = Vector3.back;
+                // if i am the audience, sending my ovrcamera
+                GameObject go = Instantiate(emptyHeadPrefab);
+                go.GetComponent<HeadFlake>().isPresenter = false;
+                go.GetComponent<HeadFlake>().label = localLabel + "head";
                 break;
             case Role.Presentor:
                 foreach(Transform remoteAvatar in remoteAvatars)
                     remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
                 //remoteAvatar.localScale = Vector3.back;
-
+                // if i am the presenter, receving from audience about ovrcamera
+                for(int i = 0; i < remoteLabels.Length; i++) {
+                    GameObject go2 = Instantiate(emptyHeadPrefab);
+                    go2.GetComponent<HeadFlake>().isPresenter = true;
+                    go2.GetComponent<HeadFlake>().label = remoteLabels[i] + "head";
+                }
+                
                 break;
             default:
                 break;
@@ -81,6 +93,7 @@ public class RoleCtrl : MonoBehaviour {
             AvatarManager am = go.GetComponent<AvatarManager>();
             am.label = remoteLabels[i];
             remoteAvatars[i] = go.transform;
+            //
         }
         tryint();
         Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection = (role == Role.Audience) ? 270 : 90;
