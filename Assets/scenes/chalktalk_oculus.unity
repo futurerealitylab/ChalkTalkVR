@@ -1304,7 +1304,7 @@ MonoBehaviour:
   mycmr: {fileID: 1958001893}
   localAvatar: {fileID: 419024763}
   remoteAvatars: []
-  localLabel: A1
+  localLabel: A2
   remoteLabels:
   - zhenyi
   remoteAvatarPrefab: {fileID: 1787976711503236, guid: 40f04260aad884d4f833bc955abde247,

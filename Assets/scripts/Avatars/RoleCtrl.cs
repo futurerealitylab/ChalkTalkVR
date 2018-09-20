@@ -56,25 +56,27 @@ public class RoleCtrl : MonoBehaviour {
     void tryint()
     {
         switch (role) {
+            //case Role.Audience:
+            //    localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+            //    //localAvatar.localScale = Vector3.back;
+            //    mycmr.localRotation = Quaternion.Euler(0, 180, 0);
+            //    //mycmr.localScale = Vector3.back;
+            //    //Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
+            //    //Chalktalkboard.localScale = Vector3.back;
+            //    // if i am the audience, sending my ovrcamera
+            //    GameObject go = Instantiate(emptyHeadPrefab);
+            //    go.GetComponent<HeadFlake>().isPresenter = false;
+            //    go.GetComponent<HeadFlake>().label = localLabel + "head";
+            //    //
+            //    dataCollection.SetActive(false);
+            //    break;
             case Role.Audience:
-                localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
-                //localAvatar.localScale = Vector3.back;
-                mycmr.localRotation = Quaternion.Euler(0, 180, 0);
-                //mycmr.localScale = Vector3.back;
-                //Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
-                //Chalktalkboard.localScale = Vector3.back;
-                // if i am the audience, sending my ovrcamera
-                GameObject go = Instantiate(emptyHeadPrefab);
-                go.GetComponent<HeadFlake>().isPresenter = false;
-                go.GetComponent<HeadFlake>().label = localLabel + "head";
-                //
-                dataCollection.SetActive(false);
-                break;
             case Role.Presentor:
-                foreach(Transform remoteAvatar in remoteAvatars)
-                    remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                foreach (Transform remoteAvatar in remoteAvatars)
+                    //remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                    remoteAvatar.localScale = Vector3.left;
                 //remoteAvatar.localScale = Vector3.back;
-                // if i am the presenter, receving from audience about ovrcamera
+                // if i am the presenter, receiving from audience about ovrcamera
                 for(int i = 0; i < remoteLabels.Length; i++) {
                     GameObject go2 = Instantiate(emptyHeadPrefab);
                     go2.GetComponent<HeadFlake>().isPresenter = true;
@@ -101,7 +103,7 @@ public class RoleCtrl : MonoBehaviour {
             //
         }
         tryint();
-        Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection = (role == Role.Audience) ? 270 : 90;
+        Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection = 90;// (role == Role.Audience) ? 270 : 90;
         Chalktalkboard.parent.GetComponent<OculusMgr>().isPresenter = role == Role.Presentor;
         print("Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection:" + Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection);
     }
