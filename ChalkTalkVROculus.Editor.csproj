@@ -413,6 +413,7 @@
     <Compile Include="Assets\OculusPlatform\Editor\OculusPlatformSettingsEditor.cs" />
     <Compile Include="Assets\OculusPlatform\Editor\OculusStandalonePlatformResponse.cs" />
     <Compile Include="Assets\Project\Editor\Packager.cs" />
+    <Compile Include="Assets\RockVR\Rift\Scripts\Controls\RadialMenu\Editor\RIFT_RadialMenuEditor.cs" />
     <Compile Include="Assets\RockVR\Video\Editor\VideoCaptureEditor.cs" />
     <Compile Include="Assets\RockVR\Video\Editor\VideoCaptureMenuEditor.cs" />
   </ItemGroup>
@@ -456,6 +457,9 @@
     <None Include="Assets\Resources\___0\gazePresA.txt" />
     <None Include="Assets\Resources\___0\gazePresB.txt" />
     <None Include="Assets\Resources\___0\gazePresBoard.txt" />
+    <None Include="Assets\RockVR\Rift\Demo\Shaders\TransparentGlass.shader" />
+    <None Include="Assets\RockVR\Rift\Shaders\LaserPointer.shader" />
+    <None Include="Assets\RockVR\Rift\Shaders\UIOverlay.shader" />
     <None Include="Assets\RockVR\Video\Shaders\CopyReverse.shader" />
     <None Include="Assets\RockVR\Video\Shaders\Cubemap2Equirectangular.shader" />
     <None Include="Assets\RockVR\Video\Shaders\Cubemap2EquirectangularPro.shader" />
