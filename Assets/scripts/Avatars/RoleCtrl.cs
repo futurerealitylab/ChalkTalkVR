@@ -79,6 +79,7 @@ public class RoleCtrl : MonoBehaviour {
     {
         switch (role) {
             case Role.Audience:
+
                 //    localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
                 //    //localAvatar.localScale = Vector3.back;
                 //    mycmr.localRotation = Quaternion.Euler(0, 180, 0);
@@ -89,18 +90,27 @@ public class RoleCtrl : MonoBehaviour {
                 foreach (Transform remoteAvatar in remoteAvatars)
                     //remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
                     remoteAvatar.localScale = new Vector3(-1, 1, 1);
+
                 // if i am the audience, sending my ovrcamera
                 GameObject go = Instantiate(emptyHeadPrefab);
                 go.GetComponent<HeadFlake>().isPresenter = false;
                 go.GetComponent<HeadFlake>().label = localLabel + "head";
-            //    //
+                //
+
+                // zhenyi
+                //foreach (Transform remoteAvatar in remoteAvatars) {
+                //    GameObject remPar = new GameObject();
+                //    remoteAvatar.transform.parent = remPar.transform;
+                //    remPar.transform.localScale = new Vector3(-1, 1, 1);
+                //}
+
                 dataCollection.SetActive(false);
                 break;
             case Role.Presentor:
                 foreach (Transform remoteAvatar in remoteAvatars)
                     //remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
                     remoteAvatar.localScale = new Vector3(-1,1,1);
-                //remoteAvatar.localScale = Vector3.back;
+
                 // if i am the presenter, receiving from audience about ovrcamera
                 for(int i = 0; i < remoteLabels.Length; i++) {
                     GameObject go2 = Instantiate(emptyHeadPrefab);
