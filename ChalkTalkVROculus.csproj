@@ -591,6 +591,22 @@
     <Compile Include="Assets\OculusPlatform\Scripts\VoipPCMSourceNative.cs" />
     <Compile Include="Assets\OculusPlatform\Scripts\VoipSampleRate.cs" />
     <Compile Include="Assets\OculusPlatform\Scripts\WindowsPlatform.cs" />
+    <Compile Include="Assets\RockVR\Common\Scripts\EventDelegate.cs" />
+    <Compile Include="Assets\RockVR\Common\Scripts\FPSDisplay.cs" />
+    <Compile Include="Assets\RockVR\Common\Scripts\Platform.cs" />
+    <Compile Include="Assets\RockVR\Common\Scripts\Process.cs" />
+    <Compile Include="Assets\RockVR\Common\Scripts\Singleton.cs" />
+    <Compile Include="Assets\RockVR\Video\Demo\Scripts\AutoRotate.cs" />
+    <Compile Include="Assets\RockVR\Video\Demo\Scripts\VideoCaptureUI.cs" />
+    <Compile Include="Assets\RockVR\Video\Scripts\AudioCapture.cs" />
+    <Compile Include="Assets\RockVR\Video\Scripts\Base\VideoCaptureBase.cs" />
+    <Compile Include="Assets\RockVR\Video\Scripts\Base\VideoCaptureCtrlBase.cs" />
+    <Compile Include="Assets\RockVR\Video\Scripts\Config.cs" />
+    <Compile Include="Assets\RockVR\Video\Scripts\Screenshot.cs" />
+    <Compile Include="Assets\RockVR\Video\Scripts\Utils\Utils.cs" />
+    <Compile Include="Assets\RockVR\Video\Scripts\VideoCapture.cs" />
+    <Compile Include="Assets\RockVR\Video\Scripts\VideoCaptureCtrl.cs" />
+    <Compile Include="Assets\RockVR\Video\Scripts\VideoPlayer.cs" />
     <Compile Include="Assets\scripts\ActivityToggler.cs" />
     <Compile Include="Assets\scripts\Avatars\AvatarManager.cs" />
     <Compile Include="Assets\scripts\Avatars\HeadFlake.cs" />
@@ -625,6 +641,7 @@
     <Compile Include="Assets\scripts\testOculusTouch.cs" />
     <Compile Include="Assets\scripts\testVT.cs" />
     <Compile Include="Assets\scripts\TmpEvent.cs" />
+    <Compile Include="Assets\scripts\VRCapture\DedicatedCmr.cs" />
     <Compile Include="Assets\TestLootat.cs" />
     <Compile Include="Assets\WorldInitializer.cs" />
   </ItemGroup>
@@ -668,6 +685,14 @@
     <None Include="Assets\Resources\___0\gazePresA.txt" />
     <None Include="Assets\Resources\___0\gazePresB.txt" />
     <None Include="Assets\Resources\___0\gazePresBoard.txt" />
+    <None Include="Assets\RockVR\Video\Shaders\CopyReverse.shader" />
+    <None Include="Assets\RockVR\Video\Shaders\Cubemap2Equirectangular.shader" />
+    <None Include="Assets\RockVR\Video\Shaders\Cubemap2EquirectangularPro.shader" />
+    <None Include="Assets\RockVR\Video\Shaders\CubemapDisplayPro.shader" />
+    <None Include="Assets\RockVR\Video\Shaders\CubemapToCylindrical.shader" />
+    <None Include="Assets\RockVR\Video\Shaders\DownsamplePro.shader" />
+    <None Include="Assets\RockVR\Video\Shaders\FlippingTexture.shader" />
+    <None Include="Assets\RockVR\Video\Shaders\Stereoscopic.shader" />
     <None Include="Assets\scripts\Chalktalk\3DTextShader.shader" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />

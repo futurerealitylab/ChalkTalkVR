@@ -56,25 +56,28 @@ public class RoleCtrl : MonoBehaviour {
     void tryint()
     {
         switch (role) {
-            //case Role.Audience:
-            //    localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
-            //    //localAvatar.localScale = Vector3.back;
-            //    mycmr.localRotation = Quaternion.Euler(0, 180, 0);
-            //    //mycmr.localScale = Vector3.back;
-            //    //Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
-            //    //Chalktalkboard.localScale = Vector3.back;
-            //    // if i am the audience, sending my ovrcamera
-            //    GameObject go = Instantiate(emptyHeadPrefab);
-            //    go.GetComponent<HeadFlake>().isPresenter = false;
-            //    go.GetComponent<HeadFlake>().label = localLabel + "head";
-            //    //
-            //    dataCollection.SetActive(false);
-            //    break;
             case Role.Audience:
+                //    localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                //    //localAvatar.localScale = Vector3.back;
+                //    mycmr.localRotation = Quaternion.Euler(0, 180, 0);
+                //    //mycmr.localScale = Vector3.back;
+                //    //Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
+                //    //Chalktalkboard.localScale = Vector3.back;
+
+                foreach (Transform remoteAvatar in remoteAvatars)
+                    //remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                    remoteAvatar.localScale = new Vector3(-1, 1, 1);
+                // if i am the audience, sending my ovrcamera
+                GameObject go = Instantiate(emptyHeadPrefab);
+                go.GetComponent<HeadFlake>().isPresenter = false;
+                go.GetComponent<HeadFlake>().label = localLabel + "head";
+            //    //
+                dataCollection.SetActive(false);
+                break;
             case Role.Presentor:
                 foreach (Transform remoteAvatar in remoteAvatars)
                     //remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
-                    remoteAvatar.localScale = Vector3.left;
+                    remoteAvatar.localScale = new Vector3(-1,1,1);
                 //remoteAvatar.localScale = Vector3.back;
                 // if i am the presenter, receiving from audience about ovrcamera
                 for(int i = 0; i < remoteLabels.Length; i++) {
