@@ -1,6 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Oculus.Avatar;
+using Oculus.Platform;
+using Oculus.Platform.Models;
+using System.Collections;
+
 
 public class RoleCtrl : MonoBehaviour {
 
@@ -19,6 +24,23 @@ public class RoleCtrl : MonoBehaviour {
     public GameObject emptyHeadPrefab;
 
     public GameObject dataCollection;
+
+    public OvrAvatar myAvatar;
+
+    void Awake()
+    {
+        Oculus.Platform.Core.Initialize();
+        Oculus.Platform.Users.GetLoggedInUser().OnComplete(GetLoggedInUserCallback);
+        Oculus.Platform.Request.RunCallbacks();  //avoids race condition with OvrAvatar.cs Start().
+    }
+
+    private void GetLoggedInUserCallback(Message<User> message)
+    {
+        if (!message.IsError)
+        {
+            myAvatar.oculusUserID = message.Data.ID.ToString();
+        }
+    }
 
     void unused()
     {

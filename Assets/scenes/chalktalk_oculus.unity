@@ -1947,6 +1947,7 @@ MonoBehaviour:
   emptyHeadPrefab: {fileID: 1543465551585430, guid: 35a9685423786494c89a7e8f66cffa17,
     type: 2}
   dataCollection: {fileID: 1926584859}
+  myAvatar: {fileID: 419024761}
 --- !u!4 &652935228
 Transform:
   m_ObjectHideFlags: 0
