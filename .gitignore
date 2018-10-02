@@ -56,3 +56,5 @@ sysinfo.txt
 Release/
 *.exe
 obj/
+ctvr_Data/
+*.dll

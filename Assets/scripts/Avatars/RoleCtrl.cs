@@ -1,6 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Oculus.Avatar;
+using Oculus.Platform;
+using Oculus.Platform.Models;
+using System.Collections;
+
 
 public class RoleCtrl : MonoBehaviour {
 
@@ -19,6 +24,23 @@ public class RoleCtrl : MonoBehaviour {
     public GameObject emptyHeadPrefab;
 
     public GameObject dataCollection;
+
+    public OvrAvatar myAvatar;
+
+    void Awake()
+    {
+        Oculus.Platform.Core.Initialize();
+        Oculus.Platform.Users.GetLoggedInUser().OnComplete(GetLoggedInUserCallback);
+        Oculus.Platform.Request.RunCallbacks();  //avoids race condition with OvrAvatar.cs Start().
+    }
+
+    private void GetLoggedInUserCallback(Message<User> message)
+    {
+        if (!message.IsError)
+        {
+            myAvatar.oculusUserID = message.Data.ID.ToString();
+        }
+    }
 
     void unused()
     {
@@ -57,12 +79,18 @@ public class RoleCtrl : MonoBehaviour {
     {
         switch (role) {
             case Role.Audience:
-                //localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
-                    //localAvatar.localScale = Vector3.back;
-                //mycmr.localRotation = Quaternion.Euler(0, 180, 0);
-                    //mycmr.localScale = Vector3.back;
-                //Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
-                //Chalktalkboard.localScale = Vector3.back;
+
+                //    localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                //    //localAvatar.localScale = Vector3.back;
+                //    mycmr.localRotation = Quaternion.Euler(0, 180, 0);
+                //    //mycmr.localScale = Vector3.back;
+                //    //Chalktalkboard.localRotation = Quaternion.Euler(0, 180, 0);
+                //    //Chalktalkboard.localScale = Vector3.back;
+
+                foreach (Transform remoteAvatar in remoteAvatars)
+                    //remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
+                    remoteAvatar.localScale = new Vector3(-1, 1, 1);
+
                 // if i am the audience, sending my ovrcamera
                 GameObject go = Instantiate(emptyHeadPrefab);
                 go.GetComponent<HeadFlake>().isPresenter = false;
@@ -70,27 +98,21 @@ public class RoleCtrl : MonoBehaviour {
                 //
 
                 // zhenyi
-                foreach (Transform remoteAvatar in remoteAvatars) {
-                    GameObject remPar = new GameObject();
-                    remoteAvatar.transform.parent = remPar.transform;
-                    remPar.transform.localScale = new Vector3(-1, 1, 1);
-                }
-                    
+                //foreach (Transform remoteAvatar in remoteAvatars) {
+                //    GameObject remPar = new GameObject();
+                //    remoteAvatar.transform.parent = remPar.transform;
+                //    remPar.transform.localScale = new Vector3(-1, 1, 1);
+                //}
 
-                //remoteAvatar.localScale = Vector3.back;
-                // if i am the presenter, receiving from audience about ovrcamera
-                //
                 dataCollection.SetActive(false);
                 break;
             case Role.Presentor:
                 foreach (Transform remoteAvatar in remoteAvatars)
                     //remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
-                //zhenyi
-                    remoteAvatar.localScale = new Vector3(-1, 1, 1);
+                    remoteAvatar.localScale = new Vector3(-1,1,1);
 
-                //remoteAvatar.localScale = Vector3.back;
                 // if i am the presenter, receiving from audience about ovrcamera
-                for (int i = 0; i < remoteLabels.Length; i++) {
+                for(int i = 0; i < remoteLabels.Length; i++) {
                     GameObject go2 = Instantiate(emptyHeadPrefab);
                     go2.GetComponent<HeadFlake>().isPresenter = true;
                     go2.GetComponent<HeadFlake>().label = remoteLabels[i] + "head";
