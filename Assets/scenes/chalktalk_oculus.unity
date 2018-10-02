@@ -1808,6 +1808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb013bec89f152d458948ef92acfa0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsetT: {x: 0, y: 0, z: 0}
 --- !u!1001 &634605681
 Prefab:
   m_ObjectHideFlags: 0
@@ -3617,6 +3618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb013bec89f152d458948ef92acfa0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsetT: {x: 0, y: 0.3, z: -1}
 --- !u!1 &1526813487
 GameObject:
   m_ObjectHideFlags: 0
@@ -4297,7 +4299,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11437430, guid: 84c8b8609f9bb434eaf5248f17ff1293, type: 2}
       propertyPath: ShowThirdPerson
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 158226, guid: 84c8b8609f9bb434eaf5248f17ff1293, type: 2}
       propertyPath: m_IsActive
