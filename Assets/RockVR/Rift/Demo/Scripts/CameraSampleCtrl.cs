@@ -49,13 +49,13 @@ namespace RockVR.Rift.Demo
             }
             else if (controllerState == ControllerState.Touch)
             {
-                tooltipController.indexTriggerText = "Grab Camera";
-                tooltipController.thumbstickText = "Teleport";
-                tooltipController.buttonOneText = "Start/Stop Capture";
-                hangTriggerTooltip.SetActive(false);
+                //tooltipController.indexTriggerText = "Grab Camera";
+                //tooltipController.thumbstickText = "Teleport";
+                //tooltipController.buttonOneText = "Start/Stop Capture";
+                //hangTriggerTooltip.SetActive(false);
             }
-            startButtonTooltip.SetActive(false);
-            twoButtonTooltip.SetActive(false);
+            //startButtonTooltip.SetActive(false);
+            //twoButtonTooltip.SetActive(false);
         }
 
         void OnEnable()

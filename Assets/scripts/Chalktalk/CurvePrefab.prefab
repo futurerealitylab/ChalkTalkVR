@@ -10,7 +10,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: defaultMat
       value: 
-      objectReference: {fileID: 2100000, guid: 3e3dd24751021a340857c483d6a662ee, type: 2}
+      objectReference: {fileID: 2100000, guid: 050f38c831e2ec74fab9956abc42bf5d, type: 2}
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: screenshot
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a9c0d6c8c99ab4d8a4ca6885941326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMat: {fileID: 2100000, guid: 3e3dd24751021a340857c483d6a662ee, type: 2}
+  defaultMat: {fileID: 2100000, guid: 050f38c831e2ec74fab9956abc42bf5d, type: 2}
   textPos: {x: 0, y: 0, z: 0}
   textScale: 0
   points: []

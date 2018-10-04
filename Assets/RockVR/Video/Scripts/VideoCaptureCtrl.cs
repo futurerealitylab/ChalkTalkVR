@@ -78,6 +78,7 @@ namespace RockVR.Video
             }
             // Filter out disabled capture component.
             List<VideoCapture> validCaptures = new List<VideoCapture>();
+            
             if (videoCaptures != null && videoCaptures.Length > 0)
             {
                 foreach (VideoCapture videoCapture in videoCaptures)
@@ -87,6 +88,7 @@ namespace RockVR.Video
                         validCaptures.Add(videoCapture);
                     }
                 }
+                Debug.Log("validCaptures.size" + validCaptures.Count);
             }
             videoCaptures = validCaptures.ToArray();
             // Cache those value, thread cannot access unity's object.
