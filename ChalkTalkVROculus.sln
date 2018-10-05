@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.TextMeshPro", "Unity.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChalkTalkVROculus.Plugins", "ChalkTalkVROculus.Plugins.csproj", "{16BBA0EC-AD5A-2636-1B12-9E40DFF615BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChalkTalkVROculus.Editor.Plugins", "ChalkTalkVROculus.Editor.Plugins.csproj", "{20768DB0-CD30-130A-2094-60E21F83AFD0}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.PackageManagerUI.Editor", "Unity.PackageManagerUI.Editor.csproj", "{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChalkTalkVROculus.Editor", "ChalkTalkVROculus.Editor.csproj", "{D97FF8E2-9B0D-49FF-CB6B-316DFE725CFA}"
@@ -33,6 +35,10 @@ Global
 		{16BBA0EC-AD5A-2636-1B12-9E40DFF615BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16BBA0EC-AD5A-2636-1B12-9E40DFF615BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16BBA0EC-AD5A-2636-1B12-9E40DFF615BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20768DB0-CD30-130A-2094-60E21F83AFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20768DB0-CD30-130A-2094-60E21F83AFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20768DB0-CD30-130A-2094-60E21F83AFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20768DB0-CD30-130A-2094-60E21F83AFD0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}.Release|Any CPU.ActiveCfg = Release|Any CPU

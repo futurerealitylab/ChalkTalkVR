@@ -18,8 +18,8 @@ public class DedicatedCmr : MonoBehaviour {
 	void LateUpdate () {
         //transform.parent.position = vrcamera.position;
         //transform.parent.rotation = vrcamera.rotation;
-
-        transform.position = vrcamera.position + vrcamera.rotation * offsetT;
+        Vector3 newpos = vrcamera.position + vrcamera.rotation * offsetT;
+        transform.position = Vector3.Lerp(transform.position, newpos, 0.5f);
         //transform.position = vrcamera.position + offsetT;
 
         Vector3 eulerAngles = vrcamera.eulerAngles;

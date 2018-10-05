@@ -58,3 +58,6 @@ Release/
 obj/
 ctvr_Data/
 *.dll
+
+*.avi
+*.mp4
