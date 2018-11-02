@@ -102,8 +102,11 @@ public class OculusMgr : MonoBehaviour {
 
 	}
 
+    public bool isPresenter = false;
     void ToggleChalkTalkSend()
     {
+        if (!isPresenter)
+            return;
         switch (deviceType)
         {
             case DeviceType.OCULUS_GO:
@@ -159,10 +162,12 @@ public class OculusMgr : MonoBehaviour {
             case DeviceType.OCULUS_RIFT:
                 {
                     OVRInput.Controller activeController = OVRInput.GetActiveController();
-                    if (activeController == OVRInput.Controller.None)
+                    if (activeController != OVRInput.Controller.LTouch && activeController != OVRInput.Controller.RTouch)
                         return;
 
-                    cursor.transform.position = bindingBox.GetBoundPosition(oculusCtrls[activeController - OVRInput.Controller.LTouch].gameObject.transform.position, BindingBox.Plane.Z, true);
+                    int ctrlIdx = activeController - OVRInput.Controller.LTouch;
+                    cursor.transform.position = bindingBox.GetBoundPosition(oculusCtrls[ctrlIdx].gameObject.transform.position, 
+                        BindingBox.Plane.Z, true);
 
                     curControlPress = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
 
@@ -199,6 +204,7 @@ public class OculusMgr : MonoBehaviour {
 
     float curControlPress = 0;
     float prevControlPress = 0;
+    public Vector3 pos;
 	private void Update() {
         //OVRInput.Update ();
 
@@ -208,15 +214,18 @@ public class OculusMgr : MonoBehaviour {
         if (cursor) {
             MapOculusInput();
 
-            Vector3 pos = cursor.transform.localPosition;
+            pos = cursor.transform.localPosition;
+            //Vector3 pos = cursor.transform.position;
             // 			pos.y = -pos.y + (float)GetResolution (resolutionType).height / (float)GetResolution (resolutionType).width * 5f/*width of the plane*/ - 1;
             // 			pos.y /= ((float)GetResolution (resolutionType).height / (float)GetResolution (resolutionType).width * 5f);
             // 			pos.z = -pos.z + 5f / 2f;
             // 			pos.z /= 5f;
             float scale = (float)GetResolution(resolutionType).width / (float)GetResolution(resolutionType).height;
-            pos.y = (-pos.y - 0.5f) / scale + 1f;
-            pos.z = -pos.z / 3 + 0.5f;
-            ctc.Pos = pos;
+            Vector3 newpos = pos;
+            // because bindingbox is rotated by 90 degree in y axis, so x->-z z->x
+            newpos.y = (-(pos.y-bindingBox.transform.position.y) / bindingBox.transform.localScale.y / 2 * scale + 0.5f);// / scale;
+            newpos.z = -(pos.z - bindingBox.transform.position.z) /bindingBox.transform.localScale.x/2 + 0.5f;
+            ctc.Pos = newpos;
 			ctc.Rot = cursor.transform.eulerAngles;
 			//print (cursor.transform.localPosition + "\t" + pos);
 			prevControlPress = curControlPress;

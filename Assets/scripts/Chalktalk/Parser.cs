@@ -58,7 +58,7 @@ namespace Chalktalk
 
         public void ParseStroke(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
         {
-            Debug.Log("ParseStroke");
+            //Debug.Log("ParseStroke");
 
             //string S = "";
             //foreach (byte b in bytes) {
@@ -99,18 +99,22 @@ namespace Chalktalk
                 //cursor += 2;
 
                 //Parse the Transform of this Curve
-                Vector3 translation = Utility.ParsetoVector3(bytes, cursor, 1);
-                cursor += 6;
-                Quaternion rotation = Utility.ParsetoQuaternion(bytes, cursor, 1);
-                cursor += 6;
-                float scale = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
-                cursor += 2;
+                // new version, use real float instead of fake float
+                Vector3 translation = Utility.ParsetoRealVector3(bytes, cursor, 1);
+                cursor += 6*2;
+                //Debug.Log("translation:" + translation);
+                Quaternion rotation = Utility.ParsetoRealQuaternion(bytes, cursor, 1);
+                cursor += 6*2;
+                //Debug.Log("rotation:" + rotation);
+                float scale = Utility.ParsetoRealFloat(bytes, cursor);
+                cursor += 2*2;
+                //Debug.Log("scale:" + scale);
 
                 //Debug.Log("header transformation:" + translation.ToString("F3") +"\t"+ scale.ToString("F3"));
                 //Parse the type of the stroke
                 int type = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
-                Debug.Log("CT type:" + type);
+                //Debug.Log("CT type:" + type);
 
                 //Parse the width of the line
                 float width = 0;
@@ -134,7 +138,7 @@ namespace Chalktalk
                         textStr += ((char)res1).ToString() + ((char)res2).ToString();
                         cursor += 2;
                     }
-                    if (textStr.Length > 0) {
+                    if (textStr.Length >= 0) {
                         Curve curve = GameObject.Instantiate<Curve>(renderer.curvePrefab);
                         //curve.transform.SetParent(renderer.transform);
                         curve.transform.SetParent(renderer.curvedParent);
@@ -142,14 +146,16 @@ namespace Chalktalk
                         curve.text = textStr;
                         renderer.curves.Add(curve);
                         // TODO
-
+                        curve.facingDirection = renderer.facingDirection;
+                        //Debug.Log("curve.facingDirection = renderer.facingDirection: " + curve.facingDirection);
                         // translation.y = (-1 + (2 * translation.y)) * (1080.0f / 1920.0f);
 
-                        translation.y -= renderer.bindingBox.transform.position.y;
-                        translation.y *= 1080.0f / 1920.0f;
-                        translation.y += renderer.bindingBox.transform.position.y;
-
                         translation = Vector3.Scale(translation, renderer.bindingBox.transform.localScale);
+
+                        //translation.y -= renderer.bindingBox.transform.position.y;
+                        //translation.y *= 1080.0f / 1920.0f;
+                        //translation.y += renderer.bindingBox.transform.position.y;
+
 
 
                         //translation.y -= 0.638f / 2;
@@ -158,8 +164,9 @@ namespace Chalktalk
 
 
                         translation = renderer.bindingBox.transform.rotation * translation + renderer.bindingBox.transform.position;
-                        translation = ApplyCurveTransformation(translation, renderer);
-                        curve.textPos = translation + new Vector3(0.0f, -TEMP_TEX_Y_OFF, 0.0f);
+                        //translation = ApplyCurveTransformation(translation, renderer);
+                        //Debug.Log("translation in text:" + translation);
+                        curve.textPos = translation; //+ new Vector3(0.0f, -TEMP_TEX_Y_OFF, 0.0f);
                         curve.textScale = scale;
 
                         curve.color = color;
@@ -183,7 +190,7 @@ namespace Chalktalk
                     }
                 } else {
                     for (int j = 0; j < (length - 12) / 4; j++) {
-                        Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
+                        Vector3 point = Utility.ParsetoRealVector3(bytes, cursor, 1);
                         point = Vector3.Scale(point, renderer.bindingBox.transform.localScale);
                         //Move point to the bindingBox Coordinate
                         //Debug.Log("bf:" + point);
@@ -195,9 +202,9 @@ namespace Chalktalk
                         //Apply the point transform for each point
                         points.Add(point);
                         //points.Add((rotation * point + translation) * scale);
-                        cursor += 6;
-                        width = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
-                        cursor += 2;
+                        cursor += 6*2;
+                        width = Utility.ParsetoRealFloat(bytes, cursor);
+                        cursor += 2*2;
                     }
 
                     // bold the framework
@@ -210,7 +217,7 @@ namespace Chalktalk
                     curve.transform.SetParent(renderer.curvedParent);
 
                     curve.points = points;
-                    curve.width = width * 3;
+                    curve.width = width * 3;// * 0.25f;
                     //curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
                     curve.color = color;
                     curve.type = (ChalktalkDrawType)type;
@@ -220,7 +227,7 @@ namespace Chalktalk
                 }
             }
 
-            Debug.Log("END");
+            //Debug.Log("END");
         }
 
         public void ParseProcedureAnimation(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)

@@ -14,7 +14,7 @@ namespace Chalktalk
         public Material defaultMat;
         private LineRenderer line;
         private TextMesh textMesh;
-        public Vector3 textPos;
+        public Vector3 textPos = Vector3.zero;
         public float textScale;
         public static float CT_TEXT_SCALE_FACTOR = 0.638f * 0.855f;
 
@@ -23,13 +23,16 @@ namespace Chalktalk
         public float width = 0f;
         public int id = 0;
 
-        public GameObject testMesh;
+        public float facingDirection;
+        public Font myfont;
+        public Material fontMat;
+
+        //public GameObject testMesh;
 
         // TODO probably separate into separate structure / code path or make an all-encompassing structure to hold everything
         public string text;
 
         public ChalktalkDrawType type;
-
 
 
         public void Draw()
@@ -43,6 +46,8 @@ namespace Chalktalk
                     Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
                     line.startColor = c;
                     line.endColor = c;
+                    line.numCornerVertices = 20;
+                    line.numCapVertices = 20;
                     line.material = defaultMat;
                     line.material.color = c;
                     line.material.SetColor("_EmissionColor", c);
@@ -127,16 +132,26 @@ namespace Chalktalk
                     textMesh.anchor = TextAnchor.MiddleCenter;
 
                     // reorient to face towards you
-                    transform.localRotation = Quaternion.Euler(0, 90, 0);
+                    transform.localRotation = Quaternion.Euler(0, facingDirection, 0);
                     //transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
 
 //                    textMesh.fontSize = 3;
                     //textMesh.font = Resources.Load("Nevis") as Font;
                     textMesh.text = text;
+                    //textMesh.font = myfont;
+                    //textMesh.font.material = fontMat;
                     textMesh.fontSize = 355;
                     textMesh.characterSize = 0.1f;
                     textMesh.color = color;
-                    transform.localPosition = textPos;
+                    if (!float.IsNaN(textPos.x))
+                    {
+                        transform.localPosition = textPos;
+                    }
+                    else
+                    {
+                        transform.localPosition = Vector3.zero;
+                    }
+                    
 
                     transform.localScale = new Vector3(
                     textScale* CT_TEXT_SCALE_FACTOR,
