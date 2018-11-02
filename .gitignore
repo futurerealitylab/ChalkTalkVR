@@ -1,28 +1,9 @@
-Library/
-Temp/
-*.meta
-*.info
-.vs/
-
-
-Assets/LenovoHackSDK/
-Assets/ParameterTuner/
-Assets/Standard Assets/
-Assets/StereoCamera/
-Assets/TrackerForS8/
-Assets/Network/
-
-*.apk
-
-README.md
-
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
 Assets/AssetStoreTools*
-Assets/Resources
 
 # Visual Studio cache directory
 .vs/
@@ -42,6 +23,7 @@ ExportedObj/
 *.svd
 *.pdb
 *.opendb
+*.VC.db
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -53,6 +35,20 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+Assets/LenovoHackSDK/
+Assets/ParameterTuner/
+Assets/Standard Assets/
+Assets/StereoCamera/
+Assets/TrackerForS8/
+Assets/Network/
+
+*.apk
+
+README.md
+
+Assets/Resources
+
 Release/
 *.exe
 obj/
