@@ -1198,14 +1198,14 @@ MonoBehaviour:
   _stopMode: 0
   _stopFrames: 0
   _stopSeconds: 0
-  _useMediaFoundationH264: 0
+  _useMediaFoundationH264: 1
   _videoCodecPriority:
   - Lagarith Lossless Codec
   - x264vfw - H.264/MPEG-4 AVC codec
   - Xvid MPEG-4 Codec
   - ffdshow video encoder
   - Cinepak Codec by Radius
-  _frameRate: 60
+  _frameRate: 24
   _timelapseScale: 1
   _downScale: 1
   _maxVideoSize: {x: 0, y: 0}
@@ -1222,13 +1222,13 @@ MonoBehaviour:
   _outputFolderType: 0
   _outputFolderPath: 
   _autoFilenamePrefix: Demofps
-  _autoFilenameExtension: avi
+  _autoFilenameExtension: mp4
   _forceFilename: movie.avi
   _imageSequenceStartFrame: 0
   _imageSequenceZeroDigits: 6
   _outputType: 0
   _imageSequenceFormat: 0
-  _renderResolution: 18
+  _renderResolution: 10
   _renderSize: {x: 1, y: 1}
   _renderAntiAliasing: 2
   _useMotionBlur: 0
@@ -1836,14 +1836,14 @@ MonoBehaviour:
   _stopMode: 0
   _stopFrames: 0
   _stopSeconds: 0
-  _useMediaFoundationH264: 0
+  _useMediaFoundationH264: 1
   _videoCodecPriority:
   - Lagarith Lossless Codec
   - x264vfw - H.264/MPEG-4 AVC codec
   - Xvid MPEG-4 Codec
   - ffdshow video encoder
   - Cinepak Codec by Radius
-  _frameRate: 60
+  _frameRate: 24
   _timelapseScale: 1
   _downScale: 1
   _maxVideoSize: {x: 0, y: 0}
@@ -1860,13 +1860,13 @@ MonoBehaviour:
   _outputFolderType: 0
   _outputFolderPath: 
   _autoFilenamePrefix: DemoThirdPerson
-  _autoFilenameExtension: avi
+  _autoFilenameExtension: mp4
   _forceFilename: movie.avi
   _imageSequenceStartFrame: 0
   _imageSequenceZeroDigits: 6
   _outputType: 0
   _imageSequenceFormat: 0
-  _renderResolution: 18
+  _renderResolution: 10
   _renderSize: {x: 1, y: 1}
   _renderAntiAliasing: 2
   _useMotionBlur: 0
@@ -2258,7 +2258,7 @@ MonoBehaviour:
   _stopMode: 0
   _stopFrames: 0
   _stopSeconds: 0
-  _useMediaFoundationH264: 0
+  _useMediaFoundationH264: 1
   _videoCodecPriority:
   - Lagarith Lossless Codec
   - x264vfw - H.264/MPEG-4 AVC codec
@@ -2282,13 +2282,13 @@ MonoBehaviour:
   _outputFolderType: 0
   _outputFolderPath: 
   _autoFilenamePrefix: Demo2Camera
-  _autoFilenameExtension: avi
+  _autoFilenameExtension: mp4
   _forceFilename: movie.avi
   _imageSequenceStartFrame: 0
   _imageSequenceZeroDigits: 6
   _outputType: 0
   _imageSequenceFormat: 0
-  _renderResolution: 18
+  _renderResolution: 10
   _renderSize: {x: 1, y: 1}
   _renderAntiAliasing: 2
   _useMotionBlur: 0
