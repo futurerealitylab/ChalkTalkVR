@@ -80,6 +80,9 @@ namespace Chalktalk
     public class Renderer : MonoBehaviour
     {
 
+        // for mirror
+        public float facingDirection;
+
         // For DevDebug
         public Byte[] DataViewer;
 
@@ -87,6 +90,10 @@ namespace Chalktalk
         public Curve curvePrefab;
         [SerializeField]
         public BindingBox bindingBox;
+        [SerializeField]
+        public Transform curvedParent;
+
+        public CurvedUI.CurvedUISettings mySettings;
 
         [SerializeField]
         private string label = "Display1";
@@ -97,9 +104,19 @@ namespace Chalktalk
 
         public List<Curve> curves = new List<Curve>();
 
+<<<<<<< HEAD
         public List<string> trackedLabels = new List<string>();
 
         void Start()
+=======
+        public override void ResetData()
+        {
+            base.ResetData();
+            mySettings = GetComponentInParent<CurvedUI.CurvedUISettings>();
+        }
+
+        public override string Label
+>>>>>>> promotion_video
         {
             displayObj = new DisplayObj(label);
             trackedLabels.Add(label);
@@ -256,6 +273,10 @@ namespace Chalktalk
         {
             foreach (Curve curve in curves)
             {
+                //if (curve.testMesh)
+                //{
+                   //DestroyImmediate(curve.testMesh);
+                //}
                 DestroyImmediate(curve.gameObject);
             }
             curves.Clear();
@@ -339,7 +360,6 @@ namespace Chalktalk
                 int type = Utility.ParsetoInt16(bytes, cursor);
                 cursor += 2;
 
-
                 //Parse the width of the line
                 float width = 0;
 
@@ -349,6 +369,7 @@ namespace Chalktalk
                 for (int j = 0; j < (length - 12) / 4; j++)
                 {
                     Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
+                    print(point);
                     //point.Scale(bindingBox.transform.localScale);
                     //Move point to the bindingBox Coordinate
                     point = bindingBox.transform.rotation * point + bindingBox.transform.position;
@@ -365,6 +386,8 @@ namespace Chalktalk
                 // width *= (isFrame) ? 20.0f : 1.0f;
 
                 Curve curve = GameObject.Instantiate<Curve>(curvePrefab);
+                curve.facingDirection = facingDirection;
+                print("curve.facingDirection = facingDirection: " + curve.facingDirection);
                 curve.transform.SetParent(this.transform);
 
                 curve.points = points;

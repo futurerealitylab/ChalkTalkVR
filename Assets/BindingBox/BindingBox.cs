@@ -57,9 +57,9 @@ public class BindingBox : MonoBehaviour {
     }
 
     if (clamp) {
-      position.x = Mathf.Clamp(position.x,transform.localScale.x * -0.5f, transform.localScale.x * 0.5f);
-      position.y = Mathf.Clamp(position.y, transform.localScale.y * -0.5f, transform.localScale.y * 0.5f);
-      position.z = Mathf.Clamp(position.z, transform.localScale.z * -0.5f, transform.localScale.z * 0.5f);
+      position.x = Mathf.Clamp(position.x,transform.localScale.x * -1f, transform.localScale.x * 1f);
+      position.y = Mathf.Clamp(position.y, transform.localScale.y * -1f, transform.localScale.y * 1f);
+      position.z = Mathf.Clamp(position.z, transform.localScale.z * -1f, transform.localScale.z * 1f);
     }
 
     position = transform.position + transform.rotation * position;
