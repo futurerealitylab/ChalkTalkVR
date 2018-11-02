@@ -153,7 +153,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.FRL.ChalkTalk
     Metro: com.oculus.UnitySample
-    Standalone: unity.Valve.SteamVR
+    Standalone: unity.zhenyi.split
     Tizen: com.Company.ProductName
     iOS: com.Company.ProductName
     tvOS: com.Company.ProductName
@@ -202,6 +202,7 @@ PlayerSettings:
   tvOSSmallIconLayers: []
   tvOSSmallIconLayers2x: []
   tvOSLargeIconLayers: []
+  tvOSLargeIconLayers2x: []
   tvOSTopShelfImageLayers: []
   tvOSTopShelfImageLayers2x: []
   tvOSTopShelfImageWideLayers: []
@@ -615,7 +616,7 @@ PlayerSettings:
   webGLCompressionFormat: 1
   webGLLinkerTarget: 1
   scriptingDefineSymbols:
-    1: CURVEDUI_TOUCH;CROSS_PLATFORM_INPUT
+    1: CURVEDUI_TOUCH;CROSS_PLATFORM_INPUT;OVR
     4: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     7: CURVEDUI_TOUCH;CROSS_PLATFORM_INPUT;MOBILE_INPUT
     14: MOBILE_INPUT
