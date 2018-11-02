@@ -27,7 +27,7 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_2_7;UNITY_2018_2;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CURVEDUI_TOUCH;CROSS_PLATFORM_INPUT</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_2_7;UNITY_2018_2;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CURVEDUI_TOUCH;CROSS_PLATFORM_INPUT;OVR</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -37,7 +37,7 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_2_7;UNITY_2018_2;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CURVEDUI_TOUCH;CROSS_PLATFORM_INPUT</DefineConstants>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_2_7;UNITY_2018_2;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CURVEDUI_TOUCH;CROSS_PLATFORM_INPUT;OVR</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
@@ -264,6 +264,9 @@
     </Reference>
     <Reference Include="FlatBuffers">
       <HintPath>Assets/Holojam/Plugins/FlatBuffers.dll</HintPath>
+    </Reference>
+    <Reference Include="FlatBuffers">
+      <HintPath>Assets/scripts/Tracking/Plugins/FlatBuffers/FlatBuffers.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/snowy/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
@@ -591,38 +594,6 @@
     <Compile Include="Assets\OculusPlatform\Scripts\VoipPCMSourceNative.cs" />
     <Compile Include="Assets\OculusPlatform\Scripts\VoipSampleRate.cs" />
     <Compile Include="Assets\OculusPlatform\Scripts\WindowsPlatform.cs" />
-    <Compile Include="Assets\RockVR\Common\Scripts\EventDelegate.cs" />
-    <Compile Include="Assets\RockVR\Common\Scripts\FPSDisplay.cs" />
-    <Compile Include="Assets\RockVR\Common\Scripts\Platform.cs" />
-    <Compile Include="Assets\RockVR\Common\Scripts\Process.cs" />
-    <Compile Include="Assets\RockVR\Common\Scripts\Singleton.cs" />
-    <Compile Include="Assets\RockVR\Rift\Demo\Resources\RiftTouchModel\Scripts\TouchController.cs" />
-    <Compile Include="Assets\RockVR\Rift\Demo\Scripts\CameraSampleCtrl.cs" />
-    <Compile Include="Assets\RockVR\Rift\Demo\Scripts\CameraSetUpCtrl.cs" />
-    <Compile Include="Assets\RockVR\Rift\Demo\Scripts\RecordTime.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Controls\Base\RIFT_EventDelegate.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Controls\Base\RIFT_GraphicRaycaster.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Controls\Base\RIFT_UIEventInputModule.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Controls\Camera\RIFT_FollowCamera.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Controls\RadialMenu\RIFT_GraphicCircle.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Controls\RadialMenu\RIFT_RadialMenu.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Controls\RIFT_EventCtrl.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Controls\RIFT_Pointer.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Interaction\RIFT_Interaction.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Interaction\RIFT_Teleport.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Interaction\Tooltip\RIFT_Tooltip.cs" />
-    <Compile Include="Assets\RockVR\Rift\Scripts\Interaction\Tooltip\RIFT_TooltipManager.cs" />
-    <Compile Include="Assets\RockVR\Video\Demo\Scripts\AutoRotate.cs" />
-    <Compile Include="Assets\RockVR\Video\Demo\Scripts\VideoCaptureUI.cs" />
-    <Compile Include="Assets\RockVR\Video\Scripts\AudioCapture.cs" />
-    <Compile Include="Assets\RockVR\Video\Scripts\Base\VideoCaptureBase.cs" />
-    <Compile Include="Assets\RockVR\Video\Scripts\Base\VideoCaptureCtrlBase.cs" />
-    <Compile Include="Assets\RockVR\Video\Scripts\Config.cs" />
-    <Compile Include="Assets\RockVR\Video\Scripts\Screenshot.cs" />
-    <Compile Include="Assets\RockVR\Video\Scripts\Utils\Utils.cs" />
-    <Compile Include="Assets\RockVR\Video\Scripts\VideoCapture.cs" />
-    <Compile Include="Assets\RockVR\Video\Scripts\VideoCaptureCtrl.cs" />
-    <Compile Include="Assets\RockVR\Video\Scripts\VideoPlayer.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" />
@@ -646,7 +617,6 @@
     <Compile Include="Assets\scripts\Chalktalk\ScreenshotMgr.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Utility.cs" />
     <Compile Include="Assets\scripts\CurvedUICtrl.cs" />
-    <Compile Include="Assets\scripts\DebugNetwork.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkChalkMaker.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkController.cs" />
     <Compile Include="Assets\scripts\Deprecated\ChalkTalkLine.cs" />
@@ -658,17 +628,43 @@
     <Compile Include="Assets\scripts\Gaze\StudyDataPoint.cs" />
     <Compile Include="Assets\scripts\getRot.cs" />
     <Compile Include="Assets\scripts\GVRViveHeadset.cs" />
+    <Compile Include="Assets\scripts\HolojamRelated\DebugNetwork.cs" />
+    <Compile Include="Assets\scripts\HolojamRelated\MirageHeadset.cs" />
+    <Compile Include="Assets\scripts\HolojamRelated\SyncIMU.cs" />
+    <Compile Include="Assets\scripts\HolojamRelated\TrackedLabelObj.cs" />
     <Compile Include="Assets\scripts\IMUVis.cs" />
-    <Compile Include="Assets\scripts\MirageHeadset.cs" />
     <Compile Include="Assets\scripts\SensorFusionMirage.cs" />
-    <Compile Include="Assets\scripts\Smoothing.cs" />
-    <Compile Include="Assets\scripts\SyncIMU.cs" />
     <Compile Include="Assets\scripts\SyncViveTracker.cs" />
     <Compile Include="Assets\scripts\testOculusTouch.cs" />
     <Compile Include="Assets\scripts\testVT.cs" />
     <Compile Include="Assets\scripts\TmpEvent.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Canon.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Chunk.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Exchange.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Flake.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Smoothing.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\Translation.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\XRNetworkClient.cs" />
+    <Compile Include="Assets\scripts\Tracking\Network\XRTrackedObject.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\Flake.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\Nugget.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\NuggetType.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\Vector3.cs" />
+    <Compile Include="Assets\scripts\Tracking\Protocol\Vector4.cs" />
+    <Compile Include="Assets\scripts\Tracking\Utility\Drawer.cs" />
+    <Compile Include="Assets\scripts\Utility\Global.cs" />
+    <Compile Include="Assets\scripts\Utility\MouseLook.cs" />
+    <Compile Include="Assets\scripts\Utility\ObjectByteConverter.cs" />
+    <Compile Include="Assets\scripts\Utility\Smoothing.cs" />
+    <Compile Include="Assets\scripts\Utility\XRSystem.cs" />
     <Compile Include="Assets\scripts\VRCapture\DedicatedCmr.cs" />
     <Compile Include="Assets\scripts\VRCapture\FixedCmr.cs" />
+    <Compile Include="Assets\scripts\XR\XRDevice.cs" />
+    <Compile Include="Assets\scripts\XR\XRDriftCorrection.cs" />
+    <Compile Include="Assets\scripts\XR\XRHMD.cs" />
+    <Compile Include="Assets\scripts\XR\XRManager.cs" />
+    <Compile Include="Assets\scripts\XR\XRModel.cs" />
+    <Compile Include="Assets\scripts\XR\XRMouseLook.cs" />
     <Compile Include="Assets\TestLootat.cs" />
     <Compile Include="Assets\WorldInitializer.cs" />
   </ItemGroup>
@@ -717,17 +713,6 @@
     <None Include="Assets\Resources\___0\gazePresA.txt" />
     <None Include="Assets\Resources\___0\gazePresB.txt" />
     <None Include="Assets\Resources\___0\gazePresBoard.txt" />
-    <None Include="Assets\RockVR\Rift\Demo\Shaders\TransparentGlass.shader" />
-    <None Include="Assets\RockVR\Rift\Shaders\LaserPointer.shader" />
-    <None Include="Assets\RockVR\Rift\Shaders\UIOverlay.shader" />
-    <None Include="Assets\RockVR\Video\Shaders\CopyReverse.shader" />
-    <None Include="Assets\RockVR\Video\Shaders\Cubemap2Equirectangular.shader" />
-    <None Include="Assets\RockVR\Video\Shaders\Cubemap2EquirectangularPro.shader" />
-    <None Include="Assets\RockVR\Video\Shaders\CubemapDisplayPro.shader" />
-    <None Include="Assets\RockVR\Video\Shaders\CubemapToCylindrical.shader" />
-    <None Include="Assets\RockVR\Video\Shaders\DownsamplePro.shader" />
-    <None Include="Assets\RockVR\Video\Shaders\FlippingTexture.shader" />
-    <None Include="Assets\RockVR\Video\Shaders\Stereoscopic.shader" />
     <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
@@ -764,6 +749,7 @@
     <None Include="Assets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpec.shader" />
     <None Include="Assets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpecTransp.shader" />
     <None Include="Assets\scripts\Chalktalk\3DTextShader.shader" />
+    <None Include="Assets\scripts\Tracking\Plugins\FlatBuffers\LICENSE.txt" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Templates\Alert.uxml" />

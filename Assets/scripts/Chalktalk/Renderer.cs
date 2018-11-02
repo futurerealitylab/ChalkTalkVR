@@ -1,4 +1,4 @@
-﻿#define DEBUG_PRINT
+﻿//#define DEBUG_PRINT
 #define FAIL_FAST
 
 
@@ -104,19 +104,18 @@ namespace Chalktalk
 
         public List<Curve> curves = new List<Curve>();
 
-<<<<<<< HEAD
+        //public override void ResetData()
+        //{
+        //    base.ResetData();
+        //    mySettings = GetComponentInParent<CurvedUI.CurvedUISettings>();
+        //}
+
+        //public override string Label
+        //promotion_video
+
         public List<string> trackedLabels = new List<string>();
 
         void Start()
-=======
-        public override void ResetData()
-        {
-            base.ResetData();
-            mySettings = GetComponentInParent<CurvedUI.CurvedUISettings>();
-        }
-
-        public override string Label
->>>>>>> promotion_video
         {
             displayObj = new DisplayObj(label);
             trackedLabels.Add(label);

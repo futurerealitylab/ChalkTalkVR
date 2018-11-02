@@ -58,18 +58,6 @@ namespace Chalktalk
 
         public void ParseStroke(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
         {
-<<<<<<< HEAD
-            // data byte cursor (skip the 8-byte header)
-=======
-            //Debug.Log("ParseStroke");
-
-            //string S = "";
-            //foreach (byte b in bytes) {
-            //    S += b + ", ";
-            //}
-            //Debug.Log(S);
-
->>>>>>> promotion_video
             int cursor = 8;
 
             // The total number of words in this packet, then get the size of the bytes size
@@ -187,16 +175,7 @@ namespace Chalktalk
                         curve.testMesh.transform.localScale = // new Vector3((Mathf.Sin(Time.time) + 1.0f) / 2.0f, (Mathf.Sin(Time.time) + 1.0f) / 2.0f, (Mathf.Sin(Time.time) + 1.0f) / 2.0f);
                             new Vector3(scale, scale, scale);
 
-<<<<<<< HEAD
-                curve.points = points;
-                curve.width = width * 3;
-                curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
-                //curve.color = color;
-                // zhenyi: not using the chalktalk color
-                //curve.color = new Color(1, 1, 1, 1);
-                curve.type = (ChalktalkDrawType)type;
-                renderer.curves.Add(curve);
-=======
+
                         curve.testMesh.transform.Translate(new Vector3(0.0f, -TEMP_TEX_Y_OFF, 0.0f));
 #endif
 
@@ -239,7 +218,6 @@ namespace Chalktalk
                     //curve.color = new Color(1, 1, 1, 1);
                     renderer.curves.Add(curve);
                 }
->>>>>>> promotion_video
             }
 
             //Debug.Log("END");
