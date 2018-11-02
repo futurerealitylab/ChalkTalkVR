@@ -58,14 +58,6 @@ namespace Chalktalk
 
         public void ParseStroke(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
         {
-            //Debug.Log("ParseStroke");
-
-            //string S = "";
-            //foreach (byte b in bytes) {
-            //    S += b + ", ";
-            //}
-            //Debug.Log(S);
-
             int cursor = 8;
 
             // The total number of words in this packet, then get the size of the bytes size
@@ -182,6 +174,7 @@ namespace Chalktalk
 
                         curve.testMesh.transform.localScale = // new Vector3((Mathf.Sin(Time.time) + 1.0f) / 2.0f, (Mathf.Sin(Time.time) + 1.0f) / 2.0f, (Mathf.Sin(Time.time) + 1.0f) / 2.0f);
                             new Vector3(scale, scale, scale);
+
 
                         curve.testMesh.transform.Translate(new Vector3(0.0f, -TEMP_TEX_Y_OFF, 0.0f));
 #endif

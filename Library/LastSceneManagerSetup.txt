@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/scenes/chalktalk_oculus.unity
+- path: Assets/scenes/MultiBuffer.unity
   isLoaded: 1
   isActive: 1

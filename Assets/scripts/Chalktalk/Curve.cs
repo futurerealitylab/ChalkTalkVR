@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿//#define DEBUG_PRINT
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chalktalk
 {
     public enum ChalktalkDrawType { STROKE, FILL, TEXT };
-
 
 
     //[RequireComponent(typeof(LineRenderer))]
@@ -22,7 +23,6 @@ namespace Chalktalk
         public Color color = Color.white;
         public float width = 0f;
         public int id = 0;
-
         public float facingDirection;
         public Font myfont;
         public Material fontMat;
@@ -39,6 +39,7 @@ namespace Chalktalk
         {
             switch (type)
             {
+
                 case ChalktalkDrawType.STROKE:
                     line = this.gameObject.AddComponent<LineRenderer>();
                     line.positionCount = points.Count;
@@ -68,6 +69,7 @@ namespace Chalktalk
                     }
                     else
                     {
+
                         filter = go.GetComponent<MeshFilter>();
                     }
                     shape.vertices = points.ToArray();
@@ -77,6 +79,7 @@ namespace Chalktalk
                     int[] indices = new int[countTris * 3 * 2];
                     for (int i = 0, off = 0; i < countTris; ++i, off += 6)
                     {
+
                         indices[off] = 0;
                         indices[off + 1] = i + 1;
                         indices[off + 2] = i + 2;
@@ -99,6 +102,7 @@ namespace Chalktalk
                     c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
                     mymat.SetColor("_EmissionColor", c);
                     mymat.color = c;
+
                     mr.material = mymat;
                     //mr.material.color = color;
 
@@ -119,15 +123,11 @@ namespace Chalktalk
                     shape.RecalculateBounds();
                     shape.RecalculateNormals();
 
-
                     filter.mesh = shape;
 
                     break;
+
                 case ChalktalkDrawType.TEXT:
-
-
-                   // goto default;
-
                     textMesh = gameObject.AddComponent<TextMesh>();
                     textMesh.anchor = TextAnchor.MiddleCenter;
 
