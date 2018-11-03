@@ -1,4 +1,4 @@
-﻿#define DEBUG_PRINT
+﻿//#define DEBUG_PRINT
 #define FAIL_FAST
 
 
@@ -11,8 +11,7 @@ using FRL.Utility;
 using UnityEngine.UI;
 using UnityEditor;
 
-namespace Chalktalk
-{
+namespace Chalktalk {
 
     public class DisplayObj {
         public string label;
@@ -57,11 +56,11 @@ namespace Chalktalk
         }
 
         public override string ToString() {
-            return 
-                "{BATCH BYTE LENGTH: " + batchByteLength + 
-                ", BYTE LENGTH: " + bytes.Length + 
-                ", SLICE COUNT: " + sliceCount + 
-                ", SLICE ID: " + sliceId + 
+            return
+                "{BATCH BYTE LENGTH: " + batchByteLength +
+                ", BYTE LENGTH: " + bytes.Length +
+                ", SLICE COUNT: " + sliceCount +
+                ", SLICE ID: " + sliceId +
                 ", BATCH TIMESTAMP: " + batchTimestamp + ", BATCH TIMESTAMP OVERFLOW: " + batchTimestampOverflow + "}";
         }
 
@@ -70,16 +69,14 @@ namespace Chalktalk
             bytes = new byte[0];
         }
 
-        public DisplayObj(string l)
-        {
+        public DisplayObj(string l) {
             label = l;
             bytes = new byte[0];
         }
-}
+    }
 
-    public class Renderer : MonoBehaviour
-    {
-
+    public class Renderer : MonoBehaviour {
+        
         // For DevDebug
         public Byte[] DataViewer;
 
@@ -97,24 +94,32 @@ namespace Chalktalk
 
         public List<Curve> curves = new List<Curve>();
 
-        public List<string> trackedLabels = new List<string>();
+        //public List<string> trackedLabels = new List<string>();
 
-        void Start()
-        {
+
+
+
+
+
+        private void Awake() {
+            CTEntityPool.Init(curvePrefab.gameObject, curvePrefab.gameObject, curvePrefab.gameObject);
+        }
+
+        void Start() {
             displayObj = new DisplayObj(label);
-            trackedLabels.Add(label);
+            //trackedLabels.Add(label);
             // To karl: create or assign label to DisplayObj when you need to. And then retrieve bytes through public members.
         }
 
         public class BatchData {
-            public int byteLength     = 0;
-            public int slicesArrived  = 0;
-            public byte[][] slices    = null;
+            public int byteLength = 0;
+            public int slicesArrived = 0;
+            public byte[][] slices = null;
             public ulong timestampKey = 0;
 
-            public static int timestampMostRecentlyCompleted         = 0;
+            public static int timestampMostRecentlyCompleted = 0;
             public static int timestampOverflowMostRecentlyCompleted = 0;
-            public static ulong timestampKeyMostRecentlyCompleted    = 0;
+            public static ulong timestampKeyMostRecentlyCompleted = 0;
 
             public override string ToString() {
                 return "{KEY: " + timestampKey + ", ARRIVED: " + slicesArrived + ", SLICE COUNT: " + slices.Length + "}";
@@ -130,8 +135,7 @@ namespace Chalktalk
 
         public BatchData completeBatchData = new BatchData(); // sentinel data to avoid need for null checks
 
-        protected void Update()
-        {
+        protected void Update() {
             int labelCount = XRNetworkClient.LabelCount();
             Debug.Log("LABEL COUNT: " + labelCount);
             for (int i = 0; i < labelCount; ++i) {
@@ -190,8 +194,7 @@ namespace Chalktalk
 #endif
 
                 if (batch.slicesArrived == batch.slices.Length &&
-                    batch.timestampKey > completeBatchData.timestampKey) 
-                {
+                    batch.timestampKey > completeBatchData.timestampKey) {
                     completeBatchData = batch;
                     BatchData.timestampKeyMostRecentlyCompleted = batch.timestampKey;
                     readyToDraw = true;
@@ -217,7 +220,7 @@ namespace Chalktalk
                         ptr += byteSlice.Length;
                     }
                 }
-                
+
 
                 Debug.AssertFormat(completeBatchData.byteLength == ptr, "batch byte length " + completeBatchData.byteLength + " does not equal total copied byte length " + ptr);
 
@@ -237,9 +240,12 @@ namespace Chalktalk
 
                 Draw();
 
-//#if DEBUG_PRINT
+                // this will disable all unused entities
+                CTEntityPool.FinalizeFrameData();
+
+#if DEBUG_PRINT
                 Debug.Log("TIMESTAMP MAP COUNT BEFORE REMOVE OPERATIONS: " + timestampMap.Count + " frame: " + Time.frameCount);
-//#endif
+#endif
                 List<ulong> toRemove = new List<ulong>();
                 foreach (KeyValuePair<ulong, BatchData> entry in timestampMap) {
                     if (entry.Key < BatchData.timestampKeyMostRecentlyCompleted) {
@@ -252,39 +258,30 @@ namespace Chalktalk
             }
         }
 
-        private void DestroyCurves()
-        {
-            foreach (Curve curve in curves)
-            {
+        private void DestroyCurves() {
+            foreach (Curve curve in curves) {
                 DestroyImmediate(curve.gameObject);
             }
             curves.Clear();
         }
 
-        
-        private void Parse(byte[] bytes)
-        {
+
+        private void Parse(byte[] bytes) {
             ChalkTalkObj ctObj = ctParser.Parse(bytes, this);
             return;
         }
 
 
-        private void Draw()
-        {
-            foreach (Curve curve in curves)
-            {
+        private void Draw() {
+            foreach (Curve curve in curves) {
                 curve.Draw();
             }
         }
 
-        private bool boldenFrame(List<Vector3> points)
-        {
-            if (points.Count == 5)
-            {
-                for (int i = 0; i < points.Count; i++)
-                {
-                    if ((points[i].z < 1.0f) && (points[i].z > -1.0f))
-                    {
+        private bool boldenFrame(List<Vector3> points) {
+            if (points.Count == 5) {
+                for (int i = 0; i < points.Count; i++) {
+                    if ((points[i].z < 1.0f) && (points[i].z > -1.0f)) {
                         break;
                     }
                 }
@@ -294,8 +291,7 @@ namespace Chalktalk
             return false;
         }
 
-        void oldparse(byte[] bytes)
-        {
+        void oldparse(byte[] bytes) {
             //Skip the "CTDATA01" String header
             int cursor = 8;
 
@@ -303,8 +299,7 @@ namespace Chalktalk
             int curveCount = Utility.ParsetoInt16(bytes, cursor);
             cursor += 2;
 
-            for (; cursor < bytes.Length;)
-            {
+            for (; cursor < bytes.Length;) {
                 Debug.Log("Current Cursor: " + cursor);
                 //The length of the current line
                 int length = Utility.ParsetoInt16(bytes, cursor);
@@ -346,8 +341,7 @@ namespace Chalktalk
                 List<Vector3> points = new List<Vector3>();
                 Debug.Log("Current Line's points count: " + (length - 12) / 4);
                 Debug.Log("Current Cursor before read the points :" + cursor);
-                for (int j = 0; j < (length - 12) / 4; j++)
-                {
+                for (int j = 0; j < (length - 12) / 4; j++) {
                     Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
                     //point.Scale(bindingBox.transform.localScale);
                     //Move point to the bindingBox Coordinate

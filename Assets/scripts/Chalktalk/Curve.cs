@@ -4,26 +4,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Chalktalk
-{
-    public enum ChalktalkDrawType { STROKE, FILL };
+namespace Chalktalk {
+    public enum ChalktalkDrawType { STROKE, FILL, TEXT };
 
-    
+
 
     //[RequireComponent(typeof(LineRenderer))]
-    public class Curve : MonoBehaviour
-    {
+    public class Curve : MonoBehaviour {
         public Material defaultMat;
-        private LineRenderer line;
+        public LineRenderer line;
+        public MeshFilter meshFilter;
 
-        public List<Vector3> points = new List<Vector3>();
+        public List<Vector3> points;
         public Color color = Color.white;
         public float width = 0f;
         public int id = 0;
+
+
         public ChalktalkDrawType type;
 
-        public void Draw()
-        {
+        public void Init() {
+
+        }
+        public void Start() {
+        }
+
+
+        public void InitStroke(List<Vector3> points, Color color, int width) {
+            this.type = ChalktalkDrawType.STROKE;
+            this.line.positionCount = points.Count;
+            this.line.SetPositions(points.ToArray());
+            this.line.startColor = color;
+            this.line.endColor = color;
+            this.line.material.color = color;
+            this.line.startWidth = width;
+            this.line.endWidth = width;
+        }
+
+        public void Draw() {
             switch (type) {
                 case ChalktalkDrawType.STROKE:
                     line = this.gameObject.AddComponent<LineRenderer>();
@@ -34,7 +52,7 @@ namespace Chalktalk
                     line.material.color = color;
                     line.startWidth = width;
                     line.endWidth = width;
-                    
+
                     break;
                 case ChalktalkDrawType.FILL:
                     GameObject go = this.gameObject;
@@ -85,7 +103,7 @@ namespace Chalktalk
                     //shape.triangles = I;
                     shape.RecalculateBounds();
                     shape.RecalculateNormals();
-                    
+
 
                     filter.mesh = shape;
 
@@ -101,11 +119,9 @@ namespace Chalktalk
 #endif
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             string s = "ID: " + id + " COLOR: " + color + " WIDTH: " + width + " POINTS: ";
-            for (int i = 0; i < points.Count; i++)
-            {
+            for (int i = 0; i < points.Count; i++) {
                 s += " { x : " + points[i].x + " y: " + points[i].y + " z: " + points[i].z + " } ";
             }
             s += " TYPE: " + this.type;
