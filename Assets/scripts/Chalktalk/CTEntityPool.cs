@@ -51,6 +51,7 @@ public class CTEntityPool {
         for (int i = 0; i < withLinesList.buffer.Count; i += 1) {
             withLinesList.buffer[i].enabled = false;
             withLinesList.buffer[i].line.enabled = false;
+            //withLinesList.buffer[i].gameObject.SetActive(false);
         }
 
         AllocateAndInitFills(fillPrefab, nFill, withFillList.buffer);
@@ -81,11 +82,15 @@ public class CTEntityPool {
 
             Curve c = go.GetComponent<Curve>();
             c.line = c.gameObject.AddComponent<LineRenderer>();
+            c.line.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            c.line.receiveShadows = false;
 
             c.enabled = false;
             c.line.enabled = false;
 
             list.Add(c);
+
+            //go.SetActive(false);
         }
     }
 
@@ -151,6 +156,7 @@ public class CTEntityPool {
         if (withLinesList.prevCountElementsInUse <= withLinesList.countElementsInUse) {
             c.enabled = true;
             c.line.enabled = true;
+            //c.gameObject.SetActive(true);
         }
 
         // now one more element is in use this frame
@@ -169,6 +175,7 @@ public class CTEntityPool {
         if (withFillList.prevCountElementsInUse <= withFillList.countElementsInUse) {
             c.enabled = true;
             c.line.enabled = true;
+
         }
 
         // now one more element is in use this frame
@@ -195,6 +202,7 @@ public class CTEntityPool {
         for (int i = list.countElementsInUse; i < bound;  i += 1) {
             buff[i].enabled = false;
             buff[i].line.enabled = false;
+            //buff[i].gameObject.SetActive(false);
         }
         list.prevCountElementsInUse = list.countElementsInUse;
     }

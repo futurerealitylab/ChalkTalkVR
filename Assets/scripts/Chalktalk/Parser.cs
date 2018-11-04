@@ -86,6 +86,7 @@ namespace Chalktalk {
                 List<Vector3> points = new List<Vector3>();
                 //Debug.Log("Current Line's points count: " + (length - 12) / 4);
                 //Debug.Log("Current Cursor before read the points :" + cursor);
+
                 for (int j = 0; j < (length - 12) / 4; j++) {
                     Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
                     //point.Scale(bindingBox.transform.localScale);

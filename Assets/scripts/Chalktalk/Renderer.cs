@@ -1,6 +1,6 @@
 ﻿//#define DEBUG_PRINT
 //#define FAIL_FAST
-#define BEFORE_POOL
+//#define BEFORE_POOL
 
 
 using System;
@@ -114,9 +114,10 @@ namespace Chalktalk {
             // To karl: create or assign label to DisplayObj when you need to. And then retrieve bytes through public members.
         }
 
+
         public class BatchData {
             public int byteLength = 0;
-            public int slicesArrived = 0;
+            public ulong slicesArrivedBitset = 0;
             public byte[][] slices = null;
             public ulong timestampKey = 0;
 
@@ -124,8 +125,34 @@ namespace Chalktalk {
             public static int timestampOverflowMostRecentlyCompleted = 0;
             public static ulong timestampKeyMostRecentlyCompleted = 0;
 
+            public BatchData() { }
+            public BatchData(int byteLength, int sliceCount, ulong timestampKey) {
+                this.byteLength = byteLength;
+                this.slices = new byte[sliceCount][];
+                this.timestampKey = timestampKey;
+
+                this.InitSliceBitset();
+            }
+
+
+            public void InitSliceBitset() {
+                // 1 == has not arrived, 0 == arrived, when all arrived, should be a value of 0
+                this.slicesArrivedBitset = (0xFFFFFFFFFFFFFFFF >> (64 - this.slices.Length));
+                //Debug.Log(this.ToString());
+            }
+
+            public void MarkSliceAsArrived(int idx) {
+                this.slicesArrivedBitset ^= (uint)(1 << idx);
+
+                //Debug.Log("MARK " + Convert.ToString((long)this.slicesArrivedBitset, 2).PadLeft(64, '0'));
+            }
+
+            public bool AllSlicesArrived() {
+                return this.slicesArrivedBitset == 0;
+            }
+
             public override string ToString() {
-                return "{KEY: " + timestampKey + ", ARRIVED: " + slicesArrived + ", SLICE COUNT: " + slices.Length + "}";
+                return "{KEY: " + timestampKey + ", ARRIVED: " + Convert.ToString((long)this.slicesArrivedBitset, 2).PadLeft(64, '0') + ", SLICE COUNT: " + slices.Length + "}";
             }
         }
 
@@ -139,12 +166,18 @@ namespace Chalktalk {
 
 
         private int MergeBytes(BatchData data) {
+            if (data.slices.Length == 1) {
+                mergedBytes = data.slices[0];
+                return mergedBytes.Length;
+            }
+
             mergedBytes = new byte[data.byteLength];
 
             int ptr = 0;
             {
                 byte[][] slices = data.slices;
                 int length = slices.Length;
+                Debug.Log(length);
                 for (int i = 0; i < length; ++i) {
                     byte[] byteSlice = slices[i];
 
@@ -177,7 +210,7 @@ namespace Chalktalk {
                 if (!displayObj.UpdateTracking("Display" + (i + 1))) {
 #if DEBUG_PRINT
                     Debug.Log("Display" + (i + 1) + " did not arrive yet: frame: " + Time.frameCount);
-#endif
+#endif 
                     continue;
                 }
 
@@ -196,24 +229,22 @@ namespace Chalktalk {
                 BatchData batch;
                 // if the timestamp has not been registered, create new batch data
                 if (!timestampMap.TryGetValue((ulong)displayObj.batchTimestamp, out batch)) {
-                    batch = new BatchData {
-                        byteLength = displayObj.batchByteLength,
-                        slices = new byte[displayObj.sliceCount][],
-                        timestampKey = (ulong)displayObj.batchTimestamp,
-                    };
+                    batch = new BatchData(
+                        byteLength : displayObj.batchByteLength,
+                        sliceCount : displayObj.sliceCount,
+                        timestampKey : (ulong)displayObj.batchTimestamp
+                    );
                     timestampMap[(ulong)displayObj.batchTimestamp] = batch;
                 }
 
                 // store byte data as a slice
                 batch.slices[i] = displayObj.bytes;
 
-                // TODO, this fails when the same slice is detected multiple times in a row,
-                // need to use a bitmap of sorts
-                ++batch.slicesArrived;
+                batch.MarkSliceAsArrived(i);
 
                 // if slices arrived matches the expected number of slices for this batch,
                 // mark as complete and for drawing
-                if (batch.slicesArrived == batch.slices.Length &&
+                if (batch.AllSlicesArrived() &&
                     batch.timestampKey > completeBatchData.timestampKey) {
                     completeBatchData = batch;
                     BatchData.timestampKeyMostRecentlyCompleted = batch.timestampKey;
@@ -229,7 +260,7 @@ namespace Chalktalk {
 
             bool readyToDraw = PollForData(labelCount);
             if (readyToDraw) {
-
+               
                 // merge all bytes into one flat array (possibly unnecessary)
                 int endPtr = MergeBytes(completeBatchData);
                 if (completeBatchData.byteLength != endPtr) {
