@@ -1,4 +1,7 @@
 ﻿//#define DEBUG_PRINT
+//#define BEFORE_POOL
+
+
 
 using System.Collections;
 using System.Collections.Generic;
@@ -30,7 +33,7 @@ namespace Chalktalk {
         }
 
 
-        public void InitStroke(List<Vector3> points, Color color, int width) {
+        public void InitWithLines(List<Vector3> points, Color color, float width) {
             this.type = ChalktalkDrawType.STROKE;
             this.line.positionCount = points.Count;
             this.line.SetPositions(points.ToArray());

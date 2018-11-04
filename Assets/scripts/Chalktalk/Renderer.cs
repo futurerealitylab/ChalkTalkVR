@@ -1,5 +1,6 @@
 ﻿//#define DEBUG_PRINT
-#define FAIL_FAST
+//#define FAIL_FAST
+#define BEFORE_POOL
 
 
 using System;
@@ -96,13 +97,15 @@ namespace Chalktalk {
 
         //public List<string> trackedLabels = new List<string>();
 
-
+        // entities are lines, fills, text, ...
+        public CTEntityPool entityPool;
 
 
 
 
         private void Awake() {
-            CTEntityPool.Init(curvePrefab.gameObject, curvePrefab.gameObject, curvePrefab.gameObject);
+            this.entityPool = new CTEntityPool();
+            this.entityPool.Init(curvePrefab.gameObject, curvePrefab.gameObject, curvePrefab.gameObject, 0, 0, 0);
         }
 
         void Start() {
@@ -129,15 +132,46 @@ namespace Chalktalk {
 
         public int sliceCount = 1;
         public byte[] mergedBytes = null;
-        bool readyToDraw = false;
 
         public Dictionary<ulong, BatchData> timestampMap = new Dictionary<ulong, BatchData>();
 
         public BatchData completeBatchData = new BatchData(); // sentinel data to avoid need for null checks
 
-        protected void Update() {
-            int labelCount = XRNetworkClient.LabelCount();
-            Debug.Log("LABEL COUNT: " + labelCount);
+
+        private int MergeBytes(BatchData data) {
+            mergedBytes = new byte[data.byteLength];
+
+            int ptr = 0;
+            {
+                byte[][] slices = data.slices;
+                int length = slices.Length;
+                for (int i = 0; i < length; ++i) {
+                    byte[] byteSlice = slices[i];
+
+                    Buffer.BlockCopy(byteSlice, 0, mergedBytes, ptr, byteSlice.Length);
+                    ptr += byteSlice.Length;
+                }
+            }
+
+            return ptr;
+        }
+
+        public void DiscardOldEntriesFromMap() {
+            List<ulong> toRemove = new List<ulong>();
+            foreach (KeyValuePair<ulong, BatchData> entry in timestampMap) {
+                if (entry.Key < BatchData.timestampKeyMostRecentlyCompleted) {
+                    toRemove.Add(entry.Key);
+                }
+            }
+            foreach (ulong key in toRemove) {
+                timestampMap.Remove(key);
+            }
+        }
+
+
+        public bool PollForData(int labelCount) {
+            bool readyToDraw = false;
+
             for (int i = 0; i < labelCount; ++i) {
                 // try to update tracking on label (i + 1)
                 if (!displayObj.UpdateTracking("Display" + (i + 1))) {
@@ -146,6 +180,10 @@ namespace Chalktalk {
 #endif
                     continue;
                 }
+
+                //Debug.Log(displayObj.batchTimestamp);
+
+
                 // ignore data belonging to old batches
                 if ((ulong)displayObj.batchTimestamp < BatchData.timestampKeyMostRecentlyCompleted) {
 #if DEBUG_PRINT
@@ -153,11 +191,6 @@ namespace Chalktalk {
 #endif
                     continue;
                 }
-
-#if DEBUG_PRINT             
-                Debug.Log("Display" + (i + 1) + " arrived: frame: " + Time.frameCount);
-                //Debug.Log(displayObj);
-#endif
 
                 // retrieve or create batch data
                 BatchData batch;
@@ -169,30 +202,17 @@ namespace Chalktalk {
                         timestampKey = (ulong)displayObj.batchTimestamp,
                     };
                     timestampMap[(ulong)displayObj.batchTimestamp] = batch;
-#if DEBUG_PRINT
-                    Debug.Log("BATCH DOES NOT EXIST YET: frame: " + Time.frameCount + " IDX: " + i);
-                } else {
-                    Debug.Log("BATCH EXISTS: frame: " + Time.frameCount);
-#endif
                 }
 
                 // store byte data as a slice
                 batch.slices[i] = displayObj.bytes;
 
+                // TODO, this fails when the same slice is detected multiple times in a row,
+                // need to use a bitmap of sorts
                 ++batch.slicesArrived;
 
                 // if slices arrived matches the expected number of slices for this batch,
                 // mark as complete and for drawing
-#if DEBUG_PRINT
-                Debug.Log(batch + ": " + Time.frameCount);
-
-                Debug.Log(
-                    "CHECKING FOR COMPLETED BATCH: " + 
-                    (batch.slicesArrived == batch.slices.Length &&
-                    batch.timestampKey > completeBatchData.timestampKey) + ": frame: " + Time.frameCount
-                );
-#endif
-
                 if (batch.slicesArrived == batch.slices.Length &&
                     batch.timestampKey > completeBatchData.timestampKey) {
                     completeBatchData = batch;
@@ -201,66 +221,48 @@ namespace Chalktalk {
                 }
             }
 
+            return readyToDraw;
+        }
+
+        protected void Update() {
+            int labelCount = XRNetworkClient.LabelCount();
+
+            bool readyToDraw = PollForData(labelCount);
             if (readyToDraw) {
-                readyToDraw = false;
-#if DEBUG_PRINT
-                Debug.Log("DRAWING: frame: " + Time.frameCount);
-#endif
 
-                mergedBytes = new byte[completeBatchData.byteLength];
-
-                int ptr = 0;
-                {
-                    byte[][] slices = completeBatchData.slices;
-                    int length = slices.Length;
-                    for (int i = 0; i < length; ++i) {
-                        byte[] byteSlice = slices[i];
-
-                        Buffer.BlockCopy(byteSlice, 0, mergedBytes, ptr, byteSlice.Length);
-                        ptr += byteSlice.Length;
-                    }
-                }
-
-
-                Debug.AssertFormat(completeBatchData.byteLength == ptr, "batch byte length " + completeBatchData.byteLength + " does not equal total copied byte length " + ptr);
-
-                if (completeBatchData.byteLength != ptr) {
+                // merge all bytes into one flat array (possibly unnecessary)
+                int endPtr = MergeBytes(completeBatchData);
+                if (completeBatchData.byteLength != endPtr) {
+                    Debug.LogWarningFormat("batch byte length " + completeBatchData.byteLength + " does not equal total copied byte length " + endPtr);
 #if FAIL_FAST
                     EditorApplication.isPlaying = false;
-#else
-                    return;
 #endif
+                    return;
                 }
+
+                DiscardOldEntriesFromMap();
 
                 DataViewer = mergedBytes;
 
+#if BEFORE_POOL
                 DestroyCurves();
+#endif
 
                 ctParser.Parse(mergedBytes, this);
 
+#if BEFORE_POOL
                 Draw();
-
-                // this will disable all unused entities
-                CTEntityPool.FinalizeFrameData();
-
-#if DEBUG_PRINT
-                Debug.Log("TIMESTAMP MAP COUNT BEFORE REMOVE OPERATIONS: " + timestampMap.Count + " frame: " + Time.frameCount);
 #endif
-                List<ulong> toRemove = new List<ulong>();
-                foreach (KeyValuePair<ulong, BatchData> entry in timestampMap) {
-                    if (entry.Key < BatchData.timestampKeyMostRecentlyCompleted) {
-                        toRemove.Add(entry.Key);
-                    }
-                }
-                foreach (ulong key in toRemove) {
-                    timestampMap.Remove(key);
-                }
+                // this will disable all unused entities
+                entityPool.FinalizeFrameData();
+
+
             }
         }
 
         private void DestroyCurves() {
-            foreach (Curve curve in curves) {
-                DestroyImmediate(curve.gameObject);
+            for (int i = 0; i < curves.Count; i += 1) {
+                DestroyImmediate(curves[i].gameObject);
             }
             curves.Clear();
         }
@@ -273,8 +275,8 @@ namespace Chalktalk {
 
 
         private void Draw() {
-            foreach (Curve curve in curves) {
-                curve.Draw();
+            for (int i = 0; i < curves.Count; i += 1) {
+                curves[i].Draw();
             }
         }
 
@@ -289,85 +291,6 @@ namespace Chalktalk {
             }
 
             return false;
-        }
-
-        void oldparse(byte[] bytes) {
-            //Skip the "CTDATA01" String header
-            int cursor = 8;
-
-            // The total number of words in this packet, then get the size of the bytes size
-            int curveCount = Utility.ParsetoInt16(bytes, cursor);
-            cursor += 2;
-
-            for (; cursor < bytes.Length;) {
-                Debug.Log("Current Cursor: " + cursor);
-                //The length of the current line
-                int length = Utility.ParsetoInt16(bytes, cursor);
-                cursor += 2;
-
-                // if the line data is less than 12, we skip this one curve
-                // TODO: implement the new curve module so that we can keep the curve with the same id
-                if (length < 12)
-                    continue;
-
-
-                // The ID of current line
-                int ID = Utility.ParsetoInt16(bytes, cursor);
-                cursor += 2;
-
-                //Parse the color of the line
-                Color color = Utility.ParsetoColor(bytes, cursor);
-                cursor += 4;
-
-                //float width = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
-                //cursor += 2;
-
-                //Parse the Transform of this Curve
-                Vector3 translation = Utility.ParsetoVector3(bytes, cursor, 1);
-                cursor += 6;
-                Quaternion rotation = Utility.ParsetoQuaternion(bytes, cursor, 1);
-                cursor += 6;
-                float scale = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
-                cursor += 2;
-
-                //Parse the type of the stroke
-                int type = Utility.ParsetoInt16(bytes, cursor);
-                cursor += 2;
-
-
-                //Parse the width of the line
-                float width = 0;
-
-                List<Vector3> points = new List<Vector3>();
-                Debug.Log("Current Line's points count: " + (length - 12) / 4);
-                Debug.Log("Current Cursor before read the points :" + cursor);
-                for (int j = 0; j < (length - 12) / 4; j++) {
-                    Vector3 point = Utility.ParsetoVector3(bytes, cursor, 1);
-                    //point.Scale(bindingBox.transform.localScale);
-                    //Move point to the bindingBox Coordinate
-                    point = bindingBox.transform.rotation * point + bindingBox.transform.position;
-                    //Apply the point transform for each point
-                    points.Add(point);
-                    //points.Add((rotation * point + translation) * scale);
-                    cursor += 6;
-                    width = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
-                    cursor += 2;
-                }
-
-                // bold the framework
-                bool isFrame = boldenFrame(points);
-                // width *= (isFrame) ? 20.0f : 1.0f;
-
-                Curve curve = GameObject.Instantiate<Curve>(curvePrefab);
-                curve.transform.SetParent(this.transform);
-
-                curve.points = points;
-                curve.width = width * 3;
-                curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
-                // zhenyi: not using the chalktalk color
-                curve.color = new Color(1, 1, 1, 1);
-                curves.Add(curve);
-            }
         }
 
     }
