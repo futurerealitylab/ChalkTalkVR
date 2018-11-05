@@ -1,4 +1,4 @@
 sceneSetups:
 - path: Assets/scenes/chalktalk_oculus.unity
-  isLoaded: 0
-  isActive: 0
+  isLoaded: 1
+  isActive: 1
