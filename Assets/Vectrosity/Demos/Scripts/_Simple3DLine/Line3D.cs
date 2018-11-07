@@ -5,7 +5,7 @@ using Vectrosity;
 
 public class Line3D : MonoBehaviour {
 
-    public int lineAmt, batchAmt;
+    public int lineAmt;
     public Color32[] colorOptions;
     // testing, creating multiple lines and each line has four points
 
@@ -41,9 +41,18 @@ public class Line3D : MonoBehaviour {
         // continuous result with type discrete
     }
 
+    void configEndCap()
+    {
+        // name any kind of end cap here, with certain amount of texture
+        VectorLine.SetEndCap("RoundCap", EndCap.Mirror, capLineTex, capTex);
+    }
+
     // Use this for initialization
     void Start () {
+        // config VectorLine
         VectorLine.SetCamera3D(CenterCameraEye);
+
+        configEndCap();
 
         // Make a Vector2 list; in this case we just use 2 elements...
         linePoints = new List<Vector3>();
@@ -54,14 +63,19 @@ public class Line3D : MonoBehaviour {
             CreateOneLine(j * 3.0f, colorOptions[j]);
         }
         line = new VectorLine("3DLine", linePoints, 6.0f, LineType.Discrete, Joins.Weld);
+        //line = new VectorLine("3DLine", linePoints, capLineTex, capLength, LineType.Discrete);
         line.SetColors(lineColors);
         line.drawTransform = customTransform;
-        line.capLength = 10.0f;
-        VectorLine.SetEndCap("Arrow3", EndCap.Mirror, capLineTex, capTex);
+        //line.capLength = 10.0f;
+        line.lineWidth = 10.0f;
+        line.endCap = "RoundCap";
+        //line.drawStart = 0;
+        //line.drawEnd = 3;
+        
         //line.joins = Joins.Weld;
         // Draw the line
         line.Draw3D();
-        line.StopDrawing3DAuto();
+        //line.StopDrawing3DAuto();
 
         
 
@@ -81,8 +95,14 @@ public class Line3D : MonoBehaviour {
         //line.Draw3D();
 
         //VectorLine.SetCamera3D(ori);
-        line.capLength = capLength;
+        //line.capLength = capLength;
         line.drawTransform = customTransform;
+        //line.drawStart = 0;
+        //line.drawEnd = 3;
+        //line.Draw3D();
+
+        //line.drawStart = 4;
+        //line.drawEnd = 7;
         line.Draw3D();
 
         vText.drawTransform = customTransform;

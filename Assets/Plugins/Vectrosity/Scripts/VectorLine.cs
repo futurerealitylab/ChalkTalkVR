@@ -443,6 +443,11 @@ namespace Vectrosity
             get { return m_endCap; }
             set
             {
+                Debug.Log("capDictionary");
+                foreach (KeyValuePair<string, CapInfo> pair in capDictionary)
+                {
+                    Debug.Log(pair.Key + ":" + pair.Value.ToString());
+                }
                 if (m_lineType == LineType.Points)
                 {
                     Debug.LogError("LineType.Points can't use end caps");
