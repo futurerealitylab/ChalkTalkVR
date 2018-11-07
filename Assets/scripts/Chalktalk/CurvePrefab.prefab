@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1332583882693216}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1332583882693216
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4546246896434010}
   - component: {fileID: 114158627861272978}
@@ -30,7 +30,7 @@ GameObject:
 --- !u!4 &4546246896434010
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332583882693216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -43,7 +43,7 @@ Transform:
 --- !u!114 &114158627861272978
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332583882693216}
   m_Enabled: 1
@@ -51,9 +51,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a9c0d6c8c99ab4d8a4ca6885941326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMat: {fileID: 2100000, guid: 6abe08eced9284808b4b3f45c56d5484, type: 2}
+  defaultMat: {fileID: 2100000, guid: eb74185743c011943a7b1b58694619fa, type: 2}
+  textPos: {x: 0, y: 0, z: 0}
+  textScale: 0
   points: []
   color: {r: 1, g: 1, b: 1, a: 1}
   width: 0
   id: 0
+  facingDirection: 0
+  myfont: {fileID: 0}
+  fontMat: {fileID: 0}
+  text: 
   type: 0
