@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Vectrosity/Demos/_Scenes/_Simple3DLine.unity
+- path: Assets/scenes/chalktalk_oculus.unity
   isLoaded: 1
   isActive: 1
