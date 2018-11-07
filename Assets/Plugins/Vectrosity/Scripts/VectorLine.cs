@@ -2697,7 +2697,9 @@ namespace Vectrosity
                 if ((pos1.x == pos2.x && pos1.y == pos2.y) || IntersectAndDoSkip(ref pos1, ref pos2, ref p1, ref p2, ref screenHeight, ref ray, ref cameraPlane))
                 {
                     SkipQuad3D(ref idx, ref widthIdx, ref widthIdxAdd);
-                    continue;
+
+                    // zhenyi: draw all lines
+                    //continue;
                 }
                 // zhenyi: disable camera viewing thing
                 if (USE_ZHENYI)

@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Vectrosity;
 
 namespace Chalktalk
 {
@@ -34,6 +35,85 @@ namespace Chalktalk
 
         public ChalktalkDrawType type;
 
+        VectorLine vectrosityLine;
+        void DrawVectrosityLine()
+        {
+            if(vectrosityLine == null)
+            {
+                vectrosityLine = new VectorLine("haha", points, width, LineType.Continuous);
+            }
+            else
+            {
+                vectrosityLine.points3 = points;
+            }
+            
+            Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
+            vectrosityLine.SetColor(c);
+            vectrosityLine.Draw3D();
+        }
+
+        void DrawLineRenderLine()
+        {
+            line = this.gameObject.AddComponent<LineRenderer>();
+            line.positionCount = points.Count;
+            line.SetPositions(points.ToArray());
+            Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
+            line.startColor = c;
+            line.endColor = c;
+            line.numCornerVertices = 20;
+            line.numCapVertices = 20;
+            line.material = defaultMat;
+            line.material.color = c;
+            line.material.SetColor("_EmissionColor", c);
+            line.startWidth = width;
+            line.endWidth = width;
+        }
+
+        void DrawTextMeshText()
+        {
+            textMesh = gameObject.AddComponent<TextMesh>();
+            textMesh.anchor = TextAnchor.MiddleCenter;
+
+            // reorient to face towards you
+            transform.localRotation = Quaternion.Euler(0, facingDirection, 0);
+            //transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+
+            //                    textMesh.fontSize = 3;
+            //textMesh.font = Resources.Load("Nevis") as Font;
+            textMesh.text = text;
+            //textMesh.font = myfont;
+            //textMesh.font.material = fontMat;
+            textMesh.fontSize = 355;
+            textMesh.characterSize = 0.1f;
+            textMesh.color = color;
+            if (!float.IsNaN(textPos.x))
+            {
+                transform.localPosition = textPos;
+            }
+            else
+            {
+                transform.localPosition = Vector3.zero;
+            }
+
+
+            transform.localScale = new Vector3(
+            textScale * CT_TEXT_SCALE_FACTOR,
+            textScale * CT_TEXT_SCALE_FACTOR, 1.0f);
+        }
+        VectorLine vText;
+        void DrawVectrosityText()
+        {
+            if (vText == null)
+            {
+                vText = new VectorLine("3DText", new List<Vector3>(), 1.0f);
+            }
+
+            vText.color = color;
+            //vText.drawTransform.localRotation = Quaternion.Euler(0, facingDirection, 0);
+            vText.MakeText(text, Vector3.zero, textScale);
+            vText.Draw3D();
+        }
+
 
         public void Draw()
         {
@@ -41,19 +121,8 @@ namespace Chalktalk
             {
 
                 case ChalktalkDrawType.STROKE:
-                    line = this.gameObject.AddComponent<LineRenderer>();
-                    line.positionCount = points.Count;
-                    line.SetPositions(points.ToArray());
-                    Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
-                    line.startColor = c;
-                    line.endColor = c;
-                    line.numCornerVertices = 20;
-                    line.numCapVertices = 20;
-                    line.material = defaultMat;
-                    line.material.color = c;
-                    line.material.SetColor("_EmissionColor", c);
-                    line.startWidth = width;
-                    line.endWidth = width;
+                    DrawLineRenderLine();
+                    //DrawVectrosityLine();
 
                     break;
                 case ChalktalkDrawType.FILL:
@@ -99,12 +168,15 @@ namespace Chalktalk
                     //Debug.Log(outputIndices);
                     Material mymat = new Material(defaultMat);
                     // similar to what chalktalk do to the color
-                    c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
+                    Debug.Log("color in filled sketch:" + color);
+                    Color c = new Color(Mathf.Pow(color.r, 0.045f), Mathf.Pow(color.g, 0.045f), Mathf.Pow(color.b, 0.045f));
+                    Debug.Log("color in filled sketch:" + c);
                     mymat.SetColor("_EmissionColor", c);
                     mymat.color = c;
+                    //color = c;
 
                     mr.material = mymat;
-                    //mr.material.color = color;
+                    mr.material.color = c;
 
                     //Vector3[] V = {
                     //    new Vector3(0f, 0f, 0f),
@@ -128,34 +200,8 @@ namespace Chalktalk
                     break;
 
                 case ChalktalkDrawType.TEXT:
-                    textMesh = gameObject.AddComponent<TextMesh>();
-                    textMesh.anchor = TextAnchor.MiddleCenter;
-
-                    // reorient to face towards you
-                    transform.localRotation = Quaternion.Euler(0, facingDirection, 0);
-                    //transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-
-//                    textMesh.fontSize = 3;
-                    //textMesh.font = Resources.Load("Nevis") as Font;
-                    textMesh.text = text;
-                    //textMesh.font = myfont;
-                    //textMesh.font.material = fontMat;
-                    textMesh.fontSize = 355;
-                    textMesh.characterSize = 0.1f;
-                    textMesh.color = color;
-                    if (!float.IsNaN(textPos.x))
-                    {
-                        transform.localPosition = textPos;
-                    }
-                    else
-                    {
-                        transform.localPosition = Vector3.zero;
-                    }
-                    
-
-                    transform.localScale = new Vector3(
-                    textScale* CT_TEXT_SCALE_FACTOR,
-                    textScale *CT_TEXT_SCALE_FACTOR, 1.0f);
+                    DrawTextMeshText();
+                    //DrawVectrosityText();
 
                     break;
                 default:
