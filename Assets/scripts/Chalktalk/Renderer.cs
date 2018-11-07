@@ -10,6 +10,7 @@ using FRL.Network;
 using FRL.Utility;
 using UnityEngine.UI;
 using UnityEditor;
+using Vectrosity;
 
 namespace Chalktalk
 {
@@ -104,6 +105,9 @@ namespace Chalktalk
 
         public List<Curve> curves = new List<Curve>();
 
+        public Texture2D capLineTex;
+        public Texture2D capTex;
+
         //public override void ResetData()
         //{
         //    base.ResetData();
@@ -115,10 +119,17 @@ namespace Chalktalk
 
         public List<string> trackedLabels = new List<string>();
 
+        void configEndCap()
+        {
+            // name any kind of end cap here, with certain amount of texture
+            VectorLine.SetEndCap("RoundCap", EndCap.Mirror, capLineTex, capTex);
+        }
+
         void Start()
         {
             displayObj = new DisplayObj(label);
             trackedLabels.Add(label);
+            configEndCap();
             // To karl: create or assign label to DisplayObj when you need to. And then retrieve bytes through public members.
         }
 
@@ -253,9 +264,9 @@ namespace Chalktalk
 
                 Draw();
 
-//#if DEBUG_PRINT
+#if DEBUG_PRINT
                 Debug.Log("TIMESTAMP MAP COUNT BEFORE REMOVE OPERATIONS: " + timestampMap.Count + " frame: " + Time.frameCount);
-//#endif
+#endif
                 List<ulong> toRemove = new List<ulong>();
                 foreach (KeyValuePair<ulong, BatchData> entry in timestampMap) {
                     if (entry.Key < BatchData.timestampKeyMostRecentlyCompleted) {

@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/scenes/chalktalk_ar.unity
     guid: f7985620ca58d1a4089f13f1fd1a638e
-  - enabled: 1
+  - enabled: 0
     path: Assets/scenes/chalktalk_oculus.unity
     guid: 81b68e5383ac8cb4b88b78ba389398ef
   - enabled: 0
@@ -17,7 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/scenes/MultiBuffer.unity
     guid: 8a49988621c8422428357d64c793b083
+  - enabled: 1
+    path: Assets/Vectrosity/Demos/_Scenes/_Simple3DLine.unity
+    guid: f883abb35efd7044eb83552cfa7d6c88
   m_configObjects: {}
