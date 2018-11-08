@@ -17,7 +17,8 @@ public class GazeTriangle : MonoBehaviour {
     MeshRenderer rend;
 
     void Start () {
-        view = new GameObject();
+        view = new GameObject("TriangularGaze");
+        view.layer = LayerMask.NameToLayer("triangle");
 
         this.plane = GameObject.Find("BindingBox").GetComponent<BoxCollider>();
 
@@ -83,5 +84,8 @@ public class GazeTriangle : MonoBehaviour {
         } else {
             this.rend.enabled = false;
         }
+
+        //Debug.DrawLine(this.filter.mesh.vertices[0], this.filter.mesh.vertices[1], Color.green);
+        //Debug.DrawLine(this.filter.mesh.vertices[0], this.filter.mesh.vertices[2], Color.green);
     }
 }

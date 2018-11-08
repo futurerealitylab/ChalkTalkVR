@@ -30,8 +30,10 @@ public class HeadFlake : Holojam.Network.Controller {
     protected override void Update () {
         if (isPresenter) {
             // recv the data
-            transform.position = data.vector3s[0];
-            transform.rotation = data.vector4s[0];
+            transform.position = new Vector3(-data.vector3s[0].x, data.vector3s[0].y, data.vector3s[0].z);
+            //transform.rotation = data.vector4s[0];
+            Quaternion oneeighty = Quaternion.AngleAxis(180, new Vector3(0, 1, 0));
+            transform.rotation = data.vector4s[0] * oneeighty;
         } else {
             // send the data
             data.vector3s[0] = Camera.main.transform.position;
