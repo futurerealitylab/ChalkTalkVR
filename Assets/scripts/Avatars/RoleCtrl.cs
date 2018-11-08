@@ -142,9 +142,22 @@ public class RoleCtrl : MonoBehaviour {
         Chalktalkboard.parent.GetComponent<OculusMgr>().isPresenter = role == Role.Presentor;
         print("Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection:" + Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection);
     }
-	
+
+    Transform bodyRenderPart2;
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        // set layer of render_body_3 to triangle so that fps cannot see it.
+        if(bodyRenderPart2 == null)
+        {
+            Transform localAvatarBody = localAvatar.Find("body");
+            bodyRenderPart2 = localAvatarBody.Find("body_renderPart_2");
+        }
+        if (bodyRenderPart2 != null)
+        {
+            if (!bodyRenderPart2.parent.parent.name.Equals("LocalAvatar"))
+                bodyRenderPart2 = null;
+        }
+        if (bodyRenderPart2 != null)
+            bodyRenderPart2.gameObject.layer = LayerMask.NameToLayer("triangle");
+    }
 }
