@@ -137,13 +137,13 @@ namespace Chalktalk
                     //Debug.Log(outputIndices);
                     Material mymat = new Material(defaultMat);
                     // similar to what chalktalk do to the color
-                    Debug.Log("color in filled sketch:" + color);
+                    //Debug.Log("color in filled sketch:" + color);
                     Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
 
                     //mymat.shader = Shader.Find("_Color");
                     //mymat.SetColor("_Color", Color.green);
 
-                    Debug.Log("color in filled sketch:" + c);
+                    //Debug.Log("color in filled sketch:" + c);
                     mymat.SetColor("_Color", c);
                     //mymat.color = c;
                     //color = c;

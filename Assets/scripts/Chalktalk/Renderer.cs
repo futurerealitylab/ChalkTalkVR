@@ -149,7 +149,7 @@ namespace Chalktalk
         protected void Update()
         {
             int labelCount = XRNetworkClient.LabelCount();
-            Debug.Log("LABEL COUNT: " + labelCount);
+            //Debug.Log("LABEL COUNT: " + labelCount);
             for (int i = 0; i < labelCount; ++i) {
                 // try to update tracking on label (i + 1)
                 if (!displayObj.UpdateTracking("Display" + (i + 1))) {
@@ -253,9 +253,9 @@ namespace Chalktalk
 
                 Draw();
 
-//#if DEBUG_PRINT
+#if DEBUG_PRINT
                 Debug.Log("TIMESTAMP MAP COUNT BEFORE REMOVE OPERATIONS: " + timestampMap.Count + " frame: " + Time.frameCount);
-//#endif
+#endif
                 List<ulong> toRemove = new List<ulong>();
                 foreach (KeyValuePair<ulong, BatchData> entry in timestampMap) {
                     if (entry.Key < BatchData.timestampKeyMostRecentlyCompleted) {
