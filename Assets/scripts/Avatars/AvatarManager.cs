@@ -25,8 +25,10 @@ public class AvatarManager : Holojam.Network.Controller {
             } else {
                 // we will receive the data and decode
                 //print("recv ints[0]: " + data.ints[0]);
-                //print("recv bytes: " + BitConverter.ToString(data.bytes));
-                //print("recv data size: " + data.bytes.Length);
+                print("recv bytes: " + BitConverter.ToString(data.bytes));
+                print("recv data size: " + data.bytes.Length);
+                //byte[] testBytes = new byte[data.bytes.Length];
+                //data.bytes.CopyTo(testBytes, 1);
                 DeserializeAndQueuePacketData(data.bytes);
             }
         }
@@ -77,9 +79,9 @@ public class AvatarManager : Holojam.Network.Controller {
             Oculus.Avatar.CAPI.ovrAvatarPacket_Write(args.Packet.ovrNativePacket, size, avatardata);
             latestPosture.Clear();
             latestPosture.AddRange(avatardata);
-            //print("send seq: " + localSequence);
-            //print("send size: " + size + "\t" + (int)size);
-            //print("send avatardata: " + BitConverter.ToString(avatardata));
+            Debug.LogWarning("send seq: " + localSequence);
+            Debug.LogWarning("send avatar size: " + size + "\t" + (int)size);
+            Debug.LogWarning("send avatardata: " + BitConverter.ToString(avatardata));
             // end of trick
             writer.Write(localSequence++);
             //writer.Write(ConnectionManager.LocalOculusID);
@@ -89,9 +91,9 @@ public class AvatarManager : Holojam.Network.Controller {
             //packetData.Add(outputStream.ToArray());
             // here we only send current outputStream.ToArray()
             int sendSize = outputStream.ToArray().Length;
-            //print("send data size: " + sendSize);
-            data = new Holojam.Network.Flake(0, 0, 0, 1, sendSize+1, false);
-            data.ints[0] = sendSize;
+            Debug.LogWarning("send data size: " + sendSize);
+            data = new Holojam.Network.Flake(0, 0, 0, 0, sendSize+1, false);
+            //data.ints[0] = sendSize;
             //data.bytes = outputStream.ToArray();
             outputStream.ToArray().CopyTo(data.bytes, 1);
             // zhenyi debug
@@ -120,9 +122,9 @@ public class AvatarManager : Holojam.Network.Controller {
             int size = reader.ReadInt32();
             byte[] sdkData = reader.ReadBytes(size);
             System.IntPtr packet = Oculus.Avatar.CAPI.ovrAvatarPacket_Read((System.UInt32)size, sdkData);
-            //print("recv seq: " + remoteSequence);
-            //print("recv size: " + size);
-            //print("recv avatardata: " + BitConverter.ToString(sdkData));
+            Debug.LogWarning("recv seq: " + remoteSequence);
+            Debug.LogWarning("recv avatar size: " + size);
+            Debug.LogWarning("recv avatardata: " + BitConverter.ToString(sdkData));
             // testing
             ovrAvatar.GetComponent<OvrAvatarRemoteDriver>().QueuePacket(remoteSequence, new OvrAvatarPacket { ovrNativePacket = packet });
             //this.GetComponent<SpacetimeAvatar>().DriveParallelOrGhostAvatarPosture(remoteSequence, sdkData);

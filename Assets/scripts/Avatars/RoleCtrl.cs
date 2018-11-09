@@ -143,13 +143,13 @@ public class RoleCtrl : MonoBehaviour {
         print("Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection:" + Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection);
     }
 
-    Transform bodyRenderPart2;
+    Transform bodyRenderPart2, localAvatarBody;
 	// Update is called once per frame
 	void Update () {
         // set layer of render_body_3 to triangle so that fps cannot see it.
         if(bodyRenderPart2 == null)
         {
-            Transform localAvatarBody = localAvatar.Find("body");
+            localAvatarBody = localAvatar.Find("body");
             bodyRenderPart2 = localAvatarBody.Find("body_renderPart_2");
         }
         if (bodyRenderPart2 != null)
@@ -158,6 +158,11 @@ public class RoleCtrl : MonoBehaviour {
                 bodyRenderPart2 = null;
         }
         if (bodyRenderPart2 != null)
-            bodyRenderPart2.gameObject.layer = LayerMask.NameToLayer("triangle");
+        {
+            bodyRenderPart2.gameObject.layer = LayerMask.NameToLayer("first");
+            localAvatarBody.Find("body_renderPart_1").gameObject.layer = LayerMask.NameToLayer("first");
+            localAvatarBody.Find("body_renderPart_0").gameObject.layer = LayerMask.NameToLayer("first");
+        }
+            
     }
 }

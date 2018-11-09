@@ -541,7 +541,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 223451122}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -938,7 +938,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 7991
+    m_Bits: 3895
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2445,7 +2445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3f54003d2ff2347a4b337a0fced7bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionType: 0
+  resolutionType: 4
   bindingBox: {fileID: 146131494}
   cursor: {fileID: 1879181661}
   keyText: {fileID: 1581971200}

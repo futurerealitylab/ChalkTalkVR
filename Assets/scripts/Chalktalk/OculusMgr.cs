@@ -13,7 +13,8 @@ public class OculusMgr : MonoBehaviour {
 		HD_1080,
 		HD_720,
 		RETINA_2560,
-		RETINA_1440
+		RETINA_1440,
+        BENQ
 		// etc
 	}
 
@@ -51,7 +52,9 @@ public class OculusMgr : MonoBehaviour {
 			return new ResolutionFormat (2560, 1600);
 		case ResolutionType.RETINA_1440:
 			return new ResolutionFormat (1440, 900);
-		default:
+            case ResolutionType.BENQ:
+                return new ResolutionFormat(2560, 1440);
+            default:
 			return GetResolution (ResolutionType.HD_1080);
 		}
 	}

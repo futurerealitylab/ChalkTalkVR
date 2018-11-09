@@ -25,16 +25,17 @@ public class DedicatedCmr : MonoBehaviour {
         Vector3 eulerAngles = vrcamera.eulerAngles;
         eulerAngles.z = 0.0f;
 
+        Quaternion oldRotation = transform.rotation;
         if (Vector3.Distance(transform.position, vrcamera.position) < 0.01f)
             transform.rotation = vrcamera.rotation;
         else
           transform.LookAt(vrcamera);
 
-
+        transform.rotation = Quaternion.Slerp(oldRotation, transform.rotation, 0.5f);
 
         // transform.eulerAngles = Vector3.up;
         //transform.rotation =  vrcamera.rotation;
         //transform.localPosition = new Vector3(0, 0.6f, -0.9f);
         //transform.localRotation = Quaternion.identity;
-	}
+    }
 }
