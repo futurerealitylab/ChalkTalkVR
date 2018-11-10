@@ -83,7 +83,9 @@ namespace Chalktalk {
                 //Parse the width of the line
                 float width = 0;
 
-                List<Vector3> points = new List<Vector3>();
+                //List<Vector3> points = new List<Vector3>();
+
+                Vector3[] points = new Vector3[(length - 12) / 4];
                 //Debug.Log("Current Line's points count: " + (length - 12) / 4);
                 //Debug.Log("Current Cursor before read the points :" + cursor);
 
@@ -93,7 +95,7 @@ namespace Chalktalk {
                     //Move point to the bindingBox Coordinate
                     point = renderer.bindingBox.transform.rotation * point + renderer.bindingBox.transform.position;
                     //Apply the point transform for each point
-                    points.Add(point);
+                    points[j] = point;
                     //points.Add((rotation * point + translation) * scale);
                     cursor += 6;
                     width = Utility.ParsetoFloat(Utility.ParsetoInt16(bytes, cursor));
@@ -151,9 +153,9 @@ namespace Chalktalk {
 
         }
 
-        private bool boldenFrame(List<Vector3> points) {
-            if (points.Count == 5) {
-                for (int i = 0; i < points.Count; i++) {
+        private bool boldenFrame(Vector3[] points) {
+            if (points.Length == 5) {
+                for (int i = 0; i < points.Length; i++) {
                     if ((points[i].z < 1.0f) && (points[i].z > -1.0f)) {
                         break;
                     }

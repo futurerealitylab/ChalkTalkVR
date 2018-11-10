@@ -15,7 +15,7 @@ namespace Chalktalk {
     //[RequireComponent(typeof(LineRenderer))]
     public class Curve : MonoBehaviour {
 
-        public List<Vector3> points;
+        public Vector3[] points;
         public Color color = Color.white;
         public float width = 0f;
         public int id = 0;
@@ -40,10 +40,10 @@ namespace Chalktalk {
         }
 
 
-        public void InitWithLines(List<Vector3> points, Color color, float width) {
+        public void InitWithLines(Vector3[] points, Color color, float width) {
             this.type = ChalktalkDrawType.STROKE;
-            this.line.positionCount = points.Count;
-            this.line.SetPositions(points.ToArray());
+            this.line.positionCount = points.Length;
+            this.line.SetPositions(points);
             this.line.startColor = color;
             this.line.endColor = color;
             this.line.material.color = color;
@@ -51,17 +51,15 @@ namespace Chalktalk {
             this.line.endWidth = width;
         }
 
-        public void InitWithFill(List<Vector3> points, Color color) {
+        public void InitWithFill(Vector3[] points, Color color) {
             this.type = ChalktalkDrawType.FILL;
             Mesh shape = this.shape;
-            shape.vertices = points.ToArray();
+            shape.vertices = points;
 
             MeshRenderer mr = this.mr;
             MeshFilter filter = this.meshFilter;
 
-
-
-            int countSides = points.Count;
+            int countSides = points.Length;
             int countTris = countSides - 2;
             int[] indices = new int[countTris * 3 * 2];
             for (int i = 0, off = 0; i < countTris; ++i, off += 6) {
@@ -92,8 +90,8 @@ namespace Chalktalk {
             switch (type) {
                 case ChalktalkDrawType.STROKE:
                     line = this.gameObject.AddComponent<LineRenderer>();
-                    line.positionCount = points.Count;
-                    line.SetPositions(points.ToArray());
+                    line.positionCount = points.Length;
+                    line.SetPositions(points);
                     line.startColor = color;
                     line.endColor = color;
                     line.material.color = color;
@@ -113,9 +111,9 @@ namespace Chalktalk {
                     } else {
                         filter = go.GetComponent<MeshFilter>();
                     }
-                    shape.vertices = points.ToArray();
+                    shape.vertices = points;
 
-                    int countSides = points.Count;
+                    int countSides = points.Length;
                     int countTris = countSides - 2;
                     int[] indices = new int[countTris * 3 * 2];
                     for (int i = 0, off = 0; i < countTris; ++i, off += 6) {
@@ -152,7 +150,7 @@ namespace Chalktalk {
 
         public override string ToString() {
             string s = "ID: " + id + " COLOR: " + color + " WIDTH: " + width + " POINTS: ";
-            for (int i = 0; i < points.Count; i++) {
+            for (int i = 0; i < points.Length; i++) {
                 s += " { x : " + points[i].x + " y: " + points[i].y + " z: " + points[i].z + " } ";
             }
             s += " TYPE: " + this.type;
