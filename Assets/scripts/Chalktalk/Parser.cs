@@ -119,6 +119,7 @@ namespace Chalktalk {
                 curve.type = (ChalktalkDrawType)type;
                 renderer.curves.Add(curve);
 #else
+
                 Curve curve;
                 CTEntityPool pool= renderer.entityPool;
                 switch ((ChalktalkDrawType)type) {
@@ -128,7 +129,8 @@ namespace Chalktalk {
                             break;
                         }
                     case ChalktalkDrawType.FILL: {
-                            //curve = pool.GetCTEntityFill();
+                            curve = pool.GetCTEntityFill();
+                            curve.InitWithFill(points, isFrame ? new Color(1, 1, 1, 1) : color);
                             break;
                         }
                     case ChalktalkDrawType.TEXT: {

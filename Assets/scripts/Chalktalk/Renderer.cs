@@ -105,7 +105,7 @@ namespace Chalktalk {
 
         private void Awake() {
             this.entityPool = new CTEntityPool();
-            this.entityPool.Init(curvePrefab.gameObject, curvePrefab.gameObject, curvePrefab.gameObject, 0, 0, 0);
+            this.entityPool.Init(curvePrefab.gameObject, curvePrefab.gameObject, curvePrefab.gameObject, 32, 16, 16);
         }
 
         void Start() {

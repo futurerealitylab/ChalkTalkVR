@@ -14,14 +14,21 @@ namespace Chalktalk {
 
     //[RequireComponent(typeof(LineRenderer))]
     public class Curve : MonoBehaviour {
-        public Material defaultMat;
-        public LineRenderer line;
-        public MeshFilter meshFilter;
 
         public List<Vector3> points;
         public Color color = Color.white;
         public float width = 0f;
         public int id = 0;
+
+        public Material defaultMat;
+        public LineRenderer line;
+
+        public Material myMat;
+        public Mesh shape;
+        public MeshFilter meshFilter;
+        public MeshRenderer mr;
+
+
 
 
         public ChalktalkDrawType type;
@@ -43,6 +50,43 @@ namespace Chalktalk {
             this.line.startWidth = width;
             this.line.endWidth = width;
         }
+
+        public void InitWithFill(List<Vector3> points, Color color) {
+            this.type = ChalktalkDrawType.FILL;
+            Mesh shape = this.shape;
+            shape.vertices = points.ToArray();
+
+            MeshRenderer mr = this.mr;
+            MeshFilter filter = this.meshFilter;
+
+
+
+            int countSides = points.Count;
+            int countTris = countSides - 2;
+            int[] indices = new int[countTris * 3 * 2];
+            for (int i = 0, off = 0; i < countTris; ++i, off += 6) {
+                indices[off] = 0;
+                indices[off + 1] = i + 1;
+                indices[off + 2] = i + 2;
+                indices[off + 3] = 0;
+                indices[off + 4] = i + 2;
+                indices[off + 5] = i + 1;
+            }
+            shape.triangles = indices;
+            Material mymat = new Material(defaultMat);
+            // similar to what chalktalk do to the color TODO check if shader material is the same as what already exists (in which case, don't modify)
+            Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
+
+            mymat.SetColor("_EmissionColor", c);
+            mr.material = mymat;
+
+            shape.RecalculateBounds();
+            shape.RecalculateNormals();
+
+            filter.mesh = shape;
+        }
+
+
 
         public void Draw() {
             switch (type) {
@@ -88,25 +132,9 @@ namespace Chalktalk {
                     Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
                     mymat.SetColor("_EmissionColor", c);
                     mr.material = mymat;
-                    //mr.material.color = color;
 
-                    //Vector3[] V = {
-                    //    new Vector3(0f, 0f, 0f),
-                    //    new Vector3(1f, 0f, 0f),
-                    //    new Vector3(1f, 1f, 0f),
-                    //    new Vector3(0f, 1f, 0f)
-                    //};
-
-                    //int[] I = {
-                    //    0, 1, 2,
-                    //    2, 3, 0
-                    //};
-
-                    //shape.vertices = V;
-                    //shape.triangles = I;
                     shape.RecalculateBounds();
                     shape.RecalculateNormals();
-
 
                     filter.mesh = shape;
 

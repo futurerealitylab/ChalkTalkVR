@@ -55,12 +55,12 @@ public class CTEntityPool {
         }
 
         AllocateAndInitFills(fillPrefab, nFill, withFillList.buffer);
-        for (int i = 0; i < withLinesList.buffer.Count; i += 1) {
+        for (int i = 0; i < withFillList.buffer.Count; i += 1) {
             withFillList.buffer[i].enabled = false;
         }
 
         AllocateAndInitText(textPrefab, nText, withTextList.buffer);
-        for (int i = 0; i < withLinesList.buffer.Count; i += 1) {
+        for (int i = 0; i < withTextList.buffer.Count; i += 1) {
             withTextList.buffer[i].enabled = false;
         }
 
@@ -101,7 +101,12 @@ public class CTEntityPool {
             go.name = "F:" + ID; ID += 1;
             Curve c = go.GetComponent<Curve>();
 
+            c.shape = new Mesh();
+            c.mr = go.AddComponent<MeshRenderer>();
+            c.meshFilter = go.AddComponent<MeshFilter>();
+
             c.enabled = false;
+            c.mr.enabled = false;
 
             list.Add(c);
         }
@@ -117,32 +122,6 @@ public class CTEntityPool {
         }
     }
 
-
-    // TODO not sure whether this should be done externally ... when to initialize? when called or later?
-    public Curve GetCTEntity(Chalktalk.ChalktalkDrawType type) {
-        Curve c = null;
-        switch (type) {
-            case ChalktalkDrawType.STROKE: {
-                    c = this.GetCTEntityLine();
-                    break;
-                }
-            case ChalktalkDrawType.FILL: {
-                    c = this.GetCTEntityFill();
-                    break;
-                }
-            case ChalktalkDrawType.TEXT: {
-                    c = this.GetCTEntityText();
-                    break;
-                }
-            default: {
-                    c = null;
-                    break;
-                }
-
-        }
-
-        return c;
-    }
 
 
     public Curve GetCTEntityLine() {
@@ -174,8 +153,7 @@ public class CTEntityPool {
         Curve c = withFillList.buffer[withFillList.countElementsInUse];
         if (withFillList.prevCountElementsInUse <= withFillList.countElementsInUse) {
             c.enabled = true;
-            c.line.enabled = true;
-
+            c.mr.enabled = true;
         }
 
         // now one more element is in use this frame
@@ -218,6 +196,7 @@ public class CTEntityPool {
 
         for (int i = list.countElementsInUse; i < bound; i += 1) {
             buff[i].enabled = false;
+            buff[i].mr.enabled = false;
         }
         list.prevCountElementsInUse = list.countElementsInUse;
     }
