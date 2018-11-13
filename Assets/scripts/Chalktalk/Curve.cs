@@ -41,9 +41,13 @@ namespace Chalktalk
         {
             this.line.positionCount = points.Length;
             this.line.SetPositions(points);
-            this.line.startColor = color;
-            this.line.endColor = color;
-            this.line.material.color = color;
+
+            Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
+            line.startColor = c;
+            line.endColor = c;
+            line.material = defaultMat;
+            line.material.color = c;
+            
             this.line.startWidth = width;
             this.line.endWidth = width;
         }
@@ -73,7 +77,7 @@ namespace Chalktalk
             // similar to what chalktalk do to the color TODO check if shader material is the same as what already exists (in which case, don't modify)
             Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
 
-            mymat.SetColor("_EmissionColor", c);
+            mymat.SetColor("_Color", c);
             mr.material = mymat;
 
             shape.RecalculateBounds();
