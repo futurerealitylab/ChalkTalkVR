@@ -35,6 +35,7 @@ namespace Chalktalk
 
         public ChalktalkDrawType type;
 
+        // Vectrosity related
         VectorLine vectrosityLine;
         public Transform forDrawTransform;
         void DrawVectrosityLine()
@@ -104,8 +105,9 @@ namespace Chalktalk
             textScale * CT_TEXT_SCALE_FACTOR,
             textScale * CT_TEXT_SCALE_FACTOR, 1.0f);
         }
-        VectorLine vText;
-        
+
+        // Vectrosity related
+        VectorLine vText;        
         void DrawVectrosityText()
         {
             if (vText == null)
@@ -239,6 +241,7 @@ namespace Chalktalk
             return s;
         }
 
+        // Vectrosity related
         private void OnDestroy()
         {
             VectorLine.Destroy(ref vectrosityLine);

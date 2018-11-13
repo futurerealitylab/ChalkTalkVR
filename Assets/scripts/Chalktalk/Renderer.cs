@@ -124,9 +124,11 @@ namespace Chalktalk
             // name any kind of end cap here, with certain amount of texture
             VectorLine.SetEndCap("RoundCap", EndCap.Mirror, capLineTex, capTex);
         }
+        // Vectrosity related
         Transform forDrawTransform;
         void Start()
         {
+            // Vectrosity related
             forDrawTransform = GameObject.Find("drawTransform").transform;
             ctParser.forDrawTransform = forDrawTransform;
             displayObj = new DisplayObj(label);

@@ -20,6 +20,7 @@ namespace Chalktalk
         [SerializeField]
         private Curve curvePrefab;
 
+        // Vectrosity related
         public Transform forDrawTransform;
 
         public const float TEMP_TEX_Y_OFF = 0.045f;
@@ -141,6 +142,7 @@ namespace Chalktalk
                         renderer.curves.Add(curve);
                         // TODO
                         curve.facingDirection = renderer.facingDirection;
+                        // Vectrosity related
                         curve.forDrawTransform = forDrawTransform;
                         //Debug.Log("curve.facingDirection = renderer.facingDirection: " + curve.facingDirection);
                         // translation.y = (-1 + (2 * translation.y)) * (1080.0f / 1920.0f);
@@ -213,6 +215,7 @@ namespace Chalktalk
                     curve.transform.SetParent(renderer.curvedParent);
 
                     curve.points = points;
+                    // Vectrosity related, should be related to chalktalk resolution
                     curve.width = width * 1000;// * 0.25f;
                     Debug.Log("width:" + curve.width);
                     //curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
