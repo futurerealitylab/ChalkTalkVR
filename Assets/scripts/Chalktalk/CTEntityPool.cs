@@ -109,7 +109,8 @@ public class CTEntityPool
 
             list.Add(c);
 
-            //go.SetActive(false);
+            // TODO: use vectrosity line
+            go.SetActive(false);
         }
     }
 
@@ -156,6 +157,9 @@ public class CTEntityPool
 
             c.type = ChalktalkDrawType.TEXT;
             list.Add(c);
+
+            //TODO: use vectrosity text
+            go.SetActive(false);
         }
     }
 
@@ -174,7 +178,8 @@ public class CTEntityPool
         if (withLinesList.prevCountElementsInUse <= withLinesList.countElementsInUse)
         {
             c.enabled = true;
-            c.line.enabled = true;
+            //todo I am using vectorLine now
+            //c.line.enabled = true;
             //c.gameObject.SetActive(true);
         }
 

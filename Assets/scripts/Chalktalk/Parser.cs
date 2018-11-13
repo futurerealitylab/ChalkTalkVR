@@ -20,6 +20,9 @@ namespace Chalktalk
         [SerializeField]
         private Curve curvePrefab;
 
+        // Vectrosity related
+        public Transform forDrawTransform;
+
         public ChalkTalkObj Parse(byte[] bytes, Renderer renderer)
         {
             ChalkTalkObj ctobj = new ChalkTalkObj();
@@ -268,6 +271,8 @@ namespace Chalktalk
                         //curve.color = color;
 
                         Debug.Log(textStr);
+                        // Vectrosity related
+                        curve.forDrawTransform = forDrawTransform;
                         curve.InitWithText(textStr, translation, scale, renderer.facingDirection, color);
 #if CT_DEBUG
                         renderer.curves.Add(curve);

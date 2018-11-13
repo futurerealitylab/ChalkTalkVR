@@ -341,6 +341,20 @@
     <Compile Include="Assets\Plugins\RenderHeads\AVProMovieCapture\Scripts\Internal\Mp4FileProcessing.cs" />
     <Compile Include="Assets\Plugins\RenderHeads\AVProMovieCapture\Scripts\Internal\NativePlugin.cs" />
     <Compile Include="Assets\Plugins\RenderHeads\AVProMovieCapture\Scripts\Internal\Utils.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\BrightnessControl.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\CapInfo.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\IVectorObject.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\LineManager.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\RefInt.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\VectorChar.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\VectorLine.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\VectorManager.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\VectorObject2D.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\VectorObject3D.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\VectorUtilities.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\VisibilityControl.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\VisibilityControlAlways.cs" />
+    <Compile Include="Assets\Plugins\Vectrosity\Scripts\VisibilityControlStatic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\CurvedUI\Demo Scenes\Demo Scenes Content\OverlayBlend.shader" />
@@ -387,6 +401,12 @@
     <None Include="Assets\Resources\___0\gazePresA.txt" />
     <None Include="Assets\Resources\___0\gazePresB.txt" />
     <None Include="Assets\Resources\___0\gazePresBoard.txt" />
+    <None Include="Assets\Vectrosity\Demos\Shaders\DepthMask.shader" />
+    <None Include="Assets\Vectrosity\Demos\Shaders\SolidColor.shader" />
+    <None Include="Assets\Vectrosity\Plugins\VectrosityDemos\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
+    <None Include="Assets\Vectrosity\Vectrosity Documentation\Vectrosity changelog.txt" />
+    <None Include="Assets\Vectrosity\Vectrosity Documentation\Vectrosity5 Upgrade Guide.txt" />
+    <None Include="Assets\Vectrosity\What to import!.txt" />
     <None Include="Assets\scripts\Chalktalk\3DTextShader.shader" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />

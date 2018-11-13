@@ -26,7 +26,7 @@ namespace Chalktalk
         [SerializeField]
         private string label = "Display";
 
-        Chalktalk.Parser ctParser = new Chalktalk.Parser();
+        Parser ctParser = new Parser();
 
         [HideInInspector]
         public List<Curve> curves;
@@ -46,6 +46,8 @@ namespace Chalktalk
         public int debugTextCap = 0;
 #endif
 
+        // Vectrosity related
+        Transform forDrawTransform;
         public void Start()
         {
             // prevent Start from being called outside runtime
@@ -62,6 +64,10 @@ namespace Chalktalk
                 initialLineCap, initialFillCap, initialTextCap
             );
 #endif
+
+            // Vectrosity related
+            forDrawTransform = GameObject.Find("drawTransform").transform;
+            ctParser.forDrawTransform = forDrawTransform;
         }
 
 

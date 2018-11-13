@@ -463,6 +463,12 @@
     <None Include="Assets\Resources\___0\gazePresA.txt" />
     <None Include="Assets\Resources\___0\gazePresB.txt" />
     <None Include="Assets\Resources\___0\gazePresBoard.txt" />
+    <None Include="Assets\Vectrosity\Demos\Shaders\DepthMask.shader" />
+    <None Include="Assets\Vectrosity\Demos\Shaders\SolidColor.shader" />
+    <None Include="Assets\Vectrosity\Plugins\VectrosityDemos\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
+    <None Include="Assets\Vectrosity\Vectrosity Documentation\Vectrosity changelog.txt" />
+    <None Include="Assets\Vectrosity\Vectrosity Documentation\Vectrosity5 Upgrade Guide.txt" />
+    <None Include="Assets\Vectrosity\What to import!.txt" />
     <None Include="Assets\scripts\Chalktalk\3DTextShader.shader" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />

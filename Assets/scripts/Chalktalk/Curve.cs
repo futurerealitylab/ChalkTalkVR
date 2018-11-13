@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Vectrosity;
+
 
 namespace Chalktalk
 {
@@ -35,9 +37,20 @@ namespace Chalktalk
         public int id = 0;
         public ChalktalkDrawType type;
 
+        // Vectrosity related
+        VectorLine vectrosityLine;
+        VectorLine vText;
+        public Transform forDrawTransform;
+
 #if !BEFORE_POOL
 
         public void InitWithLines(Vector3[] points, Color color, float width)
+        {
+            DrawVectrosityLine(points, color, width);
+            //DrawLineRendererLine(points, color, width);
+        }
+
+        void DrawLineRendererLine(Vector3[] points, Color color, float width)
         {
             this.line.positionCount = points.Length;
             this.line.SetPositions(points);
@@ -47,9 +60,30 @@ namespace Chalktalk
             line.endColor = c;
             line.material = defaultMat;
             line.material.color = c;
-            
+
             this.line.startWidth = width;
             this.line.endWidth = width;
+        }
+
+        void DrawVectrosityLine(Vector3[] points, Color color, float width)
+        {
+            // TODO: VectorLine only takes List
+            List<Vector3> vPoints = new List<Vector3>(points);
+            if (vectrosityLine == null)
+            {
+                vectrosityLine = new VectorLine("haha", vPoints, width*1080.0f/3.0f, LineType.Continuous);
+            }
+            else
+            {
+                vectrosityLine.points3 = vPoints;
+            }
+            //vectrosityLine.material = defaultMat;
+            Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
+            //vectrosityLine.material.color = c;
+            //vectrosityLine.material.SetColor("_EmissionColor", c);
+
+            vectrosityLine.SetColor(c);
+            vectrosityLine.Draw3D();
         }
 
 
@@ -88,6 +122,14 @@ namespace Chalktalk
 
         public void InitWithText(string textStr, Vector3 textPos, float scale, float facingDirection, Color color)
         {
+            DrawVectrosityText(textStr, textPos, scale, facingDirection, color);
+            //InitTextMeshText(textStr, textPos, scale, facingDirection, color);
+        }
+
+        void InitTextMeshText(string textStr, Vector3 textPos, float scale, float facingDirection, Color color)
+        {
+            gameObject.SetActive(true);
+
             // don't really need to save these to the object
             this.text = textStr;
             this.facingDirection = facingDirection;
@@ -122,6 +164,28 @@ namespace Chalktalk
             transform.localScale = new Vector3(
             textScale * CT_TEXT_SCALE_FACTOR,
             textScale * CT_TEXT_SCALE_FACTOR, 1.0f);
+        }
+
+        void DrawVectrosityText(string textStr, Vector3 textPos, float textScale, float facingDirection, Color color)
+        {
+            if (vText == null)
+            {
+                vText = new VectorLine("3DText-" + textStr, new List<Vector3>(), 1.0f);
+            }
+
+            vText.color = color;
+            //vText.drawTransform.localRotation = Quaternion.Euler(0, facingDirection, 0);
+
+            vText.MakeText(textStr, Vector3.zero, textScale);
+            forDrawTransform.localPosition = textPos;
+            forDrawTransform.localRotation = Quaternion.Euler(0, facingDirection, 0);
+
+            vText.drawTransform = forDrawTransform;
+
+
+            //vText.MakeText(text, textPos, textScale);
+
+            vText.Draw3D();
         }
 
 #endif
