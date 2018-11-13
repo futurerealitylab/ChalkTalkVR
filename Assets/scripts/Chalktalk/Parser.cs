@@ -20,6 +20,8 @@ namespace Chalktalk
         [SerializeField]
         private Curve curvePrefab;
 
+        public Transform forDrawTransform;
+
         public const float TEMP_TEX_Y_OFF = 0.045f;
 
         public ChalkTalkObj Parse(byte[] bytes, Renderer renderer)
@@ -139,6 +141,7 @@ namespace Chalktalk
                         renderer.curves.Add(curve);
                         // TODO
                         curve.facingDirection = renderer.facingDirection;
+                        curve.forDrawTransform = forDrawTransform;
                         //Debug.Log("curve.facingDirection = renderer.facingDirection: " + curve.facingDirection);
                         // translation.y = (-1 + (2 * translation.y)) * (1080.0f / 1920.0f);
 
@@ -210,12 +213,14 @@ namespace Chalktalk
                     curve.transform.SetParent(renderer.curvedParent);
 
                     curve.points = points;
-                    curve.width = width * 3;// * 0.25f;
+                    curve.width = width * 1000;// * 0.25f;
+                    Debug.Log("width:" + curve.width);
                     //curve.color = isFrame ? new Color(1, 1, 1, 1) : color;
                     curve.color = color;
                     curve.type = (ChalktalkDrawType)type;
                     // zhenyi: not using the chalktalk color
                     //curve.color = new Color(1, 1, 1, 1);
+                    
                     renderer.curves.Add(curve);
                 }
             }

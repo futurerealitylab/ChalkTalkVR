@@ -50,7 +50,7 @@ public class Line3D : MonoBehaviour {
     // Use this for initialization
     void Start () {
         // config VectorLine
-        VectorLine.SetCamera3D(CenterCameraEye);
+        //VectorLine.SetCamera3D(CenterCameraEye);
 
         configEndCap();
 
@@ -63,6 +63,8 @@ public class Line3D : MonoBehaviour {
             CreateOneLine(j * 3.0f, colorOptions[j]);
         }
         line = new VectorLine("3DLine", linePoints, 6.0f, LineType.Discrete, Joins.Weld);
+        // 3D vector object will always be drawn every frame
+        VectorManager.ObjectSetup(gameObject, line, Visibility.Always, Brightness.Fog);
         //line = new VectorLine("3DLine", linePoints, capLineTex, capLength, LineType.Discrete);
         line.SetColors(lineColors);
         line.drawTransform = customTransform;

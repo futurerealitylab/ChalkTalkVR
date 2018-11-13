@@ -36,6 +36,7 @@ namespace Chalktalk
         public ChalktalkDrawType type;
 
         VectorLine vectrosityLine;
+        public Transform forDrawTransform;
         void DrawVectrosityLine()
         {
             if(vectrosityLine == null)
@@ -46,8 +47,11 @@ namespace Chalktalk
             {
                 vectrosityLine.points3 = points;
             }
-            
+            //vectrosityLine.material = defaultMat;
             Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
+            //vectrosityLine.material.color = c;
+            //vectrosityLine.material.SetColor("_EmissionColor", c);
+
             vectrosityLine.SetColor(c);
             vectrosityLine.Draw3D();
         }
@@ -101,16 +105,26 @@ namespace Chalktalk
             textScale * CT_TEXT_SCALE_FACTOR, 1.0f);
         }
         VectorLine vText;
+        
         void DrawVectrosityText()
         {
             if (vText == null)
             {
-                vText = new VectorLine("3DText", new List<Vector3>(), 1.0f);
+                vText = new VectorLine("3DText-" + text, new List<Vector3>(), 1.0f);
             }
 
             vText.color = color;
             //vText.drawTransform.localRotation = Quaternion.Euler(0, facingDirection, 0);
+
             vText.MakeText(text, Vector3.zero, textScale);
+            forDrawTransform.localPosition = textPos;
+            forDrawTransform.localRotation = Quaternion.Euler(0, facingDirection, 0);
+
+            vText.drawTransform = forDrawTransform; 
+            
+
+            //vText.MakeText(text, textPos, textScale);
+
             vText.Draw3D();
         }
 
@@ -121,8 +135,8 @@ namespace Chalktalk
             {
 
                 case ChalktalkDrawType.STROKE:
-                    DrawLineRenderLine();
-                    //DrawVectrosityLine();
+                    //DrawLineRenderLine();
+                    DrawVectrosityLine();
 
                     break;
                 case ChalktalkDrawType.FILL:
@@ -200,8 +214,8 @@ namespace Chalktalk
                     break;
 
                 case ChalktalkDrawType.TEXT:
-                    DrawTextMeshText();
-                    //DrawVectrosityText();
+                    //DrawTextMeshText();
+                    DrawVectrosityText();
 
                     break;
                 default:
@@ -223,6 +237,12 @@ namespace Chalktalk
             }
             s += " TYPE: " + this.type;
             return s;
+        }
+
+        private void OnDestroy()
+        {
+            VectorLine.Destroy(ref vectrosityLine);
+            VectorLine.Destroy(ref vText);
         }
     }
 }
