@@ -2231,7 +2231,7 @@ MonoBehaviour:
   m_Script: {fileID: 916676448, guid: 1362ee83563f0458bbbc776de423bfe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relayAddress: 192.168.1.68
+  relayAddress: 10.19.213.18
   upstreamPort: 9592
   multicastAddress: 239.0.2.4
   downstreamPort: 9591
@@ -2419,6 +2419,15 @@ MonoBehaviour:
   mySettings: {fileID: 0}
   label: Display
   curves: []
+  initialLineCap: 0
+  initialFillCap: 0
+  initialTextCap: 0
+  debugLineCount: 0
+  debugFillCount: 0
+  debugTextCount: 0
+  debugLineCap: 0
+  debugFillCap: 0
+  debugTextCap: 0
 --- !u!4 &1987635971
 Transform:
   m_ObjectHideFlags: 0
