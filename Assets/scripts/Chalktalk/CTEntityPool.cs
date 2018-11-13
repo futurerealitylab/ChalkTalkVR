@@ -110,7 +110,9 @@ public class CTEntityPool
             list.Add(c);
 
             // TODO: use vectrosity line
+#if USE_VECTROSITY
             go.SetActive(false);
+#endif
         }
     }
 
@@ -159,7 +161,9 @@ public class CTEntityPool
             list.Add(c);
 
             //TODO: use vectrosity text
+#if USE_VECTROSITY
             go.SetActive(false);
+#endif
         }
     }
 
@@ -179,8 +183,10 @@ public class CTEntityPool
         {
             c.enabled = true;
             //todo I am using vectorLine now
-            //c.line.enabled = true;
+#if !USE_VECTROSITY
+            c.line.enabled = true;
             //c.gameObject.SetActive(true);
+#endif
         }
 
         // now one more element is in use this frame

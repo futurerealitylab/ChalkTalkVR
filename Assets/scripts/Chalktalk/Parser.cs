@@ -123,7 +123,7 @@ namespace Chalktalk
                     //cursor += (length-12)*2;    // text display with format, header (12 bytes) + n * 2 * 8-bit-char
                     string textStr = "";
                     for(int j = 0; j < (length-12); j++)
-                    {
+                    { 
                         int curInt = Utility.ParsetoInt16(bytes, cursor);
                         int res1 = curInt >> 8;
                         int res2 = curInt - (res1 << 8);

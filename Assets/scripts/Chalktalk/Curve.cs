@@ -34,6 +34,7 @@ namespace Chalktalk
         public Material fontMat;
         public string text;
 
+
         public int id = 0;
         public ChalktalkDrawType type;
 
@@ -46,14 +47,18 @@ namespace Chalktalk
 
         public void InitWithLines(Vector3[] points, Color color, float width)
         {
+#if USE_VECTROSITY
             DrawVectrosityLine(points, color, width);
-            //DrawLineRendererLine(points, color, width);
+#else
+            DrawLineRendererLine(points, color, width);
+#endif
         }
 
         void DrawLineRendererLine(Vector3[] points, Color color, float width)
         {
             this.line.positionCount = points.Length;
             this.line.SetPositions(points);
+
 
             Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
             line.startColor = c;
@@ -63,6 +68,8 @@ namespace Chalktalk
 
             this.line.startWidth = width;
             this.line.endWidth = width;
+
+            Debug.Log("Drawing a Line");
         }
 
         void DrawVectrosityLine(Vector3[] points, Color color, float width)
@@ -122,8 +129,11 @@ namespace Chalktalk
 
         public void InitWithText(string textStr, Vector3 textPos, float scale, float facingDirection, Color color)
         {
+#if USE_VECTROSITY
             DrawVectrosityText(textStr, textPos, scale, facingDirection, color);
-            //InitTextMeshText(textStr, textPos, scale, facingDirection, color);
+#else
+            InitTextMeshText(textStr, textPos, scale, facingDirection, color);
+#endif
         }
 
         void InitTextMeshText(string textStr, Vector3 textPos, float scale, float facingDirection, Color color)
@@ -191,8 +201,8 @@ namespace Chalktalk
 #endif
 
 
-        // BEFORE POOL
-        public void Draw()
+            // BEFORE POOL
+            public void Draw()
         {
             switch (type)
             {
