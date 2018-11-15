@@ -6,10 +6,11 @@ using UnityEngine;
 
 namespace Chalktalk
 {
-    public enum ChalkTalkType { CURVE, PROCEDURE};
+    public enum ChalkTalkType { CURVE, PROCEDURE };
     public class ChalkTalkObj
     {
         public ChalkTalkType type;
+
         public ChalkTalkObj()
         {
             type = ChalkTalkType.CURVE;
@@ -55,6 +56,16 @@ namespace Chalktalk
                 //transform.rotation = Quaternion.LookRotation(renderer.mySettings.CanvasToCurvedCanvasNormal(transform.parent.localPosition), transform.parent.up);
             }
             return p;
+        }
+
+        public static Vector2Int ParseDisplayInfo(byte[] bytes, int offset = 0)
+        {
+            int cursor = 8 + offset;
+            int resW = Utility.ParsetoInt16(bytes, cursor);
+            cursor += 2;
+            int resH = Utility.ParsetoInt16(bytes, cursor);
+
+            return new Vector2Int(resW, resH);
         }
 
         public void ParseStroke(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)
@@ -270,7 +281,7 @@ namespace Chalktalk
 
                         //curve.color = color;
 
-                        Debug.Log(textStr);
+                        //Debug.Log(textStr);
                         // Vectrosity related
                         curve.forDrawTransform = forDrawTransform;
                         curve.InitWithText(textStr, translation, scale, renderer.facingDirection, color);
@@ -332,9 +343,8 @@ namespace Chalktalk
                             break;
                         }
                 }
-
 #endif
-                            }
+            }
         }
 
         public void ParseProcedureAnimation(byte[] bytes, ref ChalkTalkObj ctobj, Renderer renderer)

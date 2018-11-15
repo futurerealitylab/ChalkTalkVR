@@ -14,13 +14,14 @@ namespace Chalktalk
     public class Curve : MonoBehaviour
     {
         public Vector3[] points;
-        public Color color = Color.white;
+        public Color color = Color.black;
         public float width = 0.0f;
 
         public Material defaultMat;
+        public Material mat2;
         public LineRenderer line;
 
-        public Material myMat;
+        //public Material myMat;
         public Mesh shape;
         public MeshFilter meshFilter;
         public MeshRenderer meshRenderer;
@@ -34,7 +35,6 @@ namespace Chalktalk
         public Material fontMat;
         public string text;
 
-
         public int id = 0;
         public ChalktalkDrawType type;
 
@@ -42,6 +42,27 @@ namespace Chalktalk
         VectorLine vectrosityLine;
         VectorLine vText;
         public Transform forDrawTransform;
+
+        public MaterialPropertyBlock materialPropertyBlock;
+
+        public static Material mainMaterial;
+        public static int colorPropID;
+
+        public static IDictionary<Color, KeyValuePair<Material, Color>> colorToMaterialInfoMap = new Dictionary<Color, KeyValuePair<Material, Color>>();
+
+        private void Awake()
+        {
+            if (Curve.mainMaterial == null)
+            {
+                Curve.mainMaterial = new Material(mat2);
+
+            };
+        }
+
+        public void CacheShaderPropID()
+        {
+            colorPropID = Shader.PropertyToID("_Color");
+        }
 
 #if !BEFORE_POOL
 
@@ -59,17 +80,49 @@ namespace Chalktalk
             this.line.positionCount = points.Length;
             this.line.SetPositions(points);
 
+            // do not replace the material if nothing has changed
+            if (color == this.color)
+            {
+                return;
+            }
+            else
+            {
+                this.color = color;
+            }
 
-            Color c = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
-            line.startColor = c;
-            line.endColor = c;
-            line.material = defaultMat;
-            line.material.color = c;
+            KeyValuePair<Material, Color> materialInfo;
+            Color matColor;
+            if (colorToMaterialInfoMap.TryGetValue(color, out materialInfo))
+            {
+                line.sharedMaterial = materialInfo.Key;
+                matColor = materialInfo.Value;
+
+                //Debug.Log("Reusing a color");
+            }
+            else
+            {
+                matColor = new Color(Mathf.Pow(color.r, 0.45f), Mathf.Pow(color.g, 0.45f), Mathf.Pow(color.b, 0.45f));
+                Material mat = new Material(defaultMat);
+                mat.SetColor("_Color", matColor);
+                line.sharedMaterial = mat;
+
+                colorToMaterialInfoMap.Add(color, new KeyValuePair<Material, Color>(mat, matColor));
+
+                //Debug.Log("Adding a color");
+            }
+
+            line.startColor = matColor;
+            line.endColor = matColor;
+
+
+
+
+            // NEW
+            //this.materialPropertyBlock.SetColor(colorPropID, c);
+            //this.line.SetPropertyBlock(this.materialPropertyBlock);
 
             this.line.startWidth = width;
             this.line.endWidth = width;
-
-            Debug.Log("Drawing a Line");
         }
 
         void DrawVectrosityLine(Vector3[] points, Color color, float width)

@@ -102,6 +102,11 @@ public class CTEntityPool
             c.line.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             c.line.receiveShadows = false;
 
+            //c.line.sharedMaterial = Curve.mainMaterial;
+            //c.materialPropertyBlock = new MaterialPropertyBlock();
+
+            //c.CacheShaderPropID();
+
             c.enabled = false;
             c.line.enabled = false;
 

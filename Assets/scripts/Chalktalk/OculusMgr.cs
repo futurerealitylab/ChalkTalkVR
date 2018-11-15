@@ -14,7 +14,8 @@ public class OculusMgr : MonoBehaviour {
 		HD_720,
 		RETINA_2560,
 		RETINA_1440,
-        BENQ
+        BENQ,
+        RUNTIME
 		// etc
 	}
 
@@ -30,6 +31,8 @@ public class OculusMgr : MonoBehaviour {
     }
 
 	public ResolutionType resolutionType;
+    public short width;
+    public short height;
 
 	//public static int HEIGHT { get { return global.GetResolution(global.resolutionType).height; } }
 	//public static int WIDTH { get { return global.GetResolution(global.resolutionType).width; } }
@@ -44,18 +47,20 @@ public class OculusMgr : MonoBehaviour {
 
 	ResolutionFormat GetResolution(ResolutionType type) {
 		switch (type) {
-		case ResolutionType.HD_1080:
-			return new ResolutionFormat (1920, 1080);
-		case ResolutionType.HD_720:
-			return new ResolutionFormat (1280, 720);
-		case ResolutionType.RETINA_2560:
-			return new ResolutionFormat (2560, 1600);
-		case ResolutionType.RETINA_1440:
-			return new ResolutionFormat (1440, 900);
+		    case ResolutionType.HD_1080:
+			    return new ResolutionFormat (1920, 1080);
+		    case ResolutionType.HD_720:
+			    return new ResolutionFormat (1280, 720);
+		    case ResolutionType.RETINA_2560:
+			    return new ResolutionFormat (2560, 1600);
+		    case ResolutionType.RETINA_1440:
+			    return new ResolutionFormat (1440, 900);
             case ResolutionType.BENQ:
                 return new ResolutionFormat(2560, 1440);
+            case ResolutionType.RUNTIME:
+                return new ResolutionFormat(width, height);
             default:
-			return GetResolution (ResolutionType.HD_1080);
+			    return GetResolution (ResolutionType.HD_1080);
 		}
 	}
 

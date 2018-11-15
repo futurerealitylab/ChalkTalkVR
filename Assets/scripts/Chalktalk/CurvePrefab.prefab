@@ -32,6 +32,10 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mat2
+      value: 
+      objectReference: {fileID: 2100000, guid: f44c2d7ecef71a94da0a19acee8b5494, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1332583882693216}
@@ -80,8 +84,8 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   width: 0
   defaultMat: {fileID: 2100000, guid: dcd0c78e5ae606748ade8e2b4af57b69, type: 2}
+  mat2: {fileID: 2100000, guid: f44c2d7ecef71a94da0a19acee8b5494, type: 2}
   line: {fileID: 0}
-  myMat: {fileID: 0}
   shape: {fileID: 0}
   meshFilter: {fileID: 0}
   meshRenderer: {fileID: 0}
@@ -94,3 +98,4 @@ MonoBehaviour:
   text: 
   id: 0
   type: 0
+  forDrawTransform: {fileID: 0}

@@ -654,6 +654,36 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1664117414}
   m_Script: {fileID: 11500000, guid: e53b07ad62d980a4da9fffff0b05fd2e, type: 3}
+--- !u!1 &333819229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 333819230}
+  m_Layer: 0
+  m_Name: Messages
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &333819230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 333819229}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1981007461}
+  - {fileID: 751669765}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &374330994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,6 +1247,54 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &751669764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 751669765}
+  - component: {fileID: 751669766}
+  m_Layer: 0
+  m_Name: ResolutionReceiver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &751669765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 751669764}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 333819230}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &751669766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 751669764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1570c0172d0118744bdaf2949e32da5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localSpace: 0
+  smooth: 0
+  label: resRcv
+  scope: 
+  host: 0
+  autoHost: 0
+  intCount: 2
+  requester: {fileID: 1981007460}
 --- !u!1 &883893044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,6 +2512,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a,
     type: 2}
   m_PrefabInternal: {fileID: 255892928}
+--- !u!1 &1981007459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1981007461}
+  - component: {fileID: 1981007460}
+  m_Layer: 0
+  m_Name: ResolutionRequester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1981007460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1981007459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1570c0172d0118744bdaf2949e32da5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localSpace: 0
+  smooth: 0
+  label: resSnd
+  scope: 
+  host: 1
+  autoHost: 0
+  intCount: 1
+  requester: {fileID: 1981007460}
+--- !u!4 &1981007461
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1981007459}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 333819230}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1987635966
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,6 +2630,13 @@ MonoBehaviour:
   initialLineCap: 0
   initialFillCap: 0
   initialTextCap: 0
+  debugLineCount: 0
+  debugFillCount: 0
+  debugTextCount: 0
+  debugLineCap: 0
+  debugFillCap: 0
+  debugTextCap: 0
+  oc: {fileID: 0}
 --- !u!4 &1987635971
 Transform:
   m_ObjectHideFlags: 0
@@ -2530,7 +2663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3f54003d2ff2347a4b337a0fced7bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionType: 0
+  resolutionType: 5
+  width: 0
+  height: 0
   bindingBox: {fileID: 146131494}
   cursor: {fileID: 1879181661}
   keyText: {fileID: 1581971200}

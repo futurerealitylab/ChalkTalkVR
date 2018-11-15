@@ -56,6 +56,8 @@ namespace Chalktalk
                 return;
             }
 
+            SharedState.chalktalkInstances.Add(this);
+
             this.curves = new List<Curve>();
 #if !BEFORE_POOL
             this.entityPool = new CTEntityPool();
@@ -68,7 +70,11 @@ namespace Chalktalk
             // Vectrosity related
             forDrawTransform = GameObject.Find("drawTransform").transform;
             ctParser.forDrawTransform = forDrawTransform;
+
+            oc = (oc == null) ? this.GetComponent<OculusMgr>() : oc;
         }
+
+        public OculusMgr oc;
 
 
         public override void ResetData()
@@ -132,6 +138,13 @@ namespace Chalktalk
         {
             ChalkTalkObj ctObj = ctParser.Parse(bytes, this);
             return;
+        }
+
+
+        public void UpdateDisplayInfo(short width, short height)
+        {
+            this.oc.width = (short)width;
+            this.oc.height = (short)height;
         }
 
 

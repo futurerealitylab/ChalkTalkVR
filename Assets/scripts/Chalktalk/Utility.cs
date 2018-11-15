@@ -87,6 +87,15 @@ namespace Chalktalk
             return new Vector3(x, y, z);
         }
 
+        public static Vector2 ParsetoRealVector2(byte[] value, int index, float scale)
+        {
+            int ix = ParsetoInt16(value, index);
+            float x = BitConverter.ToSingle(value, index) * scale;
+            float y = BitConverter.ToSingle(value, index + 4) * scale;
+
+            return new Vector2(x, y);
+        }
+
         public static string ParsetoString(byte[] value, int index, int len)
         {
             string ret = "";
