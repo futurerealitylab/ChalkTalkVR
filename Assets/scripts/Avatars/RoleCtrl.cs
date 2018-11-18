@@ -125,9 +125,13 @@ public class RoleCtrl : MonoBehaviour {
         }
     }
 
+    Dictionary<string, string> mapLabelUserID;
     // Use this for initialization
     void Start () {
-        
+        mapLabelUserID = new Dictionary<string, string>();
+        mapLabelUserID.Add("zhenyi", "1682533711857130");
+        mapLabelUserID.Add("A1", "2182355055148104");
+        mapLabelUserID.Add("A2", "2347129931970208");
         localAvatar.GetComponent<AvatarManager>().label = localLabel;
         remoteAvatars = new Transform[remoteLabels.Length];
         for (int i = 0; i < remoteLabels.Length; i++) {
@@ -135,6 +139,8 @@ public class RoleCtrl : MonoBehaviour {
             AvatarManager am = go.GetComponent<AvatarManager>();
             am.label = remoteLabels[i];
             remoteAvatars[i] = go.transform;
+            go.name = am.label;
+            go.GetComponent<OvrAvatar>().oculusUserID = mapLabelUserID[go.name];
             //
         }
         tryint();

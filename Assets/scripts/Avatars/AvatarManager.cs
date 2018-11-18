@@ -25,8 +25,8 @@ public class AvatarManager : Holojam.Network.Controller {
             } else {
                 // we will receive the data and decode
                 //print("recv ints[0]: " + data.ints[0]);
-                print("recv bytes: " + BitConverter.ToString(data.bytes));
-                print("recv data size: " + data.bytes.Length);
+                //print("recv bytes: " + BitConverter.ToString(data.bytes));
+                //print("recv data size: " + data.bytes.Length);
                 //byte[] testBytes = new byte[data.bytes.Length];
                 //data.bytes.CopyTo(testBytes, 1);
                 DeserializeAndQueuePacketData(data.bytes);
@@ -79,9 +79,9 @@ public class AvatarManager : Holojam.Network.Controller {
             Oculus.Avatar.CAPI.ovrAvatarPacket_Write(args.Packet.ovrNativePacket, size, avatardata);
             latestPosture.Clear();
             latestPosture.AddRange(avatardata);
-            Debug.LogWarning("send seq: " + localSequence);
-            Debug.LogWarning("send avatar size: " + size + "\t" + (int)size);
-            Debug.LogWarning("send avatardata: " + BitConverter.ToString(avatardata));
+            //Debug.LogWarning("send seq: " + localSequence);
+            //Debug.LogWarning("send avatar size: " + size + "\t" + (int)size);
+            //Debug.LogWarning("send avatardata: " + BitConverter.ToString(avatardata));
             // end of trick
             writer.Write(localSequence++);
             //writer.Write(ConnectionManager.LocalOculusID);
@@ -122,9 +122,9 @@ public class AvatarManager : Holojam.Network.Controller {
             int size = reader.ReadInt32();
             byte[] sdkData = reader.ReadBytes(size);
             System.IntPtr packet = Oculus.Avatar.CAPI.ovrAvatarPacket_Read((System.UInt32)size, sdkData);
-            Debug.LogWarning("recv seq: " + remoteSequence);
-            Debug.LogWarning("recv avatar size: " + size);
-            Debug.LogWarning("recv avatardata: " + BitConverter.ToString(sdkData));
+            //Debug.LogWarning("recv seq: " + remoteSequence);
+            //Debug.LogWarning("recv avatar size: " + size);
+            //Debug.LogWarning("recv avatardata: " + BitConverter.ToString(sdkData));
             // testing
             ovrAvatar.GetComponent<OvrAvatarRemoteDriver>().QueuePacket(remoteSequence, new OvrAvatarPacket { ovrNativePacket = packet });
             //this.GetComponent<SpacetimeAvatar>().DriveParallelOrGhostAvatarPosture(remoteSequence, sdkData);

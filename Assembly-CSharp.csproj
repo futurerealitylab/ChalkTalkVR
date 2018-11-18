@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_2_13;UNITY_2018_2;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CURVEDUI_TOUCH;CROSS_PLATFORM_INPUT</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_2_13;UNITY_2018_2;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CURVEDUI_TOUCH;CROSS_PLATFORM_INPUT;USE_VECTROSITY</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -334,6 +334,7 @@
     <Compile Include="Assets\scripts\Avatars\AvatarManager.cs" />
     <Compile Include="Assets\scripts\Avatars\HeadFlake.cs" />
     <Compile Include="Assets\scripts\Avatars\RoleCtrl.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\CTEntityPool.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Curve.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Events.cs" />
     <Compile Include="Assets\scripts\Chalktalk\GazeTriangle.cs" />
@@ -342,7 +343,9 @@
     <Compile Include="Assets\scripts\Chalktalk\OculusMgr.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Parser.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Renderer.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\ResolutionSync.cs" />
     <Compile Include="Assets\scripts\Chalktalk\ScreenshotMgr.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\SharedState.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Utility.cs" />
     <Compile Include="Assets\scripts\CurvedUICtrl.cs" />
     <Compile Include="Assets\scripts\DebugNetwork.cs" />
@@ -369,7 +372,53 @@
     <Compile Include="Assets\scripts\VRCapture\DedicatedCmr.cs" />
     <Compile Include="Assets\scripts\VRCapture\FixedCmr.cs" />
     <Compile Include="Assets\TestLootat.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\_Simple2DLine\Line.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\_Simple2DLine\ReallyBasicLine.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\_Simple2DLine\UniformTexturedLine.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\_Simple3DObject\Simple3D.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\_Simple3DObject\Simple3D2.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\_Simple3DObject\Simple3D3.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Curve\CurvePointControl.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Curve\DrawCurve.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Curve\SimpleCurve.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\DrawLines\DrawLines.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\DrawLines\DrawLinesMouse.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\DrawLines\DrawLinesTouch.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Ellipse\Ellipse1.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Ellipse\Ellipse2.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\EndCap\EndCapDemo.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Grid\DrawGrid.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Grid3D\Grid3D.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Highlight\Highlight.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Highlight\MakeSpheres.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Highlight\RotateAroundY.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Mask\MaskLine1.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Mask\MaskLine2.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Orbit\CreateStars.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Orbit\Orbit.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Orbit\RotateViewpoint.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\PartialLine\AnimatePartialLine.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Path\DrawPath.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Points\DrawPoints.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\PowerBar\PowerBar.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\RandomHills\CreateHills.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Scribblecube\CameraZoom.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Scribblecube\ScribbleCube.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\SelectionBox\SelectionBox.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\SelectionBox\SelectionBox2.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\SelectLine\SelectLine.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Spline\MakeSpline.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\SplineFollow\SplineFollow2D.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\SplineFollow\SplineFollow3D.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Text\TextDemo.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Xray\DrawBox.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Xray\VectorObject.cs" />
+    <Compile Include="Assets\Vectrosity\Demos\Scripts\Xray\XrayLineData.cs" />
+    <Compile Include="Assets\Vectrosity\Plugins\VectrosityDemos\ImageEffects\Scripts\BloomOptimized.cs" />
+    <Compile Include="Assets\Vectrosity\Plugins\VectrosityDemos\ImageEffects\Scripts\PostEffectsBase.cs" />
     <Compile Include="Assets\WorldInitializer.cs" />
+    <None Include="Assets\Vectrosity\Vectrosity Documentation\Vectrosity5 Upgrade Guide.txt" />
+    <None Include="Assets\Vectrosity\What to import!.txt" />
     <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_PC_SingleComponent.shader" />
     <None Include="Assets\Resources\___0\gazeAPres.txt" />
     <None Include="Assets\Oculus\VR\Resources\OVRMRUnlitTransparent.shader" />
@@ -377,19 +426,23 @@
     <None Include="Assets\Oculus\VR\Resources\OVRMRChromaKey.cginc" />
     <None Include="Assets\Holojam\SampleConfig.xml" />
     <None Include="Assets\Holojam\HolojamConfig.xml" />
+    <None Include="Assets\Vectrosity\Plugins\VectrosityDemos\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
     <None Include="Assets\Resources\___0\eyePresB.txt" />
     <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_Mobile_Loader.shader" />
     <None Include="Assets\Oculus\VR\Shaders\OVRColorRampAlpha.shader" />
+    <None Include="Assets\Vectrosity\Vectrosity Documentation\Vectrosity changelog.txt" />
     <None Include="Assets\Oculus\VR\Resources\Cubemap Blit.shader" />
     <None Include="Assets\Resources\___0\gazeABoard.txt" />
     <None Include="Assets\Oculus\VR\Resources\OVRMRUnlit.shader" />
     <None Include="Assets\Resources\___0\gazeBBoard.txt" />
     <None Include="Assets\Oculus\VR\Shaders\Unlit Crosshair.shader" />
+    <None Include="Assets\scripts\Chalktalk\TestShader.shader" />
     <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarSurfaceShaderSelfOccluding.shader" />
     <None Include="Assets\Oculus\VR\Resources\Unlit Transparent Color.shader" />
     <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarSurfaceShaderPBS.shader" />
     <None Include="Assets\Oculus\VR\Resources\OVRMRCameraFrameLit.shader" />
     <None Include="Assets\Oculus\Avatar\Samples\SocialStarter\README.txt" />
+    <None Include="Assets\scripts\Chalktalk\NewUnlitShader.shader" />
     <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_Mobile_CombinedMesh.shader" />
     <None Include="Assets\Oculus\VR\Resources\Underlay Transparent Occluder.shader" />
     <None Include="Assets\Oculus\VR\Resources\Texture2D Blit.shader" />
@@ -408,18 +461,20 @@
     <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarSurfaceShader.shader" />
     <None Include="Assets\Resources\___0\eyePresA.txt" />
     <None Include="Assets\Oculus\VR\Resources\Underlay Impostor.shader" />
+    <None Include="Assets\Vectrosity\Demos\Shaders\DepthMask.shader" />
+    <None Include="Assets\Vectrosity\Demos\Shaders\SolidColor.shader" />
     <None Include="Assets\Oculus\VR\Plugins\placeholder.txt" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalktalkVR_testing/ChalkTalkVR/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalkTalkVR/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalktalkVR_testing/ChalkTalkVR/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalkTalkVR/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalktalkVR_testing/ChalkTalkVR/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalkTalkVR/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalktalkVR_testing/ChalkTalkVR/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalkTalkVR/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -602,7 +657,7 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Unity.Locator.dll</HintPath>
     </Reference>
     <Reference Include="Facebook.Unity.Settings">
-      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalktalkVR_testing/ChalkTalkVR/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalkTalkVR/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -623,10 +678,10 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Holojam-Core">
-      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalktalkVR_testing/ChalkTalkVR/Assets/Holojam/Holojam-Core.dll</HintPath>
+      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalkTalkVR/Assets/Holojam/Holojam-Core.dll</HintPath>
     </Reference>
     <Reference Include="FlatBuffers">
-      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalktalkVR_testing/ChalkTalkVR/Assets/Holojam/Plugins/FlatBuffers.dll</HintPath>
+      <HintPath>C:/Users/FRL/Documents/GitHub/Chalktalk/ChalkTalkVR/Assets/Holojam/Plugins/FlatBuffers.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/FRL/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
