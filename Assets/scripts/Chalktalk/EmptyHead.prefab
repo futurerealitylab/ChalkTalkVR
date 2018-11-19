@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   c: {r: 0, g: 0, b: 1, a: 1}
-  mat: {fileID: 2100000, guid: 73183c057eb892643ab0393c9afd934a, type: 2}
+  mat: {fileID: 2100000, guid: 83dc569240922824282171e14fb147d5, type: 2}
 --- !u!114 &114785993757042476
 MonoBehaviour:
   m_ObjectHideFlags: 1
