@@ -337,6 +337,7 @@
     <Compile Include="Assets\scripts\Chalktalk\CTEntityPool.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Curve.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Events.cs" />
+    <Compile Include="Assets\scripts\Chalktalk\eyesfreeHelper.cs" />
     <Compile Include="Assets\scripts\Chalktalk\GazeTriangle.cs" />
     <Compile Include="Assets\scripts\Chalktalk\Manager.cs" />
     <Compile Include="Assets\scripts\Chalktalk\NewBehaviourScript.cs" />

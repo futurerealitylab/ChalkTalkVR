@@ -142,7 +142,7 @@ public class RoleCtrl : MonoBehaviour {
                     go2.transform.localScale = new Vector3(-1, 1, 1);
                 }
 
-                dataCollection.SetActive(true);
+                dataCollection.SetActive(false);
                 break;
             default:
                 break;
@@ -171,7 +171,36 @@ public class RoleCtrl : MonoBehaviour {
                     go2.transform.localScale = new Vector3(-1, 1, 1);
                 }
 
-                dataCollection.SetActive(true);
+                dataCollection.SetActive(false);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void eyesfreeRoleCtrl()
+    {
+        switch (role)
+        {
+            case Role.Audience:
+                // if i am the audience, sending my ovrcamera
+                GameObject go = Instantiate(emptyHeadPrefab);
+                go.GetComponent<HeadFlake>().isPresenter = false;
+                go.GetComponent<HeadFlake>().label = localLabel + "head";
+                //
+                dataCollection.SetActive(false);
+                break;
+            case Role.Presentor:
+                // if i am the presenter, receiving from audience about ovrcamera
+                for (int i = 0; i < remoteLabels.Length; i++)
+                {
+                    GameObject go2 = Instantiate(emptyHeadPrefab);
+                    go2.GetComponent<HeadFlake>().isPresenter = true;
+                    go2.GetComponent<HeadFlake>().label = remoteLabels[i] + "head";
+                    go2.transform.localScale = new Vector3(-1, 1, 1);
+                }
+
+                dataCollection.SetActive(false);
                 break;
             default:
                 break;
@@ -199,6 +228,7 @@ public class RoleCtrl : MonoBehaviour {
         tryint();
         Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection = 90;// (role == Role.Audience) ? 270 : 90;
         Chalktalkboard.parent.GetComponent<OculusMgr>().isPresenter = role == Role.Presentor;
+        Chalktalkboard.parent.GetComponent<OculusMgr>().MRConfig = MRConfig;
         print("Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection:" + Chalktalkboard.parent.GetComponent<Chalktalk.Renderer>().facingDirection);
     }
 

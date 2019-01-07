@@ -169,6 +169,8 @@ public class OculusMgr : MonoBehaviour {
                 }
             case DeviceType.OCULUS_RIFT:
                 {
+                    if (oculusCtrls.Length == 0)
+                        break;
                     OVRInput.Controller activeController = OVRInput.GetActiveController();
                     if (activeController != OVRInput.Controller.LTouch && activeController != OVRInput.Controller.RTouch)
                         return;
@@ -213,6 +215,7 @@ public class OculusMgr : MonoBehaviour {
     float curControlPress = 0;
     float prevControlPress = 0;
     public Vector3 pos;
+    public RoleCtrl.Configuration MRConfig;
 	private void Update() {
         //OVRInput.Update ();
 
@@ -233,9 +236,15 @@ public class OculusMgr : MonoBehaviour {
             // because bindingbox is rotated by 90 degree in y axis, so x->-z z->x
             newpos.y = (-(pos.y-bindingBox.transform.position.y) / bindingBox.transform.localScale.y / 2 * scale + 0.5f);// / scale;
             newpos.z = -(pos.z - bindingBox.transform.position.z) /bindingBox.transform.localScale.x/2 + 0.5f;
+            if (MRConfig == RoleCtrl.Configuration.eyesfree)
+            {
+                newpos.y = (-(pos.x - bindingBox.transform.position.x) / bindingBox.transform.localScale.x / 2 * scale + 0.5f);// / scale;
+                newpos.z = -(pos.z - bindingBox.transform.position.z) / bindingBox.transform.localScale.x / 2 + 0.5f;
+            }
+            print(cursor.transform.localPosition.ToString("F3") + "\t" + newpos.ToString("F3"));
             ctc.Pos = newpos;
 			ctc.Rot = cursor.transform.eulerAngles;
-			//print (cursor.transform.localPosition + "\t" + pos);
+            
 			prevControlPress = curControlPress;
 		}
 
