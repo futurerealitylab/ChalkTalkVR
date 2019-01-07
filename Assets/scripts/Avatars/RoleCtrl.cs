@@ -9,6 +9,9 @@ using System.Collections;
 
 public class RoleCtrl : MonoBehaviour {
 
+    public enum Configuration { sidebyside, mirror, eyesfree};
+    public Configuration MRConfig;
+
     public enum Role { Presentor, Audience};
     public Role role;
 
@@ -77,7 +80,26 @@ public class RoleCtrl : MonoBehaviour {
 
     void tryint()
     {
-        switch (role) {
+        switch (MRConfig)
+        {
+            case Configuration.mirror:
+                mirrorRoleCtrl();
+                break;
+            case Configuration.sidebyside:
+                break;
+            case Configuration.eyesfree:
+                break;
+            default:
+                break;
+
+        }
+        
+    }
+
+    void mirrorRoleCtrl()
+    {
+        switch (role)
+        {
             case Role.Audience:
 
                 //    localAvatar.localRotation = Quaternion.Euler(0, 180, 0);
@@ -109,13 +131,44 @@ public class RoleCtrl : MonoBehaviour {
             case Role.Presentor:
                 foreach (Transform remoteAvatar in remoteAvatars)
                     //remoteAvatar.localRotation = Quaternion.Euler(0, 180, 0);
-                    remoteAvatar.localScale = new Vector3(-1,1,1);
+                    remoteAvatar.localScale = new Vector3(-1, 1, 1);
 
                 // if i am the presenter, receiving from audience about ovrcamera
-                for(int i = 0; i < remoteLabels.Length; i++) {
+                for (int i = 0; i < remoteLabels.Length; i++)
+                {
                     GameObject go2 = Instantiate(emptyHeadPrefab);
                     go2.GetComponent<HeadFlake>().isPresenter = true;
                     go2.GetComponent<HeadFlake>().label = remoteLabels[i] + "head";
+                    go2.transform.localScale = new Vector3(-1, 1, 1);
+                }
+
+                dataCollection.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void sidebysideRoleCtrl()
+    {
+        switch (role)
+        {
+            case Role.Audience:
+                // if i am the audience, sending my ovrcamera
+                GameObject go = Instantiate(emptyHeadPrefab);
+                go.GetComponent<HeadFlake>().isPresenter = false;
+                go.GetComponent<HeadFlake>().label = localLabel + "head";
+                //
+                dataCollection.SetActive(false);
+                break;
+            case Role.Presentor:
+                // if i am the presenter, receiving from audience about ovrcamera
+                for (int i = 0; i < remoteLabels.Length; i++)
+                {
+                    GameObject go2 = Instantiate(emptyHeadPrefab);
+                    go2.GetComponent<HeadFlake>().isPresenter = true;
+                    go2.GetComponent<HeadFlake>().label = remoteLabels[i] + "head";
+                    go2.transform.localScale = new Vector3(-1, 1, 1);
                 }
 
                 dataCollection.SetActive(true);
