@@ -483,7 +483,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 146131493}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: -0.8, z: -0.4}
+  m_LocalPosition: {x: -0.36, y: -0.92, z: -0.4}
   m_LocalScale: {x: 0.625, y: 0.625, z: 0.5}
   m_Children:
   - {fileID: 132322379}
@@ -1440,8 +1440,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vrcamera: {fileID: 253186191}
   offsetT: {x: 0, y: 0.13, z: -0.7}
-  staticPos: {x: -1.67, y: 0.46, z: -1.17}
-  staticRot: {x: 10.48, y: 63.78, z: 0}
+  staticPos: {x: -2.37, y: 0.46, z: -0.6}
+  staticRot: {x: 10.48, y: 89.06, z: 0}
 --- !u!114 &702117085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1958,7 +1958,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1017454922}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 0, z: -0.4}
+  m_LocalPosition: {x: 0, y: -0.39, z: -0.4}
   m_LocalScale: {x: 0.625, y: 0.625, z: 0.5}
   m_Children:
   - {fileID: 1383734705}
@@ -2406,7 +2406,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1407897512}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
